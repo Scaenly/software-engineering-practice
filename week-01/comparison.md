@@ -38,3 +38,15 @@ What the AI got wrong or silently skipped
 Initial setup required prompt clarifications to establish input boundary conditions. Additionally, Rocket chose a heavy web framework stack (Next.js/TypeScript) for a task that only required simple array statistics.
 
  
+Reflection: 
+Which parts of the work did the AI genuinely speed up? The AI tool Rocket genuinely sped up the entire UI creation, styling, and framework setup. Building a web interface with Next.js, TypeScript, responsive Bento grid cards, and interactive threshold sliders from scratch would have taken hours manually. Rocket scaffolded the complete frontend layout and initial calculation logic within 3 minutes.
+
+Where did the AI cost you time, or give you something that looked right but was not?The AI cost me extra time during initial requirement alignment and edge-case handling. It generated a heavily over-engineered framework stack for simple array calculations, and it initially handled invalid inputs silently. I had to issue a follow-up prompt to ensure skipped non-numeric values and out-of-bounds numbers (< 0 or > 100) displayed an explicit warning message instead of disappearing without feedback.
+
+
+
+Which of these two artefacts would you be willing to put your name on, and why?
+
+
+
+What must a human engineer still be responsible for after this experiment?A human engineer remains strictly responsible for defining boundary conditions, verifying data validation logic, ensuring edge-case compliance, and testing for hidden bugs. AI can handle visual boilerplate quickly, but the engineer must guarantee correctness, security, and specification adherence.
