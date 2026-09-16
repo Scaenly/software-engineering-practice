@@ -1,35 +1,53 @@
-def analyze_marks(marks, pass_mark=50):
-    if not marks:
-        raise ValueError("Marks list cannot be empty.")
+import pandas as pd
 
-    for mark in marks:
-        if not isinstance(mark, (int, float)):
-            raise ValueError("Marks must be numeric.")
-        if mark < 0 or mark > 100:
-            raise ValueError("Marks must be between 0 and 100.")
+# Sample student data
+data = {
+    "Student_ID": [101, 102, 103, 104, 105, 106],
+    "Name": ["Alice", "Bob", "Charlie", "David", "Eva", "Frank"],
+    "Mark": [88, 42, 95, 67, 58, 74]
+}
 
-    average = sum(marks) / len(marks)
-    highest = max(marks)
-    lowest = min(marks)
+df = pd.DataFrame(data)
 
-    passed = 0
-    for mark in marks:
-        if mark >= pass_mark:
-            passed += 1
+# Define passing threshold
+PASSING_MARK = 50
 
-    pass_rate = (passed / len(marks)) * 100
+# Assign Pass/Fail status
+df["Status"] = df["Mark"].apply(lambda x: "Pass" if x >= PASSING_MARK else "Fail")
 
-    return {
-        "average": average,
-        "highest": highest,
-        "lowest": lowest,
-        "pass_rate": pass_rate
-    }
+# Assign Letter Grade
+def assign_grade(mark):
+    if mark >= 90:
+        return "A"
+    elif mark >= 80:
+        return "B"
+    elif mark >= 70:
+        return "C"
+    elif mark >= 60:
+        return "D"
+    elif mark >= 50:
+        return "E"
+    else:
+        return "F"
 
+df["Grade"] = df["Mark"].apply(assign_grade)
 
-# Example
-marks = [85, 23, 45, 90, 92]
+# Calculate key metrics
+average_mark = df["Mark"].mean()
+highest_mark = df["Mark"].max()
+lowest_mark = df["Mark"].min()
+pass_count = (df["Status"] == "Pass").sum()
+fail_count = (df["Status"] == "Fail").sum()
 
-result = analyze_marks(marks)
+# Display summary report
+print("--- Student Performance Summary ---")
+print(f"Total Students: {len(df)}")
+print(f"Average Mark:   {average_mark:.2f}")
+print(f"Highest Mark:   {highest_mark}")
+print(f"Lowest Mark:    {lowest_mark}")
+print(f"Passed:         {pass_count}")
+print(f"Failed:         {fail_count}\n")
 
-print(result)
+# Display detailed table
+print("--- Detailed Marks Table ---")
+print(df.to_string(index=False))
