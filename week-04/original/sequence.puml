@@ -1,0 +1,51 @@
+@startuml actor Student
+participant BookingService
+participant BookingRepository
+
+Student -> BookingService : bookRoom(roomId, start, end)
+BookingService -> BookingRepository : checkRoomBlocked(roomId)
+alt Room is blocked
+    BookingService -> Student : error("Room blocked")
+else Room available
+    BookingService -> BookingRepository : saveBooking()
+    BookingService -> Student : confirmation
+end
+@enduml
+
+
+correct diagram 
+
+
+@startumlactor Student
+participant BookingService
+participant BookingRepository
+
+Student -> BookingService : requestBooking(roomId, startTime, duration)
+activate BookingService
+
+' R1 check: duration > 0 and <= 2h, future start
+BookingService -> BookingService : validateTimeRange(startTime, duration)
+
+alt Invalid time range (R1 violation)
+    BookingService --> Student : failure("Invalid duration or start time")
+else Valid time range
+    BookingService -> BookingRepository : checkRoomStatus(roomId)
+    activate BookingRepository
+    BookingRepository --> BookingService : roomStatus
+    deactivate BookingRepository
+    
+    alt Room is blocked (R3 violation) or overlapping booking exists (R2 violation)
+        BookingService --> Student : failure("Room unavailable or blocked")
+    else Room available and active
+        BookingService -> BookingRepository : createBooking(studentId, roomId, startTime, duration)
+        activate BookingRepository
+        BookingRepository --> BookingService : bookingConfirmation
+        deactivate BookingRepository
+        BookingService --> Student : confirmation(bookingId)
+    end
+end
+
+deactivate BookingService
+@enduml
+
+    

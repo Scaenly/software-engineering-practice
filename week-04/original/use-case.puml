@@ -1,0 +1,24 @@
+@startuml SmartCampusUseCase
+left to right direction
+actor Student
+actor Administrator
+
+rectangle "Smart Campus" {
+    usecase "View Room Availability" as UC1
+    usecase "Book Room" as UC2
+    usecase "Cancel Booking" as UC3
+    usecase "Block Room" as UC4
+    usecase "Unblock Room" as UC5
+    usecase "Review Usage" as UC6
+    usecase "Validate Time Range" as UC7
+}
+
+Student --> UC1
+Student --> UC2
+Student --> UC3
+Administrator --> UC4
+Administrator --> UC5
+Administrator --> UC6
+
+UC2 .> UC7 : <<include>>
+@enduml
