@@ -34,11 +34,12 @@ def process_marks(raw_input: str):
     print(f"Highest:{highest}")
     print(f"Lowest:{lowest}")
     print(f"Pass rate:{pass_rate:.1f}%")
-if __name__  == "__main__":
-    if len(sys.argv) > 1:
-        raw_input = " ".join(sys.argv[1:])
+if __name__  == "__main__": # позволяет отличить прямой запуск программы от импорта файла как модуля 
+    if len(sys.argv) > 1:  # сис это список аргумента которые передаем через команды  > 1  передали что нибудь 
+        raw_input = " ".join(sys.argv[1:])  # взять все аргументы начиная со второго sys.argv[0]: name  sys.argv[1:]:
     else:
         raw_input = input("Enter marks (comma - seperated): ")  
 
     process_marks(raw_input)        
 
+ 
