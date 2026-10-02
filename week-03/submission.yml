@@ -1,0 +1,18 @@
+student_name: "Yerassyl Arystanbek"
+student_id: "24B030280"
+
+ai_tool: "Google Gemini"
+exact_model_name: "Gemini 2.5 Pro"
+
+open_questions:
+  r2_exactly_two_hours_allowed: true
+  r3_adjacent_slots_overlap: false
+
+checker_results:
+  check_requirements: "PASS"
+  validate_submission: "PASS"
+
+review_findings:
+  - "US-04: Initial AI story included QR-code check-in logic which is explicitly listed as out-of-scope."
+  - "AC-02-03: Clarified duration constraint (R2) to disallow bookings over 2 hours."
+  - "UC-06: Removed direct actor association from Student to Send Confirmation as it is an automated system response."

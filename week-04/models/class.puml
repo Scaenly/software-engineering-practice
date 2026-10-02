@@ -1,0 +1,35 @@
+@startuml class Student {
+    -studentId: String
+    -name: String
+    +viewAvailability()
+    +bookRoom()
+    +cancelBooking()
+}
+
+class Room {
+    -roomId: String
+    -isBlocked: Boolean
+    +blockRoom()
+    +unblockRoom()
+}
+
+class Booking {
+    -bookingId: String
+    -startTime: DateTime
+    -endTime: DateTime
+    -status: String
+    +cancel()
+}
+
+note bottom of Booking
+  R2: Active bookings for the same room cannot overlap.
+  R1: Future start, duration > 0 and <= 2 hours.
+  R3: Blocked room cannot accept a new booking.
+end note
+
+' why: A student can make zero or many bookings; each booking belongs to exactly one student
+Student "1" -- "0..*" Booking
+
+' why: A room can have zero or many bookings over time; each booking is for exactly one room
+Room "1" -- "0..*" Booking
+@enduml

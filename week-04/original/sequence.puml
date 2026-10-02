@@ -1,0 +1,13 @@
+@startuml actor Student
+participant BookingService
+participant BookingRepository
+
+Student -> BookingService : bookRoom(roomId, start, end)
+BookingService -> BookingRepository : checkRoomBlocked(roomId)
+alt Room is blocked
+    BookingService -> Student : error("Room blocked")
+else Room available
+    BookingService -> BookingRepository : saveBooking()
+    BookingService -> Student : confirmation
+end
+@enduml
