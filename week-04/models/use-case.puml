@@ -7,21 +7,18 @@ rectangle "Smart Campus Study Room Booking System" {
 
   usecase "View Available\nStudy Rooms" as UC1
   usecase "Book Available\nStudy Room" as UC2
-  usecase "View Personal\nBookings" as UC3
-  usecase "Cancel Booking" as UC4
-
-  usecase "Manage Study Room\nAvailability" as UC5
-  usecase "Monitor and Manage\nBookings" as UC6
+  usecase "Cancel Booking" as UC3
+  usecase "Block or Unblock\nStudy Room" as UC4
+  usecase "Review Study Room\nUsage" as UC5
+  usecase "Receive\nConfirmation" as UC6
 }
 
 Student --> UC1
 Student --> UC2
 Student --> UC3
-Student --> UC4
+Student --> UC6
 
+Administrator --> UC4
 Administrator --> UC5
-Administrator --> UC6
-
-UC2 ..> UC1 : <<include>>
 
 @enduml

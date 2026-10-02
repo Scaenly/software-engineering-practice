@@ -1,20 +1,39 @@
-@startuml BookingSystem
+@startuml title Smart Campus Study Room Booking System - Domain Class Diagram
+
 class Student {
-    +id: String
-    +name: String
+    - studentId: String
+    - name: String
+    - email: String
+
+    + viewAvailableRooms(): List<Room>
+    + bookRoom(room: Room): Booking
+    + viewBookings(): List<Booking>
+    + cancelBooking(booking: Booking): void
 }
 
 class Room {
-    +roomId: String
-    +isBlocked: Boolean
+    - roomId: String
+    - roomNumber: String
+    - capacity: int
+    - isAvailable: boolean
+
+    + checkAvailability(): boolean
+    + setAvailability(available: boolean): void
 }
 
 class Booking {
-    +bookingId: String
-    +startTime: DateTime
-    +endTime: DateTime
+    - bookingId: String
+    - date: Date
+    - startTime: Time
+    - endTime: Time
+    - status: String
+
+    + create(): void
+    + cancel(): void
+    + isActive(): boolean
 }
 
-Student "1" -- "1..*" Booking
-Room "1" -- "0..*" Booking
+Student "1" -- "0..*" Booking : makes
+Room "1" -- "0..*" Booking : is reserved in
+
 @enduml
