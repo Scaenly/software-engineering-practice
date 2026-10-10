@@ -1,0 +1,36 @@
+# Preparation declaration: factual local checker results only.
+# Student identity and commit are intentionally blank; replace after real repository work.
+schema: 1
+assignment: "sis-01"
+
+student:
+  name: "Yerassyl Arystanbek"
+  student_id: "24B030280"
+  group: "Monday 16:00-19:00"
+  github: "scaenly"
+
+topic: "1.1"
+
+assistant:
+  tool: "ChatGPT Work"
+  model: "not displayed"
+
+checker:
+  pass: 24
+  fail: 0
+  error: 0
+  commit:
+
+counts:
+  main_words: 870
+  reflection_words: 171
+  exchanges: 3
+  verified_claims: 2
+  revisions: 3
+
+decisions:
+  keep: 1
+  qualify: 1
+  reject: 0
+
+known_fails: []
