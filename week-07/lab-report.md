@@ -43,29 +43,29 @@ the behaviour did not change. Also say which file of the page now calls it. 40 w
 
 ## 3. Task 2 — the test plan
 
-Default fixture: `now = 540`, `blocked = false`, `bookings = [{ start: 600, end: 660 }]`, fresh
-for every test. **The Expected column comes from AC1–AC4, never from the code.** Write the
-**reason** for each expected result **before** you send the generation prompt.
+Default fixture: `now = 540`, `blocked = false`, `bookings = [{ start: 600, end: 660 }]`. Each test uses fresh data unless its row specifies different bookings. Expected results come from the acceptance criteria.
+
+AI assistance: ChatGPT drafted the reasons and suggested X1 and X2.
 
 | ID | Candidate / changed input | Expected | AC | Reason (in your words) |
 | --- | --- | --- | --- | --- |
-| T01 | 660–720 (touching after) | true | AC4 | |
-| T02 | 540–570 (starts now) | false | AC1 | |
-| T03 | 720–720 (zero duration) | false | AC1 | |
-| T04 | 750–720 (reversed) | false | AC1 | |
-| T05 | 1380–1441 (past day end) | false | AC1 | |
-| T06 | 720–840 (120 minutes) | true | AC2 | |
-| T07 | 720–841 (121 minutes) | false | AC2 | |
-| T08 | 570–600 (touching before) | true | AC4 | |
-| T09 | 630–690 (partial overlap) | false | AC4 | |
-| T10 | 570–690 (contains booking) | false | AC4 | |
-| T11 | 615–645 (inside booking) | false | AC4 | |
-| T12 | 600–660 (identical interval) | false | AC4 | |
-| T13 | 660–720, blocked = true | false | AC3 | |
-| T14 | 630–690, bookings = [] | true | AC4 | |
-| AC5 | an Available request — the bookings after the call equal the bookings before | true, data unchanged | AC5 | |
-| X1 | | | | |
-| X2 | | | | |
+| T01 | 660–720 (touching after) | true | AC4 | The existing booking ends at 660, exactly when the request starts. Touching endpoints are allowed. |
+| T02 | 540–570 (starts now) | false | AC1 | The request starts at 540, equal to now. Its start must be strictly after now. |
+| T03 | 720–720 (zero duration) | false | AC1 | Start and end are equal. AC1 requires start to be less than end. |
+| T04 | 750–720 (reversed) | false | AC1 | The request ends before it starts, so the time order is invalid. |
+| T05 | 1380–1441 (past day end) | false | AC1 | The end is 1441, which exceeds the maximum day boundary of 1440. |
+| T06 | 720–840 (120 minutes) | true | AC2 | The duration is exactly 120 minutes. AC2 rejects only durations above 120, and this interval has no overlap. |
+| T07 | 720–841 (121 minutes) | false | AC2 | The duration is 121 minutes, one minute above the allowed maximum. |
+| T08 | 570–600 (touching before) | true | AC4 | The request ends at 600, exactly when the existing booking starts. They only touch. |
+| T09 | 630–690 (partial overlap) | false | AC4 | Both intervals use the room from 630 to 660, so they overlap. |
+| T10 | 570–690 (contains booking) | false | AC4 | The request contains the entire existing 600–660 booking. Those occupied minutes cannot be booked again. |
+| T11 | 615–645 (inside booking) | false | AC4 | The whole request falls inside the existing 600–660 booking. |
+| T12 | 600–660 (identical interval) | false | AC4 | The requested interval is identical to the existing booking, so every requested minute conflicts. |
+| T13 | 660–720, blocked = true | false | AC3 | A blocked room must reject a request even when its times would otherwise be valid. |
+| T14 | 630–690, bookings = [] | true | AC4 | There are no existing bookings to overlap. The request also satisfies the time and duration limits. |
+| AC5 | 660–720; compare bookings with a deep copy taken before the call | true, data unchanged | AC5 | Checking an available interval must only read the schedule. The booking array and its objects must retain their original values. |
+| X1 | 1380–1440; other inputs unchanged | true | AC1 | The request ends exactly at the allowed day boundary of 1440. Its duration is 60 minutes, it starts after now, and it has no overlap. |
+| X2 | 720–780; bookings = [{ start: 600, end: 660 }, { start: 750, end: 810 }] | false | AC4 | The request misses the first booking but overlaps the second from 750 to 780. Every existing booking must be checked. |
 
 X1 and X2 are **your own two cases**: a boundary or a state that T01–T14 do not reach. Fill all
 five columns.
