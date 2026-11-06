@@ -1,0 +1,10 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90mC:/Users/777/Desktop/SE/software-engineering-practice/week-07/app[39m
+
+ [32m✓[39m src/booking.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m27 passed[39m[22m[90m (27)[39m
+[2m   Start at [22m 17:36:08
+[2m   Duration [22m 506ms[2m (import 37%, transform 27%, worker 18%, tests 17%)[22m
+

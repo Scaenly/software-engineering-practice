@@ -1,0 +1,71 @@
+{
+  "tests_first": 17,
+  "tests_final": 27,
+  "suite_sha256": "d6a35f284a9230a71a97ed8ec59a09f16d92fc08db658a5679f3a8c1e1b2fa08",
+  "improved": {
+    "returncode": 0,
+    "log": "evidence/improved-run.txt",
+    "tests_summary": "27 passed (27)",
+    "failing_tests": [],
+    "failing_ids": [],
+    "assertion_failure": false
+  },
+  "M1": {
+    "returncode": 1,
+    "log": "evidence/M1.txt",
+    "tests_summary": "1 failed | 26 passed (27)",
+    "failing_tests": [
+      "FAIL  src/booking.test.ts > canBook \u2014 reviewed booking cases > T06 AC2: allows exactly 120 minutes"
+    ],
+    "failing_ids": [
+      "T06"
+    ],
+    "assertion_failure": true,
+    "outcome": "Detected"
+  },
+  "M2": {
+    "returncode": 1,
+    "log": "evidence/M2.txt",
+    "tests_summary": "3 failed | 24 passed (27)",
+    "failing_tests": [
+      "FAIL  src/booking.test.ts > canBook \u2014 reviewed booking cases > T01 AC4: allows touching after an existing booking",
+      "FAIL  src/booking.test.ts > canBook \u2014 reviewed booking cases > T08 AC4: allows touching before an existing booking",
+      "FAIL  src/booking.test.ts > canBook \u2014 reviewed booking cases > T23 AC4: allows a gap touching both bookings in an unsorted schedule"
+    ],
+    "failing_ids": [
+      "T01",
+      "T08",
+      "T23"
+    ],
+    "assertion_failure": true,
+    "outcome": "Detected"
+  },
+  "M3": {
+    "returncode": 1,
+    "log": "evidence/M3.txt",
+    "tests_summary": "2 failed | 25 passed (27)",
+    "failing_tests": [
+      "FAIL  src/booking.test.ts > canBook \u2014 reviewed booking cases > T13 AC3: rejects a blocked room for an otherwise valid request",
+      "FAIL  src/booking.test.ts > canBook \u2014 reviewed booking cases > T24 AC3: rejects a blocked room even with no existing bookings"
+    ],
+    "failing_ids": [
+      "T13",
+      "T24"
+    ],
+    "assertion_failure": true,
+    "outcome": "Detected"
+  },
+  "module_restored": true,
+  "first_suite_unchanged": true,
+  "final_suite_unchanged_during_trials": true,
+  "final": {
+    "returncode": 0,
+    "log": "evidence/final-run.txt",
+    "tests_summary": "27 passed (27)",
+    "failing_tests": [],
+    "failing_ids": [],
+    "assertion_failure": false
+  },
+  "invalid_existing_booking": "returns-true",
+  "mutants_detected": 3
+}

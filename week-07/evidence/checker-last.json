@@ -1,0 +1,271 @@
+{
+  "ok": true,
+  "counts": {
+    "PASS": 33,
+    "FAIL": 0,
+    "ERROR": 0
+  },
+  "total": 33,
+  "rows": [
+    {
+      "id": "A1",
+      "title": "project exported to app/",
+      "verdict": "PASS",
+      "message": "app: 14 source files"
+    },
+    {
+      "id": "A2",
+      "title": "booking module exports canBook",
+      "verdict": "PASS",
+      "message": "app/src/booking.ts exports canBook"
+    },
+    {
+      "id": "A3",
+      "title": "the page imports and calls canBook",
+      "verdict": "PASS",
+      "message": "called from app/src/App.tsx"
+    },
+    {
+      "id": "A4",
+      "title": "exports are clean: no node_modules, no .env, under 5 MB",
+      "verdict": "PASS",
+      "message": "clean"
+    },
+    {
+      "id": "A5",
+      "title": "Vitest is in package.json",
+      "verdict": "PASS",
+      "message": "vitest ^5.1.0"
+    },
+    {
+      "id": "S1",
+      "title": "final suite beside the module imports vitest and the real canBook",
+      "verdict": "PASS",
+      "message": "app/src/booking.test.ts imports vitest and ./booking"
+    },
+    {
+      "id": "S2",
+      "title": "nothing mocked, skipped, focused or table-driven",
+      "verdict": "PASS",
+      "message": "real function, every test runs"
+    },
+    {
+      "id": "S3",
+      "title": "17 tests or more in the final suite",
+      "verdict": "PASS",
+      "message": "27 tests"
+    },
+    {
+      "id": "S4",
+      "title": "T01-T14 each named in a test",
+      "verdict": "PASS",
+      "message": "T01-T14 present"
+    },
+    {
+      "id": "S5",
+      "title": "T01-T14 assert the exact expected decision",
+      "verdict": "PASS",
+      "message": "exact decisions, as planned"
+    },
+    {
+      "id": "S6",
+      "title": "T01-T14 use the plan's inputs",
+      "verdict": "PASS",
+      "message": "inputs as planned"
+    },
+    {
+      "id": "S7",
+      "title": "AC5: bookings compared before and after an Available call",
+      "verdict": "PASS",
+      "message": "AC5 test compares the bookings after an Available call"
+    },
+    {
+      "id": "S8",
+      "title": "your own cases X1 and X2 named in tests",
+      "verdict": "PASS",
+      "message": "X1 and X2 present"
+    },
+    {
+      "id": "S9",
+      "title": "fixed time: no Date or Math.random in the suite",
+      "verdict": "PASS",
+      "message": "fixed time"
+    },
+    {
+      "id": "S10",
+      "title": "first suite kept in suites/first/, final differs from it",
+      "verdict": "PASS",
+      "message": "suites/first/booking.test.ts kept; final differs"
+    },
+    {
+      "id": "R1",
+      "title": "report 6.1: the first run, pasted",
+      "verdict": "PASS",
+      "message": "first run: 0 failed, 17 passed (17)"
+    },
+    {
+      "id": "R2",
+      "title": "report 6.3: the final run, all passing, same suite",
+      "verdict": "PASS",
+      "message": "27 passed (27)"
+    },
+    {
+      "id": "R3",
+      "title": "Vitest version recorded",
+      "verdict": "PASS",
+      "message": "Vitest 5.1.0"
+    },
+    {
+      "id": "M1",
+      "title": "M1 (>= 120) tried and explained",
+      "verdict": "PASS",
+      "message": "detected by T06"
+    },
+    {
+      "id": "M2",
+      "title": "M2 (touching as overlap) tried and explained",
+      "verdict": "PASS",
+      "message": "detected by T01, T08"
+    },
+    {
+      "id": "M3",
+      "title": "M3 (no blocked rejection) tried and explained",
+      "verdict": "PASS",
+      "message": "detected by T13"
+    },
+    {
+      "id": "M4",
+      "title": "report 7: the three mutant runs, pasted",
+      "verdict": "PASS",
+      "message": "3 mutant runs pasted"
+    },
+    {
+      "id": "U1",
+      "title": "five UI screenshots: evidence/ui-1 ... ui-5",
+      "verdict": "PASS",
+      "message": "ui-1 ... ui-5"
+    },
+    {
+      "id": "U2",
+      "title": "ui-4 taken at phone width (portrait)",
+      "verdict": "PASS",
+      "message": "597x1275"
+    },
+    {
+      "id": "U3",
+      "title": "report 8: five UI checks observed and judged",
+      "verdict": "PASS",
+      "message": "5 of 5 passed"
+    },
+    {
+      "id": "L1",
+      "title": "report 1: project, assistant, model, where, command",
+      "verdict": "PASS",
+      "message": "setup recorded"
+    },
+    {
+      "id": "L2",
+      "title": "report 2: the function before, and the extraction in 40+ words",
+      "verdict": "PASS",
+      "message": "before-table complete; extraction in 140 words"
+    },
+    {
+      "id": "L3",
+      "title": "report 3: a reason for every case, X1 and X2 complete",
+      "verdict": "PASS",
+      "message": "every case has a reason; X1 and X2 complete"
+    },
+    {
+      "id": "L4",
+      "title": "report 4: generation prompt as sent, and the answer",
+      "verdict": "PASS",
+      "message": "prompt as sent; answer pasted"
+    },
+    {
+      "id": "L5",
+      "title": "report 5: two review decisions or more",
+      "verdict": "PASS",
+      "message": "4 review decisions"
+    },
+    {
+      "id": "L6",
+      "title": "report 6: failures diagnosed, improvement prompt as sent",
+      "verdict": "PASS",
+      "message": "failures diagnosed; improvement prompt as sent"
+    },
+    {
+      "id": "L7",
+      "title": "report 9.2: first and improved suites compared",
+      "verdict": "PASS",
+      "message": "comparison complete"
+    },
+    {
+      "id": "L8",
+      "title": "report 10: conclusion of 120-180 words",
+      "verdict": "PASS",
+      "message": "159 words"
+    }
+  ],
+  "measured": {
+    "app_root": "app",
+    "module": "app/src/booking.ts",
+    "page_uses": [
+      "app/src/App.tsx"
+    ],
+    "vitest_declared": "^5.1.0",
+    "suite": "app/src/booking.test.ts",
+    "tests_final": 27,
+    "test_titles": [
+      "T01 AC4: allows touching after an existing booking",
+      "T02 AC1: rejects a request starting exactly now",
+      "T03 AC1: rejects zero duration",
+      "T04 AC1: rejects an end before the start",
+      "T05 AC1: rejects an end past minute 1440",
+      "T06 AC2: allows exactly 120 minutes",
+      "T07 AC2: rejects 121 minutes",
+      "T08 AC4: allows touching before an existing booking",
+      "T09 AC4: rejects a partial overlap",
+      "T10 AC4: rejects a request containing an existing booking",
+      "T11 AC4: rejects a request inside an existing booking",
+      "T12 AC4: rejects an identical interval",
+      "T13 AC3: rejects a blocked room for an otherwise valid request",
+      "T14 AC4: allows a valid request when there are no existing bookings",
+      "AC5: repeated Available decisions preserve unsorted booking data",
+      "X1 AC1: allows an end exactly at minute 1440",
+      "X2 AC4: rejects an overlap with the second booking",
+      "T15 AC1: rejects a request starting one minute before now",
+      "T16 AC1: allows a request starting one minute after now",
+      "T17 AC1: rejects a negative start minute",
+      "T18 AC1: rejects minute zero when the supplied current time is zero",
+      "T19 AC1: allows a one-minute booking just after midnight",
+      "T20 AC4: rejects a one-minute overlap at the existing booking end",
+      "T21 AC4: rejects a one-minute overlap at the existing booking start",
+      "T22 AC4: rejects an earlier conflict despite a later nonconflicting booking",
+      "T23 AC4: allows a gap touching both bookings in an unsorted schedule",
+      "T24 AC3: rejects a blocked room even with no existing bookings"
+    ],
+    "tests_in_project": 27,
+    "wrong_expectations": [],
+    "first_suite": "suites/first/booking.test.ts",
+    "tests_first": 17,
+    "first_run": {
+      "failed": 0,
+      "passed": 17,
+      "skipped": 0,
+      "todo": 0,
+      "total": 17
+    },
+    "final_run": {
+      "failed": 0,
+      "passed": 27,
+      "skipped": 0,
+      "todo": 0,
+      "total": 27
+    },
+    "vitest_version": "5.1.0",
+    "mutants_detected": 3,
+    "ui_pass": 5,
+    "review_decisions": 4,
+    "conclusion_words": 159
+  }
+}
