@@ -1,0 +1,139 @@
+{
+  "ok": true,
+  "counts": {
+    "PASS": 15,
+    "FAIL": 0,
+    "ERROR": 0
+  },
+  "total": 15,
+  "rows": [
+    {
+      "id": "D1",
+      "title": "schema and week",
+      "verdict": "PASS",
+      "message": "schema 1, week 07"
+    },
+    {
+      "id": "D2",
+      "title": "student.name",
+      "verdict": "PASS",
+      "message": "student.name: Yerassyl Arystanbek"
+    },
+    {
+      "id": "D3",
+      "title": "student.student_id",
+      "verdict": "PASS",
+      "message": "student.student_id: 24B030280"
+    },
+    {
+      "id": "D4",
+      "title": "student.github",
+      "verdict": "PASS",
+      "message": "student.github: scaenly"
+    },
+    {
+      "id": "D5",
+      "title": "assistant.tool",
+      "verdict": "PASS",
+      "message": "assistant.tool: ChatGPT"
+    },
+    {
+      "id": "D6",
+      "title": "assistant.model is an exact model name or not displayed",
+      "verdict": "PASS",
+      "message": "assistant.model: not displayed"
+    },
+    {
+      "id": "D7",
+      "title": "project: baseline, Bolt link, Vitest version",
+      "verdict": "PASS",
+      "message": "week-06, Vitest 5.1.0"
+    },
+    {
+      "id": "D8",
+      "title": "checker numbers add up",
+      "verdict": "PASS",
+      "message": "pass + fail + error = 33"
+    },
+    {
+      "id": "D9",
+      "title": "checker numbers match a run made now",
+      "verdict": "PASS",
+      "message": "declared 33/0/0, a run now gives 33/0/0"
+    },
+    {
+      "id": "D10",
+      "title": "checker.commit",
+      "verdict": "PASS",
+      "message": "checker.commit: 4ccdf5f"
+    },
+    {
+      "id": "D11",
+      "title": "known_fails lists exactly what still fails",
+      "verdict": "PASS",
+      "message": "known_fails matches the checker: []"
+    },
+    {
+      "id": "D12",
+      "title": "counts match the files and lab-report.md",
+      "verdict": "PASS",
+      "message": "counts filled and match"
+    },
+    {
+      "id": "D13",
+      "title": "assumptions.invalid_existing_booking is decided",
+      "verdict": "PASS",
+      "message": "invalid_existing_booking: returns-true"
+    },
+    {
+      "id": "D14",
+      "title": "review_findings: three, each naming what it is about",
+      "verdict": "PASS",
+      "message": "8 review findings"
+    },
+    {
+      "id": "D15",
+      "title": "honesty block answered",
+      "verdict": "PASS",
+      "message": "honesty block answered"
+    }
+  ],
+  "declared": {
+    "student_id": "24B030280",
+    "github": "scaenly",
+    "tool": "ChatGPT",
+    "model": "not displayed",
+    "project": {
+      "baseline": "week-06",
+      "bolt_url": "not-shared",
+      "vitest": "5.1.0"
+    },
+    "commit": "4ccdf5f",
+    "checker": {
+      "pass": 33,
+      "fail": 0,
+      "error": 0
+    },
+    "known_fails": [],
+    "counts": {
+      "tests_first": "17",
+      "tests_final": "27",
+      "first_run_failed": "0",
+      "review_decisions": "4",
+      "mutants_detected": "3"
+    },
+    "assumptions": {
+      "invalid_existing_booking": "returns-true"
+    },
+    "findings": [
+      "AC5: the first dedicated test duplicated T01; the improved test checks unsorted data after two Available calls",
+      "AC1: the original suite missed a start earlier than now; T15 and T16 add the neighbouring current-time boundaries",
+      "M1: rejecting exactly 120 minutes was detected by T06 using the unchanged suite",
+      "M2: closed-endpoint overlap was detected by T01, T08 and T23",
+      "M3: removing the blocked-room rejection was detected by T13 and T24",
+      "App.tsx: the day-range helper label still displays 00:00-00:00 and is documented as a UI limitation",
+      "booking.test.ts: T17 also violates the future-start rule, so it does not independently test the lower-bound guard",
+      "booking.test.ts: a duplicate download suffix initially prevented test discovery; renaming the file restored discovery"
+    ]
+  }
+}
