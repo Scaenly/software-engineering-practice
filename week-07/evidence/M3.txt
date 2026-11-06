@@ -1,0 +1,79 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90mC:/Users/777/Desktop/SE/software-engineering-practice/week-07/app[39m
+
+ [31m❯[39m src/booking.test.ts [2m([22m[2m27 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 12[2mms[22m[39m
+   [31m❯[39m canBook — reviewed booking cases [2m(27)[22m
+     [32m✓[39m T01 AC4: allows touching after an existing booking[32m 2[2mms[22m[39m
+     [32m✓[39m T02 AC1: rejects a request starting exactly now[32m 0[2mms[22m[39m
+     [32m✓[39m T03 AC1: rejects zero duration[32m 0[2mms[22m[39m
+     [32m✓[39m T04 AC1: rejects an end before the start[32m 0[2mms[22m[39m
+     [32m✓[39m T05 AC1: rejects an end past minute 1440[32m 0[2mms[22m[39m
+     [32m✓[39m T06 AC2: allows exactly 120 minutes[32m 0[2mms[22m[39m
+     [32m✓[39m T07 AC2: rejects 121 minutes[32m 0[2mms[22m[39m
+     [32m✓[39m T08 AC4: allows touching before an existing booking[32m 0[2mms[22m[39m
+     [32m✓[39m T09 AC4: rejects a partial overlap[32m 0[2mms[22m[39m
+     [32m✓[39m T10 AC4: rejects a request containing an existing booking[32m 0[2mms[22m[39m
+     [32m✓[39m T11 AC4: rejects a request inside an existing booking[32m 0[2mms[22m[39m
+     [32m✓[39m T12 AC4: rejects an identical interval[32m 0[2mms[22m[39m
+[31m     [31m×[31m T13 AC3: rejects a blocked room for an otherwise valid request[39m[32m 5[2mms[22m[39m
+     [32m✓[39m T14 AC4: allows a valid request when there are no existing bookings[32m 0[2mms[22m[39m
+     [32m✓[39m AC5: repeated Available decisions preserve unsorted booking data[32m 0[2mms[22m[39m
+     [32m✓[39m X1 AC1: allows an end exactly at minute 1440[32m 0[2mms[22m[39m
+     [32m✓[39m X2 AC4: rejects an overlap with the second booking[32m 0[2mms[22m[39m
+     [32m✓[39m T15 AC1: rejects a request starting one minute before now[32m 0[2mms[22m[39m
+     [32m✓[39m T16 AC1: allows a request starting one minute after now[32m 0[2mms[22m[39m
+     [32m✓[39m T17 AC1: rejects a negative start minute[32m 0[2mms[22m[39m
+     [32m✓[39m T18 AC1: rejects minute zero when the supplied current time is zero[32m 0[2mms[22m[39m
+     [32m✓[39m T19 AC1: allows a one-minute booking just after midnight[32m 0[2mms[22m[39m
+     [32m✓[39m T20 AC4: rejects a one-minute overlap at the existing booking end[32m 0[2mms[22m[39m
+     [32m✓[39m T21 AC4: rejects a one-minute overlap at the existing booking start[32m 0[2mms[22m[39m
+     [32m✓[39m T22 AC4: rejects an earlier conflict despite a later nonconflicting booking[32m 0[2mms[22m[39m
+     [32m✓[39m T23 AC4: allows a gap touching both bookings in an unsorted schedule[32m 0[2mms[22m[39m
+[31m     [31m×[31m T24 AC3: rejects a blocked room even with no existing bookings[39m[32m 1[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/booking.test.ts[2m > [22mcanBook — reviewed booking cases[2m > [22mT13 AC3: rejects a blocked room for an otherwise valid request
+[31m[1mAssertionError[22m: expected true to be false // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- false[39m
+[31m+ true[39m
+
+[36m [2m❯[22m src/booking.test.ts:[2m126:30[22m[39m
+    [90m124|[39m     [35mconst[39m before [33m=[39m [34mstructuredClone[39m(request[33m.[39mbookings)[33m;[39m
+    [90m125|[39m
+    [90m126|[39m     [34mexpect[39m([34mcanBook[39m(request))[33m.[39m[34mtoBe[39m([35mfalse[39m)[33m;[39m
+    [90m   |[39m                              [31m^[39m
+    [90m127|[39m     [34mexpect[39m(request[33m.[39mbookings)[33m.[39m[34mtoEqual[39m(before)[33m;[39m
+    [90m128|[39m   })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/booking.test.ts[2m > [22mcanBook — reviewed booking cases[2m > [22mT24 AC3: rejects a blocked room even with no existing bookings
+[31m[1mAssertionError[22m: expected true to be false // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- false[39m
+[31m+ true[39m
+
+[36m [2m❯[22m src/booking.test.ts:[2m262:30[22m[39m
+    [90m260|[39m     [35mconst[39m before [33m=[39m [34mstructuredClone[39m(request[33m.[39mbookings)[33m;[39m
+    [90m261|[39m
+    [90m262|[39m     [34mexpect[39m([34mcanBook[39m(request))[33m.[39m[34mtoBe[39m([35mfalse[39m)[33m;[39m
+    [90m   |[39m                              [31m^[39m
+    [90m263|[39m     [34mexpect[39m(request[33m.[39mbookings)[33m.[39m[34mtoEqual[39m(before)[33m;[39m
+    [90m264|[39m   })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m25 passed[39m[22m[90m (27)[39m
+[2m   Start at [22m 17:36:15
+[2m   Duration [22m 586ms[2m (transform 45%, import 20%, tests 20%, worker 14%)[22m
+
