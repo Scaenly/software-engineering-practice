@@ -135,10 +135,18 @@ describe('canBook — reviewed booking cases', () => {
     expect(request.bookings).toEqual(before);
   });
 
-  test('AC5: an Available decision preserves the booking array and its objects', () => {
-    const request = freshRequest(660, 720);
+  test('AC5: repeated Available decisions preserve unsorted booking data', () => {
+    // Unsorted, distinct intervals expose an in-place sort or object mutation.
+    const request = freshRequest(810, 870, {
+      bookings: [
+        { start: 900, end: 960 },
+        { start: 600, end: 660 },
+      ],
+    });
     const before = structuredClone(request.bookings);
 
+    expect(canBook(request)).toBe(true);
+    expect(request.bookings).toEqual(before);
     expect(canBook(request)).toBe(true);
     expect(request.bookings).toEqual(before);
   });
@@ -158,6 +166,97 @@ describe('canBook — reviewed booking cases', () => {
         { start: 750, end: 810 },
       ],
     });
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T15 AC1: rejects a request starting one minute before now', () => {
+    const request = freshRequest(539, 570);
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T16 AC1: allows a request starting one minute after now', () => {
+    const request = freshRequest(541, 570);
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(true);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T17 AC1: rejects a negative start minute', () => {
+    // This also starts before now; it does not isolate the lower-bound guard.
+    const request = freshRequest(-1, 60);
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T18 AC1: rejects minute zero when the supplied current time is zero', () => {
+    const request = freshRequest(0, 60, { now: 0, bookings: [] });
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T19 AC1: allows a one-minute booking just after midnight', () => {
+    const request = freshRequest(1, 2, { now: 0, bookings: [] });
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(true);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T20 AC4: rejects a one-minute overlap at the existing booking end', () => {
+    const request = freshRequest(659, 720);
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T21 AC4: rejects a one-minute overlap at the existing booking start', () => {
+    const request = freshRequest(570, 601);
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T22 AC4: rejects an earlier conflict despite a later nonconflicting booking', () => {
+    const request = freshRequest(720, 780, {
+      bookings: [
+        { start: 750, end: 810 },
+        { start: 600, end: 660 },
+      ],
+    });
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T23 AC4: allows a gap touching both bookings in an unsorted schedule', () => {
+    const request = freshRequest(660, 720, {
+      bookings: [
+        { start: 720, end: 780 },
+        { start: 600, end: 660 },
+      ],
+    });
+    const before = structuredClone(request.bookings);
+
+    expect(canBook(request)).toBe(true);
+    expect(request.bookings).toEqual(before);
+  });
+
+  test('T24 AC3: rejects a blocked room even with no existing bookings', () => {
+    const request = freshRequest(630, 690, { blocked: true, bookings: [] });
     const before = structuredClone(request.bookings);
 
     expect(canBook(request)).toBe(false);
