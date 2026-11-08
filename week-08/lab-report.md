@@ -1206,13 +1206,46 @@ AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ 
 
 ### 8.2 The BUG-B patch and the final run
 
-The change as a diff, then the real output of the **full** suite. Every test must pass.
+The helper deleted the single bookings.push line for BUG-B. Actual targeted and full runs follow.
 
-```text
-(paste here)
+```diff
+warning: in the working copy of 'week-08/app/src/booking.ts', LF will be replaced by CRLF the next time Git touches it
+diff --git a/week-08/app/src/booking.ts b/week-08/app/src/booking.ts
+index 4ea478a..64e9a4b 100644
+--- a/week-08/app/src/booking.ts
++++ b/week-08/app/src/booking.ts
+@@ -29,6 +29,5 @@ export function canBook({ start, end, now, blocked, bookings }: {
+     if (start < b.end && end > b.start) return false;
+   }
+   // keep the room's list current with the slot that was just found free
+-  bookings.push({ start, end });
+   return true;
+ }
 ```
 
----
+```text
+
+ RUN  v5.1.0 C:/Users/777/Desktop/SE/software-engineering-practice/week-08/app
+
+ ✓ src/booking.test.ts (29 tests | 28 skipped) 3ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 28 skipped (29)
+   Start at  22:54:11
+   Duration  472ms (transform 55%, import 26%, worker 12%, tests 6%)
+```
+
+```text
+
+ RUN  v5.1.0 C:/Users/777/Desktop/SE/software-engineering-practice/week-08/app
+
+ ✓ src/booking.test.ts (29 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  29 passed (29)
+   Start at  22:54:12
+   Duration  415ms (import 35%, transform 27%, worker 20%, tests 17%)
+```
 
 ## 9. What still fails, and what AI-assisted debugging cannot do
 

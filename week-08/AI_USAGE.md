@@ -11,7 +11,7 @@ This disclosure records preparation and the actual controlled diagnostic chats. 
 
 **skills/bug-detector/SKILL.md was typed by me from the deck's text, not generated:** student must answer yes/no accurately — the file and ZIP now exist, and the screenshot records the skill commit 2c6fdf6. The report-update helper does not create or alter the skill.
 
-**I applied the patches myself, one minimal change per bug, after reviewing what the assistant proposed:** no — no repair has been applied yet. If repair_and_check.py is used, disclose that the Codex-authored helper applies and commits the two reviewed one-line changes.
+**I applied the patches myself, one minimal change per bug, after reviewing what the assistant proposed:** no — after the diagnostic replies and comparison, the Codex-authored repair_and_check.py applied the reviewed strict-comparison change for BUG-A and deleted only bookings.push for BUG-B. Each change has its own targeted/full runs and separate commit; the comment was retained.
 
 **I used another assistant as well:** yes — Codex prepared factual report material and the helper before the two controlled chats. This assistance is disclosed above.
 
