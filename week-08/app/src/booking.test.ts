@@ -262,4 +262,25 @@ describe('canBook — reviewed booking cases', () => {
     expect(canBook(request)).toBe(false);
     expect(request.bookings).toEqual(before);
   });
+
+  test('BUG-A AC4: allows a gap touching two neighbours in a three-booking schedule', () => {
+    const request = freshRequest(780, 840, {
+      bookings: [
+        { start: 840, end: 900 },
+        { start: 600, end: 660 },
+        { start: 720, end: 780 },
+      ],
+    });
+
+    expect(canBook(request)).toBe(true);
+  });
+
+  test('BUG-B AC5: a non-touching Available request leaves bookings unchanged', () => {
+    const request = freshRequest(720, 780);
+    const bookings = request.bookings;
+    const before = structuredClone(bookings);
+
+    expect(canBook(request)).toBe(true);
+    expect(bookings).toEqual(before);
+  });
 });
