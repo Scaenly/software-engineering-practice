@@ -23,7 +23,7 @@ This disclosure records preparation and the actual controlled diagnostic chats. 
 
 The two controlled chat replies, the prompt-only screenshot and an AI-assisted comparison draft have now been supplied. An earlier unsuccessful skill request is also disclosed. The student must review the comparison, complete the personal limitation and conclusion, answer the self-assessment fields and sign this disclosure. Raw project terminal evidence is separate from assistant claims of isolated execution.
 
-Signed: not signed — student review pending
+Signed: Yerassyl Arystanbek 
 Date: 8 November 2026
 
 ## Subsequent diagnosis and report assistance

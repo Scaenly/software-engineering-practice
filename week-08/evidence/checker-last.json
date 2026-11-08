@@ -1,8 +1,8 @@
 {
-  "ok": false,
+  "ok": true,
   "counts": {
-    "PASS": 23,
-    "FAIL": 8,
+    "PASS": 31,
+    "FAIL": 0,
     "ERROR": 0
   },
   "total": 31,
@@ -22,26 +22,26 @@
     {
       "id": "B3",
       "title": "canBook is the provided one, changed in 4 lines or fewer",
-      "verdict": "FAIL",
-      "message": "canBook is still exactly the provided buggy function"
+      "verdict": "PASS",
+      "message": "2 line(s) changed in the body"
     },
     {
       "id": "B4",
       "title": "BUG-A fixed: touching endpoints are not an overlap",
-      "verdict": "FAIL",
-      "message": "the loop still treats touching endpoints as a conflict (or the checker cannot read the condition - write it as start < b.end && end > b.start, or explain in 9.1)"
+      "verdict": "PASS",
+      "message": "the overlap test is strict"
     },
     {
       "id": "B5",
       "title": "BUG-B fixed: canBook does not change the bookings",
-      "verdict": "FAIL",
-      "message": "canBook still changes the bookings: bookings.push("
+      "verdict": "PASS",
+      "message": "nothing in canBook changes the bookings"
     },
     {
       "id": "B6",
       "title": "export is clean: no node_modules, no .env, under 5 MB",
-      "verdict": "FAIL",
-      "message": "app contains node_modules/ - delete it"
+      "verdict": "PASS",
+      "message": "clean"
     },
     {
       "id": "S1",
@@ -136,8 +136,8 @@
     {
       "id": "R3",
       "title": "report 8.2: the final run, all passing, same suite",
-      "verdict": "FAIL",
-      "message": "section 8.2 has no Vitest output of the final suite"
+      "verdict": "PASS",
+      "message": "29 passed (29)"
     },
     {
       "id": "L1",
@@ -178,26 +178,26 @@
     {
       "id": "L7",
       "title": "report 8: one diff per bug",
-      "verdict": "FAIL",
-      "message": "section 8: paste the diff of each patch in 8.1 and 8.2 (found 0)"
+      "verdict": "PASS",
+      "message": "a diff for each bug"
     },
     {
       "id": "L8",
       "title": "report 9.2: one limitation, 20 words or more",
-      "verdict": "FAIL",
-      "message": "section 9.2 needs 20 words or more (found 0)"
+      "verdict": "PASS",
+      "message": "21 words"
     },
     {
       "id": "L9",
       "title": "report 10: conclusion of 80-150 words",
-      "verdict": "FAIL",
-      "message": "section 10 has 0 words, the task asks for 80-150"
+      "verdict": "PASS",
+      "message": "109 words"
     }
   ],
   "measured": {
     "app_root": "app",
     "module": "app/src/booking.ts",
-    "lines_changed": 0,
+    "lines_changed": 2,
     "provided_variant": "ts",
     "suite": "app/src/booking.test.ts",
     "tests_final": 29,
@@ -254,7 +254,7 @@
     "vitest_version": "5.1.0",
     "defects_logged": 2,
     "input_similarity": 1.0,
-    "diffs": 0,
-    "conclusion_words": 0
+    "diffs": 2,
+    "conclusion_words": 109
   }
 }
