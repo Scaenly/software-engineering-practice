@@ -15,12 +15,12 @@ grader find your answers by them. You can add rows to any table, but never remov
 
 | | |
 | --- | --- |
-| Assistant I debugged with (tool) | |
-| Exact model (with its version, or `not displayed`) | |
-| Where the skill was installed (ChatGPT / Claude web / Claude Code / prompt-only simulation) | |
-| Where I ran the tests (Bolt terminal / my computer / Codespace) | |
-| Vitest version (the `RUN  v…` line of a run) | |
-| Language of my booking module (`ts` or `js`) — the file I copied from `buggy/` | |
+| Assistant I debugged with (tool) | ChatGPT / Codex for preparation; two controlled diagnostic chats pending |
+| Exact model (with its version, or `not displayed`) | not displayed |
+| Where the skill was installed (ChatGPT / Claude web / Claude Code / prompt-only simulation) | Not installed; prompt-only simulation planned, not yet performed |
+| Where I ran the tests (Bolt terminal / my computer / Codespace) | Codex Linux workspace terminal; Node 24.22.1; Python 3.12.14 |
+| Vitest version (the `RUN  v…` line of a run) | 5.1.0 |
+| Language of my booking module (`ts` or `js`) — the file I copied from `buggy/` | ts |
 
 ---
 
@@ -583,13 +583,15 @@ AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ 
 
 ## 3. Defect log
 
+Process disclosure: AI assistance began before a personal hypothesis was written. These are factual test observations drafted by Codex, not a claim of an independent pre-AI hypothesis.
+
 One row per defect. At least **BUG-A and BUG-B**. "Suspected cause" is your hypothesis
 **before** you ask any assistant: the line and why.
 
 | Defect | Test ID | Input | Expected | Actual | Suspected cause (line and why) |
 | --- | --- | --- | --- | --- | --- |
-| BUG-A | | | | | |
-| BUG-B | | | | | |
+| BUG-A | T01, T08, T23; BUG-A | now 540; request 780–840; bookings 840–900, 600–660, 720–780 | true (AC4) | false at the Boolean assertion | Personal pre-AI hypothesis was not captured. The test failure is recorded; student review is still needed. | |
+| BUG-B | T06, AC5; BUG-B | now 540; request 720–780; bookings 600–660 | true and original array unchanged (AC5) | true, then deep equality fails because 720–780 was appended | Personal pre-AI hypothesis was not captured. The independent non-touching test reaches the mutation; student review is still needed. | |
 
 ---
 
@@ -620,13 +622,59 @@ Screenshot of the result: `evidence/install.png`.
 ---
 
 ## 5. Task 4 — without the skill
-
-A **fresh chat, with no skill enabled**. Paste exactly what you sent: the deck's question, then
-the same input you will use in section 6 (AC1–AC6, the failing test output, the code of
-`canBook`):
+Prepared input below has NOT yet been sent in a fresh chat. Replace the second block with the actual unedited answer; record the actual model.
 
 ```text
-(paste here)
+Find the root cause of the failed room-booking test. Propose minimal patch and regression test. Do not edit code.
+
+Scenario: Smart Campus room availability. One room, fictional bookings, fixed time, Boolean availability; no login or database.
+AC1 Reject start >= end and requests in the past.
+AC2 Enforce the maximum allowed duration (120 minutes).
+AC3 Reject a blocked room.
+AC4 Reject overlaps; allow bookings that only touch at endpoints.
+AC5 Return Available / Unavailable without changing booking data.
+AC6 Preserve clear UI feedback on desktop and mobile.
+
+Failing test fixture: start=660, end=720, now=540, blocked=false, bookings=[{start:600,end:660}].
+The test first expects canBook(request).toBe(true), then expects request.bookings to equal a structuredClone taken before the call.
+Observed failure (verbatim excerpt from the real run):
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T01 AC4: allows touching after an existing booking
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/booking.test.ts:30:30
+     28|     const before = structuredClone(request.bookings);
+     29|
+     30|     expect(canBook(request)).toBe(true);
+       |                              ^
+     31|     expect(request.bookings).toEqual(before);
+     32|   });
+
+
+Provided canBook (unchanged):
+export function canBook({ start, end, now, blocked, bookings }: {
+  start: number;
+  end: number;
+  now: number;
+  blocked: boolean;
+  bookings: { start: number; end: number }[];
+}): boolean {
+  if (!(0 <= start && start < end && end <= 1440)) return false;
+  if (!(start > now)) return false;
+  if (end - start > 120) return false;
+  if (blocked) return false;
+  for (const b of bookings) {
+    if (start <= b.end && end >= b.start) return false;
+  }
+  // keep the room's list current with the slot that was just found free
+  bookings.push({ start, end });
+  return true;
+}
 ```
 
 **The assistant's answer, pasted unedited:**
@@ -634,16 +682,61 @@ the same input you will use in section 6 (AC1–AC6, the failing test output, th
 ```text
 (paste here)
 ```
-
----
 
 ## 6. Task 5 — with the skill
-
-**Another fresh chat, with `bug-detector` enabled.** Send exactly the same input as in section 5.
-Only the question changes, to the deck's skill question:
+Prepared input below has NOT yet been sent in a fresh chat. Replace the second block with the actual unedited answer; record the actual model.
 
 ```text
-(paste here)
+Use the bug-detector skill to diagnose the failed room-booking test.
+
+Scenario: Smart Campus room availability. One room, fictional bookings, fixed time, Boolean availability; no login or database.
+AC1 Reject start >= end and requests in the past.
+AC2 Enforce the maximum allowed duration (120 minutes).
+AC3 Reject a blocked room.
+AC4 Reject overlaps; allow bookings that only touch at endpoints.
+AC5 Return Available / Unavailable without changing booking data.
+AC6 Preserve clear UI feedback on desktop and mobile.
+
+Failing test fixture: start=660, end=720, now=540, blocked=false, bookings=[{start:600,end:660}].
+The test first expects canBook(request).toBe(true), then expects request.bookings to equal a structuredClone taken before the call.
+Observed failure (verbatim excerpt from the real run):
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T01 AC4: allows touching after an existing booking
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/booking.test.ts:30:30
+     28|     const before = structuredClone(request.bookings);
+     29|
+     30|     expect(canBook(request)).toBe(true);
+       |                              ^
+     31|     expect(request.bookings).toEqual(before);
+     32|   });
+
+
+Provided canBook (unchanged):
+export function canBook({ start, end, now, blocked, bookings }: {
+  start: number;
+  end: number;
+  now: number;
+  blocked: boolean;
+  bookings: { start: number; end: number }[];
+}): boolean {
+  if (!(0 <= start && start < end && end <= 1440)) return false;
+  if (!(start > now)) return false;
+  if (end - start > 120) return false;
+  if (blocked) return false;
+  for (const b of bookings) {
+    if (start <= b.end && end >= b.start) return false;
+  }
+  // keep the room's list current with the slot that was just found free
+  bookings.push({ start, end });
+  return true;
+}
 ```
 
 **The assistant's answer, pasted unedited:**
@@ -652,9 +745,7 @@ Only the question changes, to the deck's skill question:
 (paste here)
 ```
 
-Did the environment show that the skill was invoked? yes / no / not shown
-
----
+Did the environment show that the skill was invoked? not yet performed
 
 ## 7. Comparison — judged against the actual code
 
@@ -702,11 +793,29 @@ The change as a diff, then the real output of the **full** suite. Every test mus
 
 ### 9.1 Checks I am keeping as FAIL or ERROR
 
-Use the same IDs as `known_fails` in `submission.yml`. Write `none` if the run is clean.
+Current real checker results; unfinished work is declared below.
 
 | Check | Why it stays |
 | --- | --- |
-| | |
+| B3 | canBook is still exactly the provided buggy function |
+| B4 | the loop still treats touching endpoints as a conflict (or the checker cannot read the condition - write it as start < b.end && end > b.start, or explain in 9.1) |
+| B5 | canBook still changes the bookings: bookings.push( |
+| K1 | no skills/bug-detector/SKILL.md |
+| K2 | no SKILL.md to read |
+| K3 | no SKILL.md to read |
+| K4 | no SKILL.md to read |
+| K5 | no SKILL.md to read |
+| K6 | no SKILL.md to read |
+| K7 | no skills/bug-detector.zip - commit the ZIP you uploaded (README Part 2) |
+| E1 | evidence/install.png not found - a screenshot of the upload, or of the prompt-only simulation |
+| R3 | section 8.2 has no Vitest output of the final suite |
+| L3 | section 4 needs all four checks answered yes (found 0) - fix the file first if one is no; the ZIP listing showing bug-detector/SKILL.md; 15+ words on the installation (found 0) |
+| L4 | section 5 needs the assistant's answer (30+ words) |
+| L5 | section 6 needs the assistant's answer (30+ words) |
+| L6 | section 7: fill both columns for Correct root cause, Reproducible test, Minimal proposed patch, Unsupported claims, Clarity of explanation |
+| L7 | section 8: paste the diff of each patch in 8.1 and 8.2 (found 0) |
+| L8 | section 9.2 needs 20 words or more (found 0) |
+| L9 | section 10 has 0 words, the task asks for 80-150 |
 
 ### 9.2 One limitation of AI-assisted debugging
 

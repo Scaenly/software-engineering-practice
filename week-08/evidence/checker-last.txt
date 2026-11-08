@@ -1,0 +1,37 @@
+Week 08 - debugging with a skill: the repair, the tests, the skill, the report
+
+PASS   B1   project in app/ with a booking module                                   app/src/booking.ts, function canBook
+PASS   B2   the page imports and calls canBook                                      called from app/src/App.tsx
+FAIL   B3   canBook is the provided one, changed in 4 lines or fewer                canBook is still exactly the provided buggy function
+FAIL   B4   BUG-A fixed: touching endpoints are not an overlap                      the loop still treats touching endpoints as a conflict (or the checker cannot read the condition - write it as start < b.end && end > b.start, or explain in 9.1)
+FAIL   B5   BUG-B fixed: canBook does not change the bookings                       canBook still changes the bookings: bookings.push(
+PASS   B6   export is clean: no node_modules, no .env, under 5 MB                   clean
+PASS   S1   suite beside the module imports vitest and the real canBook             app/src/booking.test.ts imports vitest and ./booking
+PASS   S2   nothing mocked, skipped, focused or table-driven                        real function, every test runs
+PASS   S3   the Week 07 suite kept: T01-T14, 19 tests or more                       T01-T14 present, 29 tests
+PASS   S4   regression test BUG-A: a touching request, exactly true                 BUG-A regression test present
+PASS   S5   regression test BUG-B: an Available call, bookings compared             BUG-B regression test present
+ERROR  K1   skills/bug-detector/SKILL.md exists, named exactly                      no skills/bug-detector/SKILL.md
+ERROR  K2   YAML frontmatter between two --- lines                                  no SKILL.md to read
+ERROR  K3   name: bug-detector                                                      no SKILL.md to read
+ERROR  K4   description says what and WHEN                                          no SKILL.md to read
+ERROR  K5   the seven-step procedure from the deck                                  no SKILL.md to read
+ERROR  K6   no secrets or keys in the skill                                         no SKILL.md to read
+ERROR  K7   skills/bug-detector.zip holds bug-detector/SKILL.md, the same file      no skills/bug-detector.zip - commit the ZIP you uploaded (README Part 2)
+ERROR  E1   installation screenshot: evidence/install.png                           evidence/install.png not found - a screenshot of the upload, or of the prompt-only simulation
+PASS   R1   report 2.1: the Week 07 suite green on your own code                    27 passed (27)
+PASS   R2   report 2.2-2.3: failures on the buggy code, BUG-A and BUG-B among them  9 failed on the buggy code; BUG-A and BUG-B fail before the fix
+FAIL   R3   report 8.2: the final run, all passing, same suite                      section 8.2 has no Vitest output of the final suite
+PASS   L1   report 1: assistant, model, where installed, where run, Vitest          setup recorded
+PASS   L2   report 3: defect log for BUG-A and BUG-B                                2 defect(s) logged
+FAIL   L3   report 4: checks answered, ZIP listing, installation                    section 4 needs all four checks answered yes (found 0) - fix the file first if one is no; the ZIP listing showing bug-detector/SKILL.md; 15+ words on the installation (found 0)
+FAIL   L4   report 5: the question without the skill, and the answer                section 5 needs the assistant's answer (30+ words)
+FAIL   L5   report 6: the skill question, the same input, and the answer            section 6 needs the assistant's answer (30+ words)
+FAIL   L6   report 7: both columns of the comparison                                section 7: fill both columns for Correct root cause, Reproducible test, Minimal proposed patch, Unsupported claims, Clarity of explanation
+FAIL   L7   report 8: one diff per bug                                              section 8: paste the diff of each patch in 8.1 and 8.2 (found 0)
+FAIL   L8   report 9.2: one limitation, 20 words or more                            section 9.2 needs 20 words or more (found 0)
+FAIL   L9   report 10: conclusion of 80-150 words                                   section 10 has 0 words, the task asks for 80-150
+------------------------------------------------------------------------------
+SUMMARY pass=12 fail=11 error=8   (31 checks)
+Every FAIL or ERROR you keep goes in lab-report.md section 9.1 and in submission.yml known_fails.
+One you report and explain costs you nothing. One you hide costs the whole criterion.

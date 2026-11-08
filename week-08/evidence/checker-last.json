@@ -1,0 +1,256 @@
+{
+  "ok": false,
+  "counts": {
+    "PASS": 12,
+    "FAIL": 11,
+    "ERROR": 8
+  },
+  "total": 31,
+  "rows": [
+    {
+      "id": "B1",
+      "title": "project in app/ with a booking module",
+      "verdict": "PASS",
+      "message": "app/src/booking.ts, function canBook"
+    },
+    {
+      "id": "B2",
+      "title": "the page imports and calls canBook",
+      "verdict": "PASS",
+      "message": "called from app/src/App.tsx"
+    },
+    {
+      "id": "B3",
+      "title": "canBook is the provided one, changed in 4 lines or fewer",
+      "verdict": "FAIL",
+      "message": "canBook is still exactly the provided buggy function"
+    },
+    {
+      "id": "B4",
+      "title": "BUG-A fixed: touching endpoints are not an overlap",
+      "verdict": "FAIL",
+      "message": "the loop still treats touching endpoints as a conflict (or the checker cannot read the condition - write it as start < b.end && end > b.start, or explain in 9.1)"
+    },
+    {
+      "id": "B5",
+      "title": "BUG-B fixed: canBook does not change the bookings",
+      "verdict": "FAIL",
+      "message": "canBook still changes the bookings: bookings.push("
+    },
+    {
+      "id": "B6",
+      "title": "export is clean: no node_modules, no .env, under 5 MB",
+      "verdict": "PASS",
+      "message": "clean"
+    },
+    {
+      "id": "S1",
+      "title": "suite beside the module imports vitest and the real canBook",
+      "verdict": "PASS",
+      "message": "app/src/booking.test.ts imports vitest and ./booking"
+    },
+    {
+      "id": "S2",
+      "title": "nothing mocked, skipped, focused or table-driven",
+      "verdict": "PASS",
+      "message": "real function, every test runs"
+    },
+    {
+      "id": "S3",
+      "title": "the Week 07 suite kept: T01-T14, 19 tests or more",
+      "verdict": "PASS",
+      "message": "T01-T14 present, 29 tests"
+    },
+    {
+      "id": "S4",
+      "title": "regression test BUG-A: a touching request, exactly true",
+      "verdict": "PASS",
+      "message": "BUG-A regression test present"
+    },
+    {
+      "id": "S5",
+      "title": "regression test BUG-B: an Available call, bookings compared",
+      "verdict": "PASS",
+      "message": "BUG-B regression test present"
+    },
+    {
+      "id": "K1",
+      "title": "skills/bug-detector/SKILL.md exists, named exactly",
+      "verdict": "ERROR",
+      "message": "no skills/bug-detector/SKILL.md"
+    },
+    {
+      "id": "K2",
+      "title": "YAML frontmatter between two --- lines",
+      "verdict": "ERROR",
+      "message": "no SKILL.md to read"
+    },
+    {
+      "id": "K3",
+      "title": "name: bug-detector",
+      "verdict": "ERROR",
+      "message": "no SKILL.md to read"
+    },
+    {
+      "id": "K4",
+      "title": "description says what and WHEN",
+      "verdict": "ERROR",
+      "message": "no SKILL.md to read"
+    },
+    {
+      "id": "K5",
+      "title": "the seven-step procedure from the deck",
+      "verdict": "ERROR",
+      "message": "no SKILL.md to read"
+    },
+    {
+      "id": "K6",
+      "title": "no secrets or keys in the skill",
+      "verdict": "ERROR",
+      "message": "no SKILL.md to read"
+    },
+    {
+      "id": "K7",
+      "title": "skills/bug-detector.zip holds bug-detector/SKILL.md, the same file",
+      "verdict": "ERROR",
+      "message": "no skills/bug-detector.zip - commit the ZIP you uploaded (README Part 2)"
+    },
+    {
+      "id": "E1",
+      "title": "installation screenshot: evidence/install.png",
+      "verdict": "ERROR",
+      "message": "evidence/install.png not found - a screenshot of the upload, or of the prompt-only simulation"
+    },
+    {
+      "id": "R1",
+      "title": "report 2.1: the Week 07 suite green on your own code",
+      "verdict": "PASS",
+      "message": "27 passed (27)"
+    },
+    {
+      "id": "R2",
+      "title": "report 2.2-2.3: failures on the buggy code, BUG-A and BUG-B among them",
+      "verdict": "PASS",
+      "message": "9 failed on the buggy code; BUG-A and BUG-B fail before the fix"
+    },
+    {
+      "id": "R3",
+      "title": "report 8.2: the final run, all passing, same suite",
+      "verdict": "FAIL",
+      "message": "section 8.2 has no Vitest output of the final suite"
+    },
+    {
+      "id": "L1",
+      "title": "report 1: assistant, model, where installed, where run, Vitest",
+      "verdict": "PASS",
+      "message": "setup recorded"
+    },
+    {
+      "id": "L2",
+      "title": "report 3: defect log for BUG-A and BUG-B",
+      "verdict": "PASS",
+      "message": "2 defect(s) logged"
+    },
+    {
+      "id": "L3",
+      "title": "report 4: checks answered, ZIP listing, installation",
+      "verdict": "FAIL",
+      "message": "section 4 needs all four checks answered yes (found 0) - fix the file first if one is no; the ZIP listing showing bug-detector/SKILL.md; 15+ words on the installation (found 0)"
+    },
+    {
+      "id": "L4",
+      "title": "report 5: the question without the skill, and the answer",
+      "verdict": "FAIL",
+      "message": "section 5 needs the assistant's answer (30+ words)"
+    },
+    {
+      "id": "L5",
+      "title": "report 6: the skill question, the same input, and the answer",
+      "verdict": "FAIL",
+      "message": "section 6 needs the assistant's answer (30+ words)"
+    },
+    {
+      "id": "L6",
+      "title": "report 7: both columns of the comparison",
+      "verdict": "FAIL",
+      "message": "section 7: fill both columns for Correct root cause, Reproducible test, Minimal proposed patch, Unsupported claims, Clarity of explanation"
+    },
+    {
+      "id": "L7",
+      "title": "report 8: one diff per bug",
+      "verdict": "FAIL",
+      "message": "section 8: paste the diff of each patch in 8.1 and 8.2 (found 0)"
+    },
+    {
+      "id": "L8",
+      "title": "report 9.2: one limitation, 20 words or more",
+      "verdict": "FAIL",
+      "message": "section 9.2 needs 20 words or more (found 0)"
+    },
+    {
+      "id": "L9",
+      "title": "report 10: conclusion of 80-150 words",
+      "verdict": "FAIL",
+      "message": "section 10 has 0 words, the task asks for 80-150"
+    }
+  ],
+  "measured": {
+    "app_root": "app",
+    "module": "app/src/booking.ts",
+    "lines_changed": 0,
+    "provided_variant": "ts",
+    "suite": "app/src/booking.test.ts",
+    "tests_final": 29,
+    "tests_in_project": 29,
+    "test_titles": [
+      "T01 AC4: allows touching after an existing booking",
+      "T02 AC1: rejects a request starting exactly now",
+      "T03 AC1: rejects zero duration",
+      "T04 AC1: rejects an end before the start",
+      "T05 AC1: rejects an end past minute 1440",
+      "T06 AC2: allows exactly 120 minutes",
+      "T07 AC2: rejects 121 minutes",
+      "T08 AC4: allows touching before an existing booking",
+      "T09 AC4: rejects a partial overlap",
+      "T10 AC4: rejects a request containing an existing booking",
+      "T11 AC4: rejects a request inside an existing booking",
+      "T12 AC4: rejects an identical interval",
+      "T13 AC3: rejects a blocked room for an otherwise valid request",
+      "T14 AC4: allows a valid request when there are no existing bookings",
+      "AC5: repeated Available decisions preserve unsorted booking data",
+      "X1 AC1: allows an end exactly at minute 1440",
+      "X2 AC4: rejects an overlap with the second booking",
+      "T15 AC1: rejects a request starting one minute before now",
+      "T16 AC1: allows a request starting one minute after now",
+      "T17 AC1: rejects a negative start minute",
+      "T18 AC1: rejects minute zero when the supplied current time is zero",
+      "T19 AC1: allows a one-minute booking just after midnight",
+      "T20 AC4: rejects a one-minute overlap at the existing booking end",
+      "T21 AC4: rejects a one-minute overlap at the existing booking start",
+      "T22 AC4: rejects an earlier conflict despite a later nonconflicting booking",
+      "T23 AC4: allows a gap touching both bookings in an unsorted schedule",
+      "T24 AC3: rejects a blocked room even with no existing bookings",
+      "BUG-A AC4: allows a gap touching two neighbours in a three-booking schedule",
+      "BUG-B AC5: a non-touching Available request leaves bookings unchanged"
+    ],
+    "baseline_run": {
+      "failed": 0,
+      "passed": 27,
+      "skipped": 0,
+      "todo": 0,
+      "total": 27
+    },
+    "buggy_run": {
+      "failed": 9,
+      "passed": 18,
+      "skipped": 0,
+      "todo": 0,
+      "total": 27
+    },
+    "vitest_version": "5.1.0",
+    "defects_logged": 2,
+    "input_similarity": 1.0,
+    "diffs": 0,
+    "conclusion_words": 0
+  }
+}

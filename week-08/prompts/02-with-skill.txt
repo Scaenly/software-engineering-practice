@@ -1,0 +1,50 @@
+Use the bug-detector skill to diagnose the failed room-booking test.
+
+Scenario: Smart Campus room availability. One room, fictional bookings, fixed time, Boolean availability; no login or database.
+AC1 Reject start >= end and requests in the past.
+AC2 Enforce the maximum allowed duration (120 minutes).
+AC3 Reject a blocked room.
+AC4 Reject overlaps; allow bookings that only touch at endpoints.
+AC5 Return Available / Unavailable without changing booking data.
+AC6 Preserve clear UI feedback on desktop and mobile.
+
+Failing test fixture: start=660, end=720, now=540, blocked=false, bookings=[{start:600,end:660}].
+The test first expects canBook(request).toBe(true), then expects request.bookings to equal a structuredClone taken before the call.
+Observed failure (verbatim excerpt from the real run):
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T01 AC4: allows touching after an existing booking
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/booking.test.ts:30:30
+     28|     const before = structuredClone(request.bookings);
+     29|
+     30|     expect(canBook(request)).toBe(true);
+       |                              ^
+     31|     expect(request.bookings).toEqual(before);
+     32|   });
+
+
+Provided canBook (unchanged):
+export function canBook({ start, end, now, blocked, bookings }: {
+  start: number;
+  end: number;
+  now: number;
+  blocked: boolean;
+  bookings: { start: number; end: number }[];
+}): boolean {
+  if (!(0 <= start && start < end && end <= 1440)) return false;
+  if (!(start > now)) return false;
+  if (end - start > 120) return false;
+  if (blocked) return false;
+  for (const b of bookings) {
+    if (start <= b.end && end >= b.start) return false;
+  }
+  // keep the room's list current with the slot that was just found free
+  bookings.push({ start, end });
+  return true;
+}
