@@ -18,7 +18,7 @@ grader find your answers by them. You can add rows to any table, but never remov
 | Assistant I debugged with (tool) | ChatGPT for both fresh diagnostic chats; Codex assisted preparation and report drafting |
 | Exact model (with its version, or `not displayed`) | not displayed |
 | Where the skill was installed (ChatGPT / Claude web / Claude Code / prompt-only simulation) | Prompt-only simulation in a separate ChatGPT chat; no installed skill |
-| Where I ran the tests (Bolt terminal / my computer / Codespace) | Codex Linux workspace terminal; Node 24.22.1; Python 3.12.14 |
+| Where I ran the tests (Bolt terminal / my computer / Codespace) | Codex Linux workspace for the baseline and initial reproduction; the student's Windows computer, VS Code/CMD, for local reproduction and both repair runs |
 | Vitest version (the `RUN  v…` line of a run) | 5.1.0 |
 | Language of my booking module (`ts` or `js`) — the file I copied from `buggy/` | ts |
 
@@ -1276,4 +1276,6 @@ I see that some problems of AI on the promts 01 without skill after that trying 
      visible after the BUG-A patch: the AC5 test had been failing for the wrong reason." -->
 
 <!-- Write your conclusion below this line -->
+Authorship disclosure: this is AI-assisted writing requested by the student, not an independent personal reflection.
+
 In this comparison, the bug-detector procedure made the response easier to scan, but it did not improve diagnostic correctness because both answers identified BUG-A and BUG-B. Both answers also proposed removing an unnecessary comment, so the reviewed repair kept that comment and changed only the overlap condition and the push line in separate commits. The 29 passing tests support correct decisions for the tested time boundaries, blocked rooms, overlaps and endpoint-touching cases, and they check that availability decisions preserve the original bookings. They do not verify desktop or mobile feedback under AC6, establish behavior for every possible input, or prove that an AI claim of isolated execution is reliable.
