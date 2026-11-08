@@ -1,9 +1,9 @@
 {
   "ok": false,
   "counts": {
-    "PASS": 12,
-    "FAIL": 11,
-    "ERROR": 8
+    "PASS": 23,
+    "FAIL": 8,
+    "ERROR": 0
   },
   "total": 31,
   "rows": [
@@ -40,8 +40,8 @@
     {
       "id": "B6",
       "title": "export is clean: no node_modules, no .env, under 5 MB",
-      "verdict": "PASS",
-      "message": "clean"
+      "verdict": "FAIL",
+      "message": "app contains node_modules/ - delete it"
     },
     {
       "id": "S1",
@@ -76,50 +76,50 @@
     {
       "id": "K1",
       "title": "skills/bug-detector/SKILL.md exists, named exactly",
-      "verdict": "ERROR",
-      "message": "no skills/bug-detector/SKILL.md"
+      "verdict": "PASS",
+      "message": "skills/bug-detector/SKILL.md"
     },
     {
       "id": "K2",
       "title": "YAML frontmatter between two --- lines",
-      "verdict": "ERROR",
-      "message": "no SKILL.md to read"
+      "verdict": "PASS",
+      "message": "frontmatter with name and description"
     },
     {
       "id": "K3",
       "title": "name: bug-detector",
-      "verdict": "ERROR",
-      "message": "no SKILL.md to read"
+      "verdict": "PASS",
+      "message": "name: bug-detector"
     },
     {
       "id": "K4",
       "title": "description says what and WHEN",
-      "verdict": "ERROR",
-      "message": "no SKILL.md to read"
+      "verdict": "PASS",
+      "message": "description says when to use it"
     },
     {
       "id": "K5",
       "title": "the seven-step procedure from the deck",
-      "verdict": "ERROR",
-      "message": "no SKILL.md to read"
+      "verdict": "PASS",
+      "message": "all seven steps"
     },
     {
       "id": "K6",
       "title": "no secrets or keys in the skill",
-      "verdict": "ERROR",
-      "message": "no SKILL.md to read"
+      "verdict": "PASS",
+      "message": "nothing that looks like a key or password"
     },
     {
       "id": "K7",
       "title": "skills/bug-detector.zip holds bug-detector/SKILL.md, the same file",
-      "verdict": "ERROR",
-      "message": "no skills/bug-detector.zip - commit the ZIP you uploaded (README Part 2)"
+      "verdict": "PASS",
+      "message": "bug-detector/SKILL.md, same as the committed file"
     },
     {
       "id": "E1",
       "title": "installation screenshot: evidence/install.png",
-      "verdict": "ERROR",
-      "message": "evidence/install.png not found - a screenshot of the upload, or of the prompt-only simulation"
+      "verdict": "PASS",
+      "message": "evidence/install.png"
     },
     {
       "id": "R1",
@@ -154,26 +154,26 @@
     {
       "id": "L3",
       "title": "report 4: checks answered, ZIP listing, installation",
-      "verdict": "FAIL",
-      "message": "section 4 needs all four checks answered yes (found 0) - fix the file first if one is no; the ZIP listing showing bug-detector/SKILL.md; 15+ words on the installation (found 0)"
+      "verdict": "PASS",
+      "message": "checks, listing and installation recorded"
     },
     {
       "id": "L4",
       "title": "report 5: the question without the skill, and the answer",
-      "verdict": "FAIL",
-      "message": "section 5 needs the assistant's answer (30+ words)"
+      "verdict": "PASS",
+      "message": "question, input and answer"
     },
     {
       "id": "L5",
       "title": "report 6: the skill question, the same input, and the answer",
-      "verdict": "FAIL",
-      "message": "section 6 needs the assistant's answer (30+ words)"
+      "verdict": "PASS",
+      "message": "same input, skill question, answer"
     },
     {
       "id": "L6",
       "title": "report 7: both columns of the comparison",
-      "verdict": "FAIL",
-      "message": "section 7: fill both columns for Correct root cause, Reproducible test, Minimal proposed patch, Unsupported claims, Clarity of explanation"
+      "verdict": "PASS",
+      "message": "all five criteria judged"
     },
     {
       "id": "L7",
@@ -232,6 +232,10 @@
       "T24 AC3: rejects a blocked room even with no existing bookings",
       "BUG-A AC4: allows a gap touching two neighbours in a three-booking schedule",
       "BUG-B AC5: a non-touching Available request leaves bookings unchanged"
+    ],
+    "zip_names": [
+      "bug-detector/.gitkeep",
+      "bug-detector/SKILL.md"
     ],
     "baseline_run": {
       "failed": 0,

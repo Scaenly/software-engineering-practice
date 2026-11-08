@@ -8,12 +8,12 @@ PASS   D5   assistant.tool                                           assistant.t
 PASS   D6   assistant.model is an exact model name or not displayed  assistant.model: not displayed
 PASS   D7   skill and project                                        prompt-only, ts, Vitest 5.1.0
 PASS   D8   checker numbers add up                                   pass + fail + error = 31
-PASS   D9   checker numbers match a run made now                     declared 12/11/8, a run now gives 12/11/8
-PASS   D10  checker.commit                                           checker.commit: f250c9f
-PASS   D11  known_fails lists exactly what still fails               known_fails matches the checker: ['B3', 'B4', 'B5', 'E1', 'K1', 'K2', 'K3', 'K4', 'K5', 'K6', 'K7', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'R3']
+PASS   D9   checker numbers match a run made now                     declared 23/8/0, a run now gives 23/8/0
+PASS   D10  checker.commit                                           checker.commit: 2c6fdf6
+PASS   D11  known_fails lists exactly what still fails               known_fails matches the checker: ['B3', 'B4', 'B5', 'B6', 'L7', 'L8', 'L9', 'R3']
 PASS   D12  counts match the files and lab-report.md                 counts filled and match
-FAIL   D13  verdict.skill_helped is decided                          verdict.skill_helped must be one of: yes | no | no-difference
+PASS   D13  verdict.skill_helped is decided                          skill_helped: no-difference
 PASS   D14  review_findings: three, each naming what it is about     4 review findings
 PASS   D15  honesty block answered                                   honesty block answered
 ------------------------------------------------------------------------------
-SUMMARY pass=14 fail=1 error=0   (15 checks)
+SUMMARY pass=15 fail=0 error=0   (15 checks)

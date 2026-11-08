@@ -20,7 +20,7 @@ ENV = {**os.environ, 'NO_COLOR': '1', 'FORCE_COLOR': '0'}
 
 
 def run(args, cwd=ROOT):
-    return subprocess.run(args, cwd=cwd, env=ENV, text=True,
+    return subprocess.run(args, cwd=cwd, env=ENV, text=True, encoding='utf-8', errors='replace',
                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
@@ -109,11 +109,16 @@ def repair():
     old_b = '  bookings.push({ start, end });\n'
     if old_a not in code and new_a not in code:
         raise SystemExit('Unexpected canBook body. No patch applied.')
-    npm = 'npm.cmd' if os.name == 'nt' else 'npm'
-    command = [npm, 'exec', '--', 'vitest', 'run']
+    cli = ROOT / 'app/node_modules/vitest/vitest.mjs'
+    if not cli.is_file():
+        raise SystemExit('Vitest is not installed. Run npm ci inside week-08/app first. No patch applied.')
+    command = ['node', str(cli), 'run']
+    preflight = run(['node', str(cli), '--version'], ROOT / 'app')
+    if preflight.returncode:
+        raise SystemExit(preflight.stdout + '\nVitest could not start. No patch applied.')
     if old_a in code:
         git_commit('week-08: record skill and controlled diagnosis comparison')
-        path.write_text(code.replace(old_a, new_a, 1), encoding='utf-8')
+        path.write_text(code.replace(old_a, new_a, 1), encoding='utf-8', newline='\n')
         diff = run(['git', 'diff', '--', 'app/src/booking.ts']).stdout
         targeted = save_run('04-fix-A-targeted.txt', command + ['-t', 'BUG-A'])
         full = save_run('05-fix-A-full.txt', command)
@@ -125,7 +130,7 @@ def repair():
         git_commit('week-08: fix BUG-A')
     code = path.read_text(encoding='utf-8')
     if old_b in code:
-        path.write_text(code.replace(old_b, '', 1), encoding='utf-8')
+        path.write_text(code.replace(old_b, '', 1), encoding='utf-8', newline='\n')
         diff = run(['git', 'diff', '--', 'app/src/booking.ts']).stdout
         targeted = save_run('06-fix-B-targeted.txt', command + ['-t', 'BUG-B'])
         full = save_run('07-final-suite.txt', command)
@@ -134,6 +139,24 @@ def repair():
                 + '\n```\n\n```text\n' + full.stdout.rstrip() + '\n```')
         if targeted.returncode or full.returncode:
             raise SystemExit('BUG-B verification failed. Inspect the logs before committing.')
+        usage_path = ROOT / 'AI_USAGE.md'
+        usage = usage_path.read_text(encoding='utf-8')
+        usage = usage.replace('no — no repair has been applied yet. If repair_and_check.py is used, disclose that the Codex-authored helper applies and commits the two reviewed one-line changes.',
+                              'no — after the diagnostic replies and comparison, the Codex-authored repair_and_check.py applied the reviewed strict-comparison change for BUG-A and deleted only bookings.push for BUG-B. Each change has its own targeted/full runs and separate commit; the comment was retained.')
+        usage_path.write_text(usage, encoding='utf-8', newline='\n')
+        description = ROOT / 'PR_DESCRIPTION.md'
+        body = description.read_text(encoding='utf-8')
+        match = re.search(r'(?ms)(^## What I built\n)(.*?)(?=^## |\Z)', body)
+        if match:
+            summary = ('\nContinued the actual Week 07 Smart Campus app, preserving all 27 tests and adding BUG-A and BUG-B regressions. '
+                       'The provided unchanged function failed 9/27 original tests and 11/29 after adding both regressions. '
+                       'Recorded the two fresh diagnostic chats on identical inputs, using a declared prompt-only simulation for the skill. '
+                       'Applied one line per bug in separate commits, with actual targeted and full runs saved in report section 8. '
+                       'The final full Vitest run passed; the personal report sections and final checker results must be reviewed before submission.\n\n')
+            body = body[:match.start(2)] + summary + body[match.end(2):]
+        body = body.replace('The controlled diagnostic chats are not yet performed.',
+                            'The controlled diagnostic chats were completed; the skill environment was a prompt-only simulation.')
+        description.write_text(body, encoding='utf-8', newline='\n')
         git_commit('week-08: fix BUG-B')
     # The supplied checker inspects physical folders, including ignored dependencies.
     # Dependencies are reproducible with npm ci and must not be in the export.

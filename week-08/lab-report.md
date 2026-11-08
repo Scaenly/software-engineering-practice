@@ -4,7 +4,7 @@
 **Group:** Monday 16:00–19:00 (from Week 07 report)
 **Date:** 8 November 2026
 
-AI preparation disclosure: Codex copied the actual Week 07 project, ran the terminal commands, added the two regression tests, applied the two patches, and drafted factual report material. Student-only activities remain explicitly incomplete; no fresh-chat comparison or skill installation is claimed.
+AI preparation disclosure: Codex copied the actual Week 07 project, ran the terminal commands, added the two regression tests, applied the two patches, and drafted factual report material. The student subsequently supplied two fresh-chat diagnostic replies and a screenshot of the acknowledged prompt-only simulation. The comparison is an AI-assisted draft for student review; no installed skill is claimed.
 
 Fill in every section. **Do not delete, rename or renumber the headings.** The checker and the
 grader find your answers by them. You can add rows to any table, but never remove its header.
@@ -15,9 +15,9 @@ grader find your answers by them. You can add rows to any table, but never remov
 
 | | |
 | --- | --- |
-| Assistant I debugged with (tool) | ChatGPT / Codex for preparation; two controlled diagnostic chats pending |
+| Assistant I debugged with (tool) | ChatGPT for both fresh diagnostic chats; Codex assisted preparation and report drafting |
 | Exact model (with its version, or `not displayed`) | not displayed |
-| Where the skill was installed (ChatGPT / Claude web / Claude Code / prompt-only simulation) | Not installed; prompt-only simulation planned, not yet performed |
+| Where the skill was installed (ChatGPT / Claude web / Claude Code / prompt-only simulation) | Prompt-only simulation in a separate ChatGPT chat; no installed skill |
 | Where I ran the tests (Bolt terminal / my computer / Codespace) | Codex Linux workspace terminal; Node 24.22.1; Python 3.12.14 |
 | Vitest version (the `RUN  v…` line of a run) | 5.1.0 |
 | Language of my booking module (`ts` or `js`) — the file I copied from `buggy/` | ts |
@@ -590,39 +590,40 @@ One row per defect. At least **BUG-A and BUG-B**. "Suspected cause" is your hypo
 
 | Defect | Test ID | Input | Expected | Actual | Suspected cause (line and why) |
 | --- | --- | --- | --- | --- | --- |
-| BUG-A | T01, T08, T23; BUG-A | now 540; request 780–840; bookings 840–900, 600–660, 720–780 | true (AC4) | false at the Boolean assertion | Personal pre-AI hypothesis was not captured. The test failure is recorded; student review is still needed. | |
-| BUG-B | T06, AC5; BUG-B | now 540; request 720–780; bookings 600–660 | true and original array unchanged (AC5) | true, then deep equality fails because 720–780 was appended | Personal pre-AI hypothesis was not captured. The independent non-touching test reaches the mutation; student review is still needed. | |
+| BUG-A | T01, T08, T23; BUG-A | now 540; request 780–840; bookings 840–900, 600–660, 720–780 | true (AC4) | false at the Boolean assertion | Personal pre-AI hypothesis was not captured. AI-reviewed cause: inclusive comparisons count endpoint equality as a conflict; AC4 requires strict comparisons. | |
+| BUG-B | T06, AC5; BUG-B | now 540; request 720–780; bookings 600–660 | true and original array unchanged (AC5) | true, then deep equality fails because 720–780 was appended | Personal pre-AI hypothesis was not captured. AI-reviewed cause: bookings.push appends a request during an availability check; the non-touching fixture reaches it independently of BUG-A. | |
 
 ---
 
 ## 4. Tasks 2–3 — the skill
 
-**The checks from the deck, before you zip it.** Answer each one yes / no:
+The source file and the committed ZIP were checked locally by update_diagnosis.py. The fourth answer records the student's --skill-reviewed declaration, after personally reading the complete file.
 
 | Check | yes / no |
 | --- | --- |
-| The file is plain UTF-8 text, named exactly `SKILL.md` (not `SKILL.md.txt`) | yes / no |
-| The first and the closing YAML delimiter are exactly three hyphens: `---` | yes / no |
-| `name` is lowercase with hyphens, and `description` says WHEN to use it | yes / no |
-| I read the whole file once: no passwords, API keys or private student data | yes / no |
+| The file is plain UTF-8 text, named exactly `SKILL.md` (not `SKILL.md.txt`) | yes |
+| The first and the closing YAML delimiter are exactly three hyphens: `---` | yes |
+| `name` is lowercase with hyphens, and `description` says WHEN to use it | yes |
+| I read the whole file once: no passwords, API keys or private student data | yes |
 
-**The contents of `skills/bug-detector.zip`.** Paste the listing (Windows: open the ZIP and copy
-the paths; macOS/Linux: `unzip -l skills/bug-detector.zip`):
+**The contents of `skills/bug-detector.zip`**, read from the actual local ZIP:
 
 ```text
-(paste here)
+bug-detector/.gitkeep (0 bytes)
+bug-detector/SKILL.md (582 bytes)
 ```
 
-**Installation.** Where you uploaded it, what the upload said, and whether a new chat showed the
-skill as enabled. If upload was not available, write `prompt-only simulation` and say why.
-Screenshot of the result: `evidence/install.png`.
+**Installation.**
 
 <!-- Write below this line -->
 
----
+The declared environment is a prompt-only simulation, not an installed skill. In a fresh ChatGPT chat, the student first supplied the complete hand-typed procedure with an explicit simulation statement. The assistant acknowledged: "I'll follow the procedure directly without searching for a skill or editing code." The student then sent the prepared diagnostic input. The supplied screenshot is evidence/install.png. No installed-skill badge is shown. An earlier unsuccessful request reported that bug-detector could not be found; it is disclosed in evidence/skill-attempt-note.md and is not used as the controlled simulation response.
 
 ## 5. Task 4 — without the skill
-Prepared input below has NOT yet been sent in a fresh chat. Replace the second block with the actual unedited answer; record the actual model.
+
+Fresh ChatGPT chat without a loaded bug-detector procedure. The student supplied this complete answer; the exact model is not displayed in the supplied evidence.
+
+**The diagnostic message sent:**
 
 ```text
 Find the root cause of the failed room-booking test. Propose minimal patch and regression test. Do not edit code.
@@ -679,12 +680,62 @@ export function canBook({ start, end, now, blocked, bookings }: {
 
 **The assistant's answer, pasted unedited:**
 
-```text
-(paste here)
+````markdown
+The test expectation is correct. There are **two implementation defects**:
+
+1. **AC4: touching endpoints are treated as overlaps.** For this fixture, `660 <= 660 && 720 >= 600` is `true`, so `canBook` returns `false`. The intervals only touch at 660; overlap comparisons must be strict.
+2. **AC5: successful checks mutate bookings.** `bookings.push(...)` changes the input. The current early return avoids this mutation, and the failed first assertion prevents the immutability assertion from running. Fixing only AC4 exposes AC5.
+
+Proposed minimal patch:
+```
+   for (const b of bookings) {
+-    if (start <= b.end && end >= b.start) return false;
++    if (start < b.end && end > b.start) return false;
+   }
+-  // keep the room's list current with the slot that was just found free
+-  bookings.push({ start, end });
+   return true;
 ```
 
+Keep the existing endpoint test unchanged. Add this independent regression test for mutation, using a slot clearly separated from the existing booking:
+```
+it('AC5: checking a free slot leaves bookings unchanged', () => {
+  const request = {
+    start: 780,
+    end: 840,
+    now: 540,
+    blocked: false,
+    bookings: [{ start: 600, end: 660 }],
+  };
+  const before = structuredClone(request.bookings);
+
+  const result = canBook(request);
+
+  expect(request.bookings).toEqual(before);
+  expect(result).toBe(true);
+});
+```
+
+This additional test catches mutation even while the endpoint bug remains.
+
+An isolated JavaScript reproduction confirmed:
+
+| Implementation   | Result for reported fixture | Bookings unchanged |
+| ---------------- | --------------------------- | ------------------ |
+| Original         | `false`                     | Yes                |
+| Overlap fix only | `true`                      | No                 |
+| Both fixes       | `true`                      | Yes                |
+
+No code was edited.
+````
+
+The corresponding complete reply is also preserved in evidence/without-skill-answer.md.
+
 ## 6. Task 5 — with the skill
-Prepared input below has NOT yet been sent in a fresh chat. Replace the second block with the actual unedited answer; record the actual model.
+
+A separate fresh ChatGPT chat using the explicitly declared prompt-only procedure. The student supplied this complete answer; the exact model is not displayed in the supplied evidence.
+
+**The diagnostic message sent:**
 
 ```text
 Use the bug-detector skill to diagnose the failed room-booking test.
@@ -741,30 +792,68 @@ export function canBook({ start, end, now, blocked, bookings }: {
 
 **The assistant's answer, pasted unedited:**
 
-```text
-(paste here)
+````markdown
+**Two defects are confirmed** by running the supplied function in Node. The test’s expected `true` is correct.
+
+| Defect                              | Evidence                                                                    | Root cause                                                   | Fix                                   | Test                                                                  |
+| ----------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------- | --------------------------------------------------------------------- |
+| AC4: touching endpoints rejected    | The supplied fixture returns `false`: `660 <= 660 && 720 >= 600` is `true`. | Inclusive comparisons treat touching as overlap.             | Use `start < b.end && end > b.start`. | Keep T01 unchanged: expect `true` and unchanged bookings.             |
+| AC5: successful checks mutate input | A separate request for `[720,780]` returns `true` and appends a booking.    | `bookings.push({ start, end })` modifies the caller’s array. | Remove the push and its comment.      | Check a clearly separated slot; expect `true` and unchanged bookings. |
+
+In the observed T01 failure, the early return prevents mutation, and the first failed assertion stops the immutability assertion from running. Fixing only AC4 exposes AC5.
+
+Suggested minimal patch — **not applied**:
+```
+   for (const b of bookings) {
+-    if (start <= b.end && end >= b.start) return false;
++    if (start < b.end && end > b.start) return false;
+   }
+-  // keep the room's list current with the slot that was just found free
+-  bookings.push({ start, end });
+   return true;
 ```
 
-Did the environment show that the skill was invoked? not yet performed
+Keep the existing endpoint test and add this independent regression:
+```
+it('AC5: checking a free slot leaves bookings unchanged', () => {
+  const request = {
+    start: 720,
+    end: 780,
+    now: 540,
+    blocked: false,
+    bookings: [{ start: 600, end: 660 }],
+  };
+  const before = structuredClone(request.bookings);
+
+  const result = canBook(request);
+
+  expect(request.bookings).toEqual(before);
+  expect(result).toBe(true);
+});
+```
+
+This regression fails on the supplied implementation and should pass after the proposed patch. AC6 requires separate UI evidence; it cannot be assessed from this function.
+````
+
+The corresponding complete reply is also preserved in evidence/with-skill-answer.md.
+
+Did the environment show that the skill was invoked? **not shown** as an installed skill. The chat explicitly acknowledged the pasted procedure; the declared mode is prompt-only.
 
 ## 7. Comparison — judged against the actual code
 
-Do not assume the skill did better. Judge both answers against the code and against what your
-tests showed. Write a short verdict in each cell, and give a reason where they differ.
+AI-assisted comparison draft: each judgement below is checked against the provided code and the existing real test failures. The student must review this table before accepting the patches.
 
 | Criterion | No skill | With skill |
 | --- | --- | --- |
-| Correct root cause | | |
-| Reproducible test | | |
-| Minimal proposed patch | | |
-| Unsupported claims | | |
-| Clarity of explanation | | |
+| Correct root cause | Correct for both BUG-A/AC4 and BUG-B/AC5. The inclusive overlap condition rejects equality; bookings.push changes the caller's array. The real T01 failure and non-touching BUG-B failure support these explanations. | Correct for the same two defects and the same expressions. The table names evidence separately; it does not identify an additional implementation defect. |
+| Reproducible test | Proposes 780–840 with now 540 and existing 600–660. It is a deterministic free slot and isolates mutation from endpoint rejection; it asserts deep equality and exact true. | Proposes 720–780 with the same now and existing booking. This also isolates BUG-B, asserts the preserved array and exact true, and matches the new BUG-B fixture already in the suite. |
+| Minimal proposed patch | Strict comparators fix BUG-A. Deleting bookings.push fixes BUG-B, but deleting its comment as well is unnecessary for this lab's one-line-per-bug rule. Modify that proposal: retain the comment and delete only the push. | The same judgement: accept strict comparisons, delete only bookings.push, and retain the comment. The skill does not prevent this unnecessary extra deletion. Do not add a duplicate AC5 test because the committed BUG-B regression already supplies it. |
+| Unsupported claims | Reports an isolated JavaScript reproduction, but the supplied reply contains no raw terminal output. Treat that as an assistant claim; only saved project Vitest logs establish project results. No claim that AC6 was verified is made. | States that the function was run in Node, but supplies no raw terminal output for that execution. This does not establish that the project suite passes. It correctly states that AC6 cannot be assessed from the function. |
+| Clarity of explanation | Clearly explains that T01 returns early and its first failed assertion masks the later mutation assertion. The small result table illustrates why fixing BUG-A alone exposes BUG-B. | Clearly explains the same masking. The required defect/evidence/root-cause/fix/test columns make the mapping easier to scan, while the technical diagnosis remains the same. |
 
-**Which bugs did each answer find?** (BUG-A, BUG-B, both, neither)
+**Which bugs did each answer find?** Both answers found BUG-A and BUG-B. Neither changed project files as part of the diagnostic reply. The suggested overall verdict is no-difference for diagnostic correctness; the simulation improved the visible structure. This is a single comparison and does not measure a general model-performance improvement.
 
--
-
----
+**Patch review for the next step:** change the one overlap-condition line for BUG-A; delete only the single bookings.push line for BUG-B. The existing 27 Week 07 tests and the two new BUG-A/BUG-B regressions remain unchanged.
 
 ## 8. Task 6 — repair and regression
 
@@ -800,19 +889,8 @@ Current real checker results; unfinished work is declared below.
 | B3 | canBook is still exactly the provided buggy function |
 | B4 | the loop still treats touching endpoints as a conflict (or the checker cannot read the condition - write it as start < b.end && end > b.start, or explain in 9.1) |
 | B5 | canBook still changes the bookings: bookings.push( |
-| K1 | no skills/bug-detector/SKILL.md |
-| K2 | no SKILL.md to read |
-| K3 | no SKILL.md to read |
-| K4 | no SKILL.md to read |
-| K5 | no SKILL.md to read |
-| K6 | no SKILL.md to read |
-| K7 | no skills/bug-detector.zip - commit the ZIP you uploaded (README Part 2) |
-| E1 | evidence/install.png not found - a screenshot of the upload, or of the prompt-only simulation |
+| B6 | app contains node_modules/ - delete it |
 | R3 | section 8.2 has no Vitest output of the final suite |
-| L3 | section 4 needs all four checks answered yes (found 0) - fix the file first if one is no; the ZIP listing showing bug-detector/SKILL.md; 15+ words on the installation (found 0) |
-| L4 | section 5 needs the assistant's answer (30+ words) |
-| L5 | section 6 needs the assistant's answer (30+ words) |
-| L6 | section 7: fill both columns for Correct root cause, Reproducible test, Minimal proposed patch, Unsupported claims, Clarity of explanation |
 | L7 | section 8: paste the diff of each patch in 8.1 and 8.2 (found 0) |
 | L8 | section 9.2 needs 20 words or more (found 0) |
 | L9 | section 10 has 0 words, the task asks for 80-150 |
