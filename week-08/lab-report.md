@@ -862,10 +862,346 @@ Rerun the test that was failing, then the full suite.
 
 ### 8.1 The BUG-A patch
 
-The change as a diff (`git diff`, or the old and the new line), then the real run:
+The helper applied the reviewed one-line BUG-A patch. The full run still exposes BUG-B.
+
+```diff
+warning: in the working copy of 'week-08/app/src/booking.ts', LF will be replaced by CRLF the next time Git touches it
+diff --git a/week-08/app/src/booking.ts b/week-08/app/src/booking.ts
+index e0f046d..4ea478a 100644
+--- a/week-08/app/src/booking.ts
++++ b/week-08/app/src/booking.ts
+@@ -26,7 +26,7 @@ export function canBook({ start, end, now, blocked, bookings }: {
+   if (end - start > 120) return false;
+   if (blocked) return false;
+   for (const b of bookings) {
+-    if (start <= b.end && end >= b.start) return false;
++    if (start < b.end && end > b.start) return false;
+   }
+   // keep the room's list current with the slot that was just found free
+   bookings.push({ start, end });
+```
 
 ```text
-(paste here)
+
+ RUN  v5.1.0 C:/Users/777/Desktop/SE/software-engineering-practice/week-08/app
+
+ ✓ src/booking.test.ts (29 tests | 28 skipped) 2ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 28 skipped (29)
+   Start at  22:54:08
+   Duration  1.30s (transform 53%, import 32%, worker 11%, tests 4%)
+```
+
+```text
+
+ RUN  v5.1.0 C:/Users/777/Desktop/SE/software-engineering-practice/week-08/app
+
+ ❯ src/booking.test.ts (29 tests | 10 failed) 15ms
+   ❯ canBook — reviewed booking cases (29)
+     × T01 AC4: allows touching after an existing booking 6ms
+     ✓ T02 AC1: rejects a request starting exactly now 0ms
+     ✓ T03 AC1: rejects zero duration 0ms
+     ✓ T04 AC1: rejects an end before the start 0ms
+     ✓ T05 AC1: rejects an end past minute 1440 0ms
+     × T06 AC2: allows exactly 120 minutes 1ms
+     ✓ T07 AC2: rejects 121 minutes 0ms
+     × T08 AC4: allows touching before an existing booking 1ms
+     ✓ T09 AC4: rejects a partial overlap 0ms
+     ✓ T10 AC4: rejects a request containing an existing booking 0ms
+     ✓ T11 AC4: rejects a request inside an existing booking 0ms
+     ✓ T12 AC4: rejects an identical interval 0ms
+     ✓ T13 AC3: rejects a blocked room for an otherwise valid request 0ms
+     × T14 AC4: allows a valid request when there are no existing bookings 1ms
+     × AC5: repeated Available decisions preserve unsorted booking data 1ms
+     × X1 AC1: allows an end exactly at minute 1440 0ms
+     ✓ X2 AC4: rejects an overlap with the second booking 0ms
+     ✓ T15 AC1: rejects a request starting one minute before now 0ms
+     × T16 AC1: allows a request starting one minute after now 1ms
+     ✓ T17 AC1: rejects a negative start minute 0ms
+     ✓ T18 AC1: rejects minute zero when the supplied current time is zero 0ms
+     × T19 AC1: allows a one-minute booking just after midnight 0ms
+     ✓ T20 AC4: rejects a one-minute overlap at the existing booking end 0ms
+     ✓ T21 AC4: rejects a one-minute overlap at the existing booking start 0ms
+     ✓ T22 AC4: rejects an earlier conflict despite a later nonconflicting booking 0ms
+     × T23 AC4: allows a gap touching both bookings in an unsorted schedule 0ms
+     ✓ T24 AC3: rejects a blocked room even with no existing bookings 0ms
+     ✓ BUG-A AC4: allows a gap touching two neighbours in a three-booking schedule 0ms
+     × BUG-B AC5: a non-touching Available request leaves bookings unchanged 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T01 AC4: allows touching after an existing booking
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 720,
++     "start": 660,
++   },
+  ]
+
+ ❯ src/booking.test.ts:31:30
+     29|
+     30|     expect(canBook(request)).toBe(true);
+     31|     expect(request.bookings).toEqual(before);
+       |                              ^
+     32|   });
+     33|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T06 AC2: allows exactly 120 minutes
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 840,
++     "start": 720,
++   },
+  ]
+
+ ❯ src/booking.test.ts:71:30
+     69|
+     70|     expect(canBook(request)).toBe(true);
+     71|     expect(request.bookings).toEqual(before);
+       |                              ^
+     72|   });
+     73|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T08 AC4: allows touching before an existing booking
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 600,
++     "start": 570,
++   },
+  ]
+
+ ❯ src/booking.test.ts:87:30
+     85|
+     86|     expect(canBook(request)).toBe(true);
+     87|     expect(request.bookings).toEqual(before);
+       |                              ^
+     88|   });
+     89|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T14 AC4: allows a valid request when there are no existing bookings
+AssertionError: expected [ { start: 630, end: 690 } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "end": 690,
++     "start": 630,
++   },
++ ]
+
+ ❯ src/booking.test.ts:135:30
+    133|
+    134|     expect(canBook(request)).toBe(true);
+    135|     expect(request.bookings).toEqual(before);
+       |                              ^
+    136|   });
+    137|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > AC5: repeated Available decisions preserve unsorted booking data
+AssertionError: expected [ { start: 900, end: 960 }, …(2) ] to deeply equal [ { start: 900, end: 960 }, …(1) ]
+
+- Expected
++ Received
+
+@@ -5,6 +5,10 @@
+    },
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 870,
++     "start": 810,
++   },
+  ]
+
+ ❯ src/booking.test.ts:149:30
+    147|
+    148|     expect(canBook(request)).toBe(true);
+    149|     expect(request.bookings).toEqual(before);
+       |                              ^
+    150|     expect(canBook(request)).toBe(true);
+    151|     expect(request.bookings).toEqual(before);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > X1 AC1: allows an end exactly at minute 1440
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 1440,
++     "start": 1380,
++   },
+  ]
+
+ ❯ src/booking.test.ts:159:30
+    157|
+    158|     expect(canBook(request)).toBe(true);
+    159|     expect(request.bookings).toEqual(before);
+       |                              ^
+    160|   });
+    161|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T16 AC1: allows a request starting one minute after now
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 570,
++     "start": 541,
++   },
+  ]
+
+ ❯ src/booking.test.ts:188:30
+    186|
+    187|     expect(canBook(request)).toBe(true);
+    188|     expect(request.bookings).toEqual(before);
+       |                              ^
+    189|   });
+    190|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T19 AC1: allows a one-minute booking just after midnight
+AssertionError: expected [ { start: 1, end: 2 } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "end": 2,
++     "start": 1,
++   },
++ ]
+
+ ❯ src/booking.test.ts:213:30
+    211|
+    212|     expect(canBook(request)).toBe(true);
+    213|     expect(request.bookings).toEqual(before);
+       |                              ^
+    214|   });
+    215|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T23 AC4: allows a gap touching both bookings in an unsorted schedule
+AssertionError: expected [ { start: 720, end: 780 }, …(2) ] to deeply equal [ { start: 720, end: 780 }, …(1) ]
+
+- Expected
++ Received
+
+@@ -5,6 +5,10 @@
+    },
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 720,
++     "start": 660,
++   },
+  ]
+
+ ❯ src/booking.test.ts:255:30
+    253|
+    254|     expect(canBook(request)).toBe(true);
+    255|     expect(request.bookings).toEqual(before);
+       |                              ^
+    256|   });
+    257|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > BUG-B AC5: a non-touching Available request leaves bookings unchanged
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 780,
++     "start": 720,
++   },
+  ]
+
+ ❯ src/booking.test.ts:284:22
+    282|
+    283|     expect(canBook(request)).toBe(true);
+    284|     expect(bookings).toEqual(before);
+       |                      ^
+    285|   });
+    286| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  10 failed | 19 passed (29)
+   Start at  22:54:10
+   Duration  487ms (tests 38%, import 28%, transform 18%, worker 16%)
 ```
 
 ### 8.2 The BUG-B patch and the final run
