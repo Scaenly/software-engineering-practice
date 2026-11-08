@@ -1,0 +1,285 @@
+
+ RUN  v5.1.0 /workspace/scratch/5290b5ee4677/repo/week-08/app
+
+ ❯ src/booking.test.ts (29 tests | 11 failed) 22ms
+   ❯ canBook — reviewed booking cases (29)
+     × T01 AC4: allows touching after an existing booking 7ms
+     × T06 AC2: allows exactly 120 minutes 2ms
+     × T08 AC4: allows touching before an existing booking 1ms
+     × T14 AC4: allows a valid request when there are no existing bookings 1ms
+     × AC5: repeated Available decisions preserve unsorted booking data 2ms
+     × X1 AC1: allows an end exactly at minute 1440 1ms
+     × T16 AC1: allows a request starting one minute after now 1ms
+     × T19 AC1: allows a one-minute booking just after midnight 0ms
+     × T23 AC4: allows a gap touching both bookings in an unsorted schedule 0ms
+     × BUG-A AC4: allows a gap touching two neighbours in a three-booking schedule 0ms
+     × BUG-B AC5: a non-touching Available request leaves bookings unchanged 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T01 AC4: allows touching after an existing booking
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/booking.test.ts:30:30
+     28|     const before = structuredClone(request.bookings);
+     29|
+     30|     expect(canBook(request)).toBe(true);
+       |                              ^
+     31|     expect(request.bookings).toEqual(before);
+     32|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T06 AC2: allows exactly 120 minutes
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 840,
++     "start": 720,
++   },
+  ]
+
+ ❯ src/booking.test.ts:71:30
+     69|
+     70|     expect(canBook(request)).toBe(true);
+     71|     expect(request.bookings).toEqual(before);
+       |                              ^
+     72|   });
+     73|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T08 AC4: allows touching before an existing booking
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/booking.test.ts:86:30
+     84|     const before = structuredClone(request.bookings);
+     85|
+     86|     expect(canBook(request)).toBe(true);
+       |                              ^
+     87|     expect(request.bookings).toEqual(before);
+     88|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T14 AC4: allows a valid request when there are no existing bookings
+AssertionError: expected [ { start: 630, end: 690 } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "end": 690,
++     "start": 630,
++   },
++ ]
+
+ ❯ src/booking.test.ts:135:30
+    133|
+    134|     expect(canBook(request)).toBe(true);
+    135|     expect(request.bookings).toEqual(before);
+       |                              ^
+    136|   });
+    137|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > AC5: repeated Available decisions preserve unsorted booking data
+AssertionError: expected [ { start: 900, end: 960 }, …(2) ] to deeply equal [ { start: 900, end: 960 }, …(1) ]
+
+- Expected
++ Received
+
+@@ -5,6 +5,10 @@
+    },
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 870,
++     "start": 810,
++   },
+  ]
+
+ ❯ src/booking.test.ts:149:30
+    147|
+    148|     expect(canBook(request)).toBe(true);
+    149|     expect(request.bookings).toEqual(before);
+       |                              ^
+    150|     expect(canBook(request)).toBe(true);
+    151|     expect(request.bookings).toEqual(before);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > X1 AC1: allows an end exactly at minute 1440
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 1440,
++     "start": 1380,
++   },
+  ]
+
+ ❯ src/booking.test.ts:159:30
+    157|
+    158|     expect(canBook(request)).toBe(true);
+    159|     expect(request.bookings).toEqual(before);
+       |                              ^
+    160|   });
+    161|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T16 AC1: allows a request starting one minute after now
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 570,
++     "start": 541,
++   },
+  ]
+
+ ❯ src/booking.test.ts:188:30
+    186|
+    187|     expect(canBook(request)).toBe(true);
+    188|     expect(request.bookings).toEqual(before);
+       |                              ^
+    189|   });
+    190|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T19 AC1: allows a one-minute booking just after midnight
+AssertionError: expected [ { start: 1, end: 2 } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "end": 2,
++     "start": 1,
++   },
++ ]
+
+ ❯ src/booking.test.ts:213:30
+    211|
+    212|     expect(canBook(request)).toBe(true);
+    213|     expect(request.bookings).toEqual(before);
+       |                              ^
+    214|   });
+    215|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > T23 AC4: allows a gap touching both bookings in an unsorted schedule
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/booking.test.ts:254:30
+    252|     const before = structuredClone(request.bookings);
+    253|
+    254|     expect(canBook(request)).toBe(true);
+       |                              ^
+    255|     expect(request.bookings).toEqual(before);
+    256|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > BUG-A AC4: allows a gap touching two neighbours in a three-booking schedule
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/booking.test.ts:275:30
+    273|     });
+    274|
+    275|     expect(canBook(request)).toBe(true);
+       |                              ^
+    276|   });
+    277|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL  src/booking.test.ts > canBook — reviewed booking cases > BUG-B AC5: a non-touching Available request leaves bookings unchanged
+AssertionError: expected [ { start: 600, end: 660 }, …(1) ] to deeply equal [ { start: 600, end: 660 } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "end": 660,
+      "start": 600,
+    },
++   {
++     "end": 780,
++     "start": 720,
++   },
+  ]
+
+ ❯ src/booking.test.ts:284:22
+    282|
+    283|     expect(canBook(request)).toBe(true);
+    284|     expect(bookings).toEqual(before);
+       |                      ^
+    285|   });
+    286| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  11 failed | 18 passed (29)
+   Start at  17:50:57
+   Duration  322ms (transform 51%, tests 28%, import 16%, worker 5%)
+

@@ -1,0 +1,9 @@
+
+ RUN  v5.1.0 /workspace/scratch/5290b5ee4677/repo/week-08/app
+
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  17:50:24
+   Duration  265ms (transform 63%, import 16%, tests 14%, worker 6%, environment 1%)
+
