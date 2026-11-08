@@ -1,10 +1,10 @@
 ## What I built
 
-Continued the actual Week 07 Smart Campus app and preserved its 27 tests. The unchanged provided function failed 9/27 tests. After adding independent BUG-A and BUG-B regressions, it failed 11/29 tests. Compared two actual fresh-chat replies on identical inputs, using a declared prompt-only simulation for bug-detector. Fixed each bug with one changed line in its own commit. The final Windows suite passed 29/29 tests.
+Continued the actual Week 07 Smart Campus app and preserved its 27 tests. The unchanged provided function failed 9/27 tests. After adding independent BUG-A and BUG-B regressions, it failed 11/29 tests. Compared two actual fresh-chat replies on identical inputs, using a declared prompt-only simulation for bug-detector. Fixed each bug with one changed line in its own commit. The final Windows suite passed 29/29 tests. The final checker passed 31/31 checks and the declaration validator passed 15/15.
 
 ## AI tools used
 
-ChatGPT / Codex assisted preparation, regression tests, diagnostic inputs, comparison, repair automation and report drafting. ChatGPT provided the two diagnostic replies. Sections 9.2 and 10 were also drafted with AI at the student's explicit request. Exact model versions were not displayed in the supplied evidence. Contributions and process deviations are disclosed in week-08/AI_USAGE.md.
+ChatGPT / Codex assisted preparation, regression tests, diagnostic inputs, comparison, repair automation and report drafting. ChatGPT provided the two diagnostic replies. Codex also supplied suggested wording for sections 9.2 and 10 at the student's explicit request, including the published conclusion. Exact model versions were not displayed in the supplied evidence. Contributions and process deviations are disclosed in week-08/AI_USAGE.md.
 
 ## What the AI got wrong
 
@@ -12,11 +12,11 @@ Both replies correctly identified BUG-A and BUG-B but unnecessarily proposed del
 
 ## Time spent
 
-Manual active time: 5-6 hours.
+Manual active time: 5–6 hours (student estimate).
 
-AI-assisted active time: 2 hours.
+AI-assisted active time: 2 hours (student estimate).
 
-No measured breakdown or reliable numerical estimate was supplied, so durations are unavailable.
+These are retrospective student estimates; no measured time breakdown was kept.
 
 ## What I would do differently
 
