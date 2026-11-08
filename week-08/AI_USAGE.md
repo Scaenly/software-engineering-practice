@@ -33,4 +33,4 @@ Codex transcribed the two complete student-supplied diagnostic replies into evid
 
 ## Time accounting
 
-The student supplied retrospective estimates of 5–6 hours of manual work and 2 hours of AI-assisted work. No measured time breakdown was kept.
+The student supplied retrospective estimates of 5–6 hours of manual work and 3 hours of AI-assisted work. No measured time breakdown was kept.
