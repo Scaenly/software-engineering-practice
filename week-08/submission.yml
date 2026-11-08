@@ -23,7 +23,7 @@ checker:
   pass: 12
   fail: 11
   error: 8
-  commit: "458f600"
+  commit: "f250c9f"
   known_fails: [B3, B4, B5, K1, K2, K3, K4, K5, K6, K7, E1, R3, L3, L4, L5, L6, L7, L8, L9]
 verdict:
   skill_helped: # Student decision after the actual comparison: yes, no, or no-difference.
