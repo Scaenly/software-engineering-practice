@@ -14,7 +14,7 @@ Both replies correctly identified BUG-A and BUG-B but unnecessarily proposed del
 
 Manual active time: 5–6 hours (student estimate).
 
-AI-assisted active time: 2 hours (student estimate).
+AI-assisted active time: 3 hours (student estimate).
 
 These are retrospective student estimates; no measured time breakdown was kept.
 
