@@ -39,18 +39,18 @@ say what you changed.
 
 | Case | First run | Final run | What you changed |
 | --- | --- | --- | --- |
-| S01 | | | |
-| S02 | | | |
-| S03 | | | |
-| S04 | | | |
-| S05 | | | |
-| S06 | | | |
-| S07 | | | |
-| S08 | | | |
-| S09 | | | |
-| S10 | | | |
-| S11 | | | |
-| S12 | | | |
+| S01 | PASS | | |
+| S02 | PASS | | |
+| S03 | FAIL | | |
+| S04 | FAIL | | |
+| S05 | FAIL | | |
+| S06 | FAIL | | |
+| S07 | FAIL | | |
+| S08 | FAIL | | |
+| S09 | FAIL | | |
+| S10 | FAIL | | |
+| S11 | PASS | | |
+| S12 | FAIL | | |
 
 ## 4. Function calling — what the model wrote
 
