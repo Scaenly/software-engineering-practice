@@ -1,26 +1,16 @@
 # AI Usage Disclosure — Week 09
 
-Required by the course academic policy (Generative AI use level **D — AI-integrated**).
-You are responsible for the accuracy, testing and integrity of everything you submit,
-including anything an AI tool produced.
+AI use level D permits the assistance recorded below.
 
-| Tool | Exact model / plan | Used for | Which files it touched |
+| Tool | Exact model or plan | Used for | Files touched |
 | --- | --- | --- | --- |
-| | | Part 2 — writing the calls for R1, R2, R3 | calls/ (saved by me, unedited) |
-| | | | |
+| ChatGPT / Codex | GPT-6 family, exact version not displayed | Wrote the complete schema, ran both checkers, prepared the report and permission decisions, filled the declaration, and assembled the Git history and PR. | `tool/check_room.json`, `lab-report.md`, `AI_USAGE.md`, `submission.yml` |
+| ChatGPT in the browser | Not displayed | Part 2 attempt for R1 hit a sign-in prompt before a reply. R2 and R3 remain pending. | No call files produced. |
 
-**I wrote `tool/check_room.json` myself:** yes / no
-<!-- If an AI wrote or revised any of it, say which part, and how you checked it. -->
+- **I wrote `tool/check_room.json` myself** No. Codex drafted the complete definition and verified its shape against the provided twelve cases.
+- **I used an AI to explain a JSON Schema keyword or a check** Yes. Codex explained integer validation, inclusive bounds, required fields, and rejection of extra keys in report section 2.
+- **Every reply in `calls/` and in report section 4 is exactly what the model returned** No evidence available yet. There are no saved model replies.
+- **Every terminal output in the report was copied from a real, unedited run** Yes. Codex captured the starter, first definition, and current checker runs.
+- **Anything I accepted from AI without fully understanding it** Student review pending. The declaration records the AI contribution and does not attest to the student's understanding.
 
-**I used an AI to explain a JSON Schema keyword or a check:** yes / no
-<!-- If "yes": which one, and for what. -->
-
-**Every reply in `calls/` and in lab-report.md section 4 is exactly what the model returned:** yes / no
-
-**Every terminal output in lab-report.md was pasted from a real run, unedited:** yes / no
-
-**Anything I accepted from the AI without fully understanding it:**
-<!-- Name the file and the part. An honest entry here costs far less than a blank one that turns out to be untrue. -->
-
-Signed: <your name>
-Date:
+Prepared by ChatGPT / Codex on 17 November 2026. Student review and signature pending.
