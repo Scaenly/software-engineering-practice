@@ -1,0 +1,36 @@
+# Week 09 evidence declaration. R3 is pending; the validator flags D13 until a reply exists.
+schema: 1
+week: "09"
+
+student:
+  name: "Yerassyl Arystanbek"
+  student_id: "24B030280"
+  github: "Scaenly"
+
+assistant:
+  tool: "ChatGPT"
+  model: "not displayed"
+  fresh_chats: no
+
+calls:
+  r3: pending
+  first_run_s_fails: 9
+
+checker:
+  pass: 22
+  fail: 1
+  error: 7
+  commit: "bf88853"
+  known_fails: [F1, F2, F3, F4, F5, F6, F7, L5]
+
+review_findings:
+  - "S03: an integer constraint rejects a clock string while preserving valid minute numbers."
+  - "S11: the inclusive upper bound keeps 1440 valid as the end of the day."
+  - "R2: valid arguments can represent a blocked room and a duration over 120 minutes."
+  - "A5: a hard reset can discard unrelated tracked edits from both the index and the working tree."
+
+honesty:
+  definition_written_by_me: no
+  calls_unedited: no
+  outputs_unedited: yes
+  ai_usage_disclosed: yes

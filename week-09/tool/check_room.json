@@ -1,0 +1,27 @@
+{
+  "name": "check_room",
+  "description": "Check whether the requested interval is available for one room using the supplied current time, blocked status, and existing bookings. Give all times as whole minutes since midnight in the inclusive range 0–1440. The tool returns Available or Unavailable and does not save or create a booking.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "start": { "type": "integer", "minimum": 0, "maximum": 1440 },
+      "end": { "type": "integer", "minimum": 0, "maximum": 1440 },
+      "now": { "type": "integer", "minimum": 0, "maximum": 1440 },
+      "blocked": { "type": "boolean" },
+      "bookings": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "start": { "type": "integer", "minimum": 0, "maximum": 1440 },
+            "end": { "type": "integer", "minimum": 0, "maximum": 1440 }
+          },
+          "required": ["start", "end"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": ["start", "end", "now", "blocked", "bookings"],
+    "additionalProperties": false
+  }
+}
