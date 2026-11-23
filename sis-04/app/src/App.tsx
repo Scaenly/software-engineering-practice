@@ -48,7 +48,7 @@ export default function App({ catalog = ROOMS }: { catalog?: Room[] } = {}) {
 
             <p className="mt-1 max-w-2xl text-sm text-slate-600">
               Check whether a room is free for your requested time slot before
-              booking it. Touching endpoints are allowed; bookings are capped at
+              booking it. Touching endpoints are allowed; bookings are capped at{' '}
               {MAX_BOOKING_MINUTES} minutes.
             </p>
           </div>
@@ -99,7 +99,7 @@ export default function App({ catalog = ROOMS }: { catalog?: Room[] } = {}) {
               </h2>
 
               <p className="mt-1 text-xs text-slate-500">
-                Times are 24-hour. A slot must start after the current time and
+                A slot must start after the current time and
                 end within the day (00:00–24:00).
               </p>
 
