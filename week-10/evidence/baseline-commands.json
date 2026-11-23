@@ -1,0 +1,32 @@
+[
+  {
+    "command": "npx vitest run",
+    "exit_code": 0,
+    "log": "baseline-vitest.txt"
+  },
+  {
+    "command": "npm test",
+    "exit_code": 0,
+    "log": "baseline-npm-test.txt"
+  },
+  {
+    "command": "npm run test:unit",
+    "exit_code": 1,
+    "log": "baseline-missing-test-unit.txt"
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0,
+    "log": "baseline-build.txt"
+  },
+  {
+    "command": "npm run lint",
+    "exit_code": 1,
+    "log": "baseline-lint.txt"
+  },
+  {
+    "command": "npm run typecheck",
+    "exit_code": 0,
+    "log": "baseline-typecheck.txt"
+  }
+]

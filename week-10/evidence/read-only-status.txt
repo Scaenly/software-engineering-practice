@@ -1,0 +1,3 @@
+Before read-only review: git status --short -- week-10/app
+After read-only review: git status --short -- week-10/app
+No tracked or untracked changes in app/. This was a read-only tool phase, not a claimed separate Plan-mode session.

@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { canBook } from './booking';
+import { getAvailabilityReasons } from './availability';
 
 type BookingRequest = Parameters<typeof canBook>[0];
 
@@ -23,6 +24,20 @@ function freshRequest(
 // AC6 and the visible AC5 labels need separate page checks.
 // Invalid existing bookings have no specified expected decision and are omitted.
 describe('canBook — reviewed booking cases', () => {
+  test('R1 AC6: a rejected invalid interval has an explanation without mutating fixtures', () => {
+    const request = freshRequest(Number.NaN, 720);
+    const room = { id: 'r1', name: 'Demo Room', building: 'Demo', capacity: 12, blocked: false };
+    const bookings = request.bookings.map((booking, index) => ({
+      ...booking, id: `b${index}`, roomId: room.id, title: 'Fictional booking',
+    }));
+    const before = structuredClone(bookings);
+
+    expect(canBook(request)).toBe(false);
+    expect(getAvailabilityReasons(room, request.start, request.end, request.now, bookings))
+      .toContain('Interval must satisfy 0 ≤ start < end ≤ 1440 minutes.');
+    expect(bookings).toEqual(before);
+  });
+
   test('T01 AC4: allows touching after an existing booking', () => {
     const request = freshRequest(660, 720);
     const before = structuredClone(request.bookings);
