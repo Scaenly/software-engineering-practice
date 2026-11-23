@@ -1,0 +1,44 @@
+schema: 1
+week: "10"
+student:
+  name: Yerassyl Arystanbek
+  student_id: 24B030280
+  github: Scaenly
+assistant:
+  tool: ChatGPT / Codex
+  model: not displayed
+  environment: other
+project:
+  starting_point: week-08
+  baseline_commit: 362579c
+  language: ts
+  vitest: 5.1.0
+counts:
+  claims_challenged: 8
+  risks_registered: 6
+  risks_confirmed: 5
+  tests_final: 30
+  agents_lines_changed: 9
+audit:
+  level: 1
+decision:
+  top_two: [R2, R1]
+  mitigated: [R2, R1]
+  release: no-go
+checker:
+  pass: 31
+  fail: 0
+  error: 0
+  commit: e58f828
+  known_fails: []
+review_findings:
+  - R1: duplicated interval checks disagree on NaN feedback; the current UI parser limits reachability.
+  - R2: AGENTS.md permits forbidden scope expansion and publication; the student approved the minimal patch.
+  - R3: src/sampleData.ts had five rooms; the extra scope correction leaves one fictional room.
+  - R4: no push CI exists; local test success is not evidence that CI ran.
+  - R5: src/App.tsx does not invalidate saved feedback when the clock changes; timed UI verification remains unrun.
+honesty:
+  review_was_read_only: yes
+  agents_patch_approved_by_me: yes
+  outputs_unedited: yes
+  ai_usage_disclosed: yes
