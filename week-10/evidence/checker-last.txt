@@ -1,0 +1,38 @@
+Week 10 - risk review: the project, the playbook, the evidence, the report
+
+PASS   B1   project in app/: package.json and canBook                              app/src/booking.ts, canBook
+PASS   B2   export is clean: no node_modules, no .env, under 5 MB                  clean
+PASS   S1   suite imports vitest and the real canBook, nothing mocked or skipped   app/src/booking.test.ts: 30 tests, real canBook
+PASS   S2   a regression test named after a risk you mitigated                     R1: "R1 AC6: a rejected invalid interval has an explanation witho"
+PASS   A1   app/AGENTS.md exists                                                   app/AGENTS.md
+PASS   A2   a minimal patch of provided/AGENTS.md (1-14 lines, headings kept)      9 line(s) changed, headings kept
+PASS   A3   every command AGENTS.md names exists in package.json                   every command it names exists
+PASS   C1   constraint: one fictional room, no real data                           one fictional room
+PASS   C2   constraint: no login, no database                                      login and database forbidden
+PASS   C3   constraint: AC1-AC6 preserved, AC4 as the contract says                AC1-AC6 listed, AC4 allows touching
+PASS   C4   constraint: no secrets                                                 secrets forbidden
+PASS   C5   constraint: no external deployments                                    deployment forbidden
+PASS   C6   constraint: run the tests before proposing acceptance                  "- Run the tests and build before proposing acceptance; all tests must "
+ERROR  E1   UI check screenshot: evidence/ui-desktop.png                           evidence/ui-desktop.png not found - the manual UI check (Part 7)
+ERROR  E2   UI check screenshot: evidence/ui-mobile.png                            evidence/ui-mobile.png not found - the manual UI check (Part 7)
+PASS   R1   report 2.2: the baseline Vitest run                                    29 passed, 0 failed (29)
+PASS   R2   report 7.1: the regression test fails before the mitigation            R1 fails before the mitigation
+PASS   R3   report 8.4: the final run, all passing, same suite                     30 passed (30)
+PASS   L1   report 1: assistant, model, where, starting point, checkpoint, Vitest  setup recorded
+PASS   L2   report 2.1-2.3: baseline commands; the agent reads AGENTS.md           five commands recorded; the agent's summary of AGENTS.md judged
+PASS   L3   report 3.1: the review prompt as sent, read-only, and the answer       prompt as sent, read-only, answer
+PASS   L4   report 3.2: 5+ AI claims challenged, 3+ categories, labelled           8 claims, 5 categories
+PASS   L5   report 4.1: the register - 5+ risks, scores = L x I, real components   6 risks, 5 confirmed, 5 categories
+PASS   L6   report 4.2: the top two are confirmed and the highest                  R2, R1
+PASS   L7   report 5.1: twelve audit rows, consistent with app/                    twelve rows, consistent with app/
+PASS   L8   report 5.2: the level follows the 80% rule; gaps named                 Level 1, gaps named
+PASS   L9   report 6: playbook prompt, answer, decisions, the approved diff        prompt, answer, 9 decisions, diff
+PASS   L10  report 7.2-7.3: UI check at two widths; tests not run                  two widths checked, tests not run listed
+PASS   L11  report 8: two mitigations, one the refactor; residual revised          R2 and R1 mitigated, residual revised
+PASS   L12  report 9.1: six background-agent rules                                 six rules
+PASS   L13  report 10: decision consistent, 80-150 words, two risk IDs             NO-GO, 112 words, R1, R2, R4, R5
+------------------------------------------------------------------------------
+SUMMARY pass=29 fail=0 error=2   (31 checks)
+AGENTS.md lines changed (submission.yml counts.agents_lines_changed): 9
+Every FAIL or ERROR you keep goes in lab-report.md section 9.3 and in submission.yml known_fails.
+One you report and explain costs you nothing extra. One you hide costs the whole criterion.

@@ -1,0 +1,304 @@
+{
+  "ok": false,
+  "counts": {
+    "PASS": 29,
+    "FAIL": 0,
+    "ERROR": 2
+  },
+  "total": 31,
+  "rows": [
+    {
+      "id": "B1",
+      "title": "project in app/: package.json and canBook",
+      "verdict": "PASS",
+      "message": "app/src/booking.ts, canBook"
+    },
+    {
+      "id": "B2",
+      "title": "export is clean: no node_modules, no .env, under 5 MB",
+      "verdict": "PASS",
+      "message": "clean"
+    },
+    {
+      "id": "S1",
+      "title": "suite imports vitest and the real canBook, nothing mocked or skipped",
+      "verdict": "PASS",
+      "message": "app/src/booking.test.ts: 30 tests, real canBook"
+    },
+    {
+      "id": "S2",
+      "title": "a regression test named after a risk you mitigated",
+      "verdict": "PASS",
+      "message": "R1: \"R1 AC6: a rejected invalid interval has an explanation witho\""
+    },
+    {
+      "id": "A1",
+      "title": "app/AGENTS.md exists",
+      "verdict": "PASS",
+      "message": "app/AGENTS.md"
+    },
+    {
+      "id": "A2",
+      "title": "a minimal patch of provided/AGENTS.md (1-14 lines, headings kept)",
+      "verdict": "PASS",
+      "message": "9 line(s) changed, headings kept"
+    },
+    {
+      "id": "A3",
+      "title": "every command AGENTS.md names exists in package.json",
+      "verdict": "PASS",
+      "message": "every command it names exists"
+    },
+    {
+      "id": "C1",
+      "title": "constraint: one fictional room, no real data",
+      "verdict": "PASS",
+      "message": "one fictional room"
+    },
+    {
+      "id": "C2",
+      "title": "constraint: no login, no database",
+      "verdict": "PASS",
+      "message": "login and database forbidden"
+    },
+    {
+      "id": "C3",
+      "title": "constraint: AC1-AC6 preserved, AC4 as the contract says",
+      "verdict": "PASS",
+      "message": "AC1-AC6 listed, AC4 allows touching"
+    },
+    {
+      "id": "C4",
+      "title": "constraint: no secrets",
+      "verdict": "PASS",
+      "message": "secrets forbidden"
+    },
+    {
+      "id": "C5",
+      "title": "constraint: no external deployments",
+      "verdict": "PASS",
+      "message": "deployment forbidden"
+    },
+    {
+      "id": "C6",
+      "title": "constraint: run the tests before proposing acceptance",
+      "verdict": "PASS",
+      "message": "\"- Run the tests and build before proposing acceptance; all tests must \""
+    },
+    {
+      "id": "E1",
+      "title": "UI check screenshot: evidence/ui-desktop.png",
+      "verdict": "ERROR",
+      "message": "evidence/ui-desktop.png not found - the manual UI check (Part 7)"
+    },
+    {
+      "id": "E2",
+      "title": "UI check screenshot: evidence/ui-mobile.png",
+      "verdict": "ERROR",
+      "message": "evidence/ui-mobile.png not found - the manual UI check (Part 7)"
+    },
+    {
+      "id": "R1",
+      "title": "report 2.2: the baseline Vitest run",
+      "verdict": "PASS",
+      "message": "29 passed, 0 failed (29)"
+    },
+    {
+      "id": "R2",
+      "title": "report 7.1: the regression test fails before the mitigation",
+      "verdict": "PASS",
+      "message": "R1 fails before the mitigation"
+    },
+    {
+      "id": "R3",
+      "title": "report 8.4: the final run, all passing, same suite",
+      "verdict": "PASS",
+      "message": "30 passed (30)"
+    },
+    {
+      "id": "L1",
+      "title": "report 1: assistant, model, where, starting point, checkpoint, Vitest",
+      "verdict": "PASS",
+      "message": "setup recorded"
+    },
+    {
+      "id": "L2",
+      "title": "report 2.1-2.3: baseline commands; the agent reads AGENTS.md",
+      "verdict": "PASS",
+      "message": "five commands recorded; the agent's summary of AGENTS.md judged"
+    },
+    {
+      "id": "L3",
+      "title": "report 3.1: the review prompt as sent, read-only, and the answer",
+      "verdict": "PASS",
+      "message": "prompt as sent, read-only, answer"
+    },
+    {
+      "id": "L4",
+      "title": "report 3.2: 5+ AI claims challenged, 3+ categories, labelled",
+      "verdict": "PASS",
+      "message": "8 claims, 5 categories"
+    },
+    {
+      "id": "L5",
+      "title": "report 4.1: the register - 5+ risks, scores = L x I, real components",
+      "verdict": "PASS",
+      "message": "6 risks, 5 confirmed, 5 categories"
+    },
+    {
+      "id": "L6",
+      "title": "report 4.2: the top two are confirmed and the highest",
+      "verdict": "PASS",
+      "message": "R2, R1"
+    },
+    {
+      "id": "L7",
+      "title": "report 5.1: twelve audit rows, consistent with app/",
+      "verdict": "PASS",
+      "message": "twelve rows, consistent with app/"
+    },
+    {
+      "id": "L8",
+      "title": "report 5.2: the level follows the 80% rule; gaps named",
+      "verdict": "PASS",
+      "message": "Level 1, gaps named"
+    },
+    {
+      "id": "L9",
+      "title": "report 6: playbook prompt, answer, decisions, the approved diff",
+      "verdict": "PASS",
+      "message": "prompt, answer, 9 decisions, diff"
+    },
+    {
+      "id": "L10",
+      "title": "report 7.2-7.3: UI check at two widths; tests not run",
+      "verdict": "PASS",
+      "message": "two widths checked, tests not run listed"
+    },
+    {
+      "id": "L11",
+      "title": "report 8: two mitigations, one the refactor; residual revised",
+      "verdict": "PASS",
+      "message": "R2 and R1 mitigated, residual revised"
+    },
+    {
+      "id": "L12",
+      "title": "report 9.1: six background-agent rules",
+      "verdict": "PASS",
+      "message": "six rules"
+    },
+    {
+      "id": "L13",
+      "title": "report 10: decision consistent, 80-150 words, two risk IDs",
+      "verdict": "PASS",
+      "message": "NO-GO, 112 words, R1, R2, R4, R5"
+    }
+  ],
+  "measured": {
+    "app_root": "app",
+    "module": "app/src/booking.ts",
+    "suite": "app/src/booking.test.ts",
+    "tests_in_project": 30,
+    "risk_tests": [
+      "R1"
+    ],
+    "agents_lines_changed": 9,
+    "baseline_run": {
+      "failed": 0,
+      "passed": 29,
+      "skipped": 0,
+      "todo": 0,
+      "total": 29
+    },
+    "claims_challenged": 8,
+    "risks_registered": 6,
+    "risks_confirmed": 5,
+    "register": {
+      "R1": {
+        "status": "confirmed",
+        "L": 2,
+        "I": 2,
+        "score": 4
+      },
+      "R2": {
+        "status": "confirmed",
+        "L": 3,
+        "I": 3,
+        "score": 9
+      },
+      "R3": {
+        "status": "confirmed",
+        "L": 2,
+        "I": 2,
+        "score": 4
+      },
+      "R4": {
+        "status": "confirmed",
+        "L": 2,
+        "I": 2,
+        "score": 4
+      },
+      "R5": {
+        "status": "confirmed",
+        "L": 2,
+        "I": 2,
+        "score": 4
+      },
+      "R6": {
+        "status": "plausible",
+        "L": 1,
+        "I": 2,
+        "score": 2
+      }
+    },
+    "top_two": [
+      "R2",
+      "R1"
+    ],
+    "audit_answers": {
+      "1a": "no",
+      "1b": "yes",
+      "1c": "yes",
+      "1d": "yes",
+      "1e": "yes",
+      "2a": "no",
+      "2b": "yes",
+      "2c": "yes",
+      "3a": "no",
+      "3b": "no",
+      "3c": "yes",
+      "3d": "yes"
+    },
+    "audit_files": {
+      "1a": "no",
+      "1b": "yes",
+      "1c": "yes",
+      "1d": "yes",
+      "1e": "yes",
+      "2a": "no",
+      "2c": "yes",
+      "3b": "no"
+    },
+    "level_computed": 1,
+    "level_declared": 1,
+    "refactor_section": "8.2",
+    "mitigated": [
+      "R2",
+      "R1"
+    ],
+    "residual": {
+      "R2": 3,
+      "R1": 2,
+      "R3": 2
+    },
+    "final_run": {
+      "failed": 0,
+      "passed": 30,
+      "skipped": 0,
+      "todo": 0,
+      "total": 30
+    },
+    "release": "no-go",
+    "conclusion_words": 112
+  }
+}

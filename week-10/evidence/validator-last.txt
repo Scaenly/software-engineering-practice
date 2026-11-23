@@ -1,0 +1,19 @@
+Week 10 submission.yml - shape only, never quality   (submission.yml)
+
+PASS   D1   schema and week                                          schema 1, week 10
+PASS   D2   student.name                                             student.name: Yerassyl Arystanbek
+PASS   D3   student.student_id                                       student.student_id: 24B030280
+PASS   D4   student.github                                           student.github: Scaenly
+PASS   D5   assistant.tool                                           assistant.tool: ChatGPT / Codex
+PASS   D6   assistant.model is an exact model name or not displayed  assistant.model: not displayed
+PASS   D7   assistant.environment and project                        other, week-08, ts, Vitest 5.1.0
+PASS   D8   checker numbers add up                                   pass + fail + error = 31
+PASS   D9   checker numbers match a run made now                     declared 29/0/2, a run now gives 29/0/2
+PASS   D10  checker.commit                                           checker.commit: 0e2b9f0
+PASS   D11  known_fails lists exactly what still fails               known_fails matches the checker: ['E1', 'E2']
+PASS   D12  counts match the files and lab-report.md                 counts filled and match
+PASS   D13  audit and decision match lab-report.md                   Level 1, no-go
+PASS   D14  review_findings: three, each naming what it is about     5 review findings
+PASS   D15  honesty block answered                                   honesty block answered
+------------------------------------------------------------------------------
+SUMMARY pass=15 fail=0 error=0   (15 checks)

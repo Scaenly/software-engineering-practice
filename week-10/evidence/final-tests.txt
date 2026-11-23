@@ -1,0 +1,40 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+ RUN  v5.1.0 /workspace/scratch/425974ce3adc/project/week-10/app
+
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > R1 AC6: a rejected invalid interval has an explanation without mutating fixtures 5ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T01 AC4: allows touching after an existing booking 1ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T02 AC1: rejects a request starting exactly now 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T03 AC1: rejects zero duration 1ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T04 AC1: rejects an end before the start 1ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T05 AC1: rejects an end past minute 1440 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T06 AC2: allows exactly 120 minutes 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T07 AC2: rejects 121 minutes 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T08 AC4: allows touching before an existing booking 1ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T09 AC4: rejects a partial overlap 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T10 AC4: rejects a request containing an existing booking 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T11 AC4: rejects a request inside an existing booking 1ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T12 AC4: rejects an identical interval 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T13 AC3: rejects a blocked room for an otherwise valid request 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T14 AC4: allows a valid request when there are no existing bookings 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > AC5: repeated Available decisions preserve unsorted booking data 1ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > X1 AC1: allows an end exactly at minute 1440 4ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > X2 AC4: rejects an overlap with the second booking 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T15 AC1: rejects a request starting one minute before now 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T16 AC1: allows a request starting one minute after now 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T17 AC1: rejects a negative start minute 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T18 AC1: rejects minute zero when the supplied current time is zero 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T19 AC1: allows a one-minute booking just after midnight 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T20 AC4: rejects a one-minute overlap at the existing booking end 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T21 AC4: rejects a one-minute overlap at the existing booking start 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T22 AC4: rejects an earlier conflict despite a later nonconflicting booking 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T23 AC4: allows a gap touching both bookings in an unsorted schedule 4ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > T24 AC3: rejects a blocked room even with no existing bookings 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > BUG-A AC4: allows a gap touching two neighbours in a three-booking schedule 0ms
+ ✓ src/booking.test.ts > canBook — reviewed booking cases > BUG-B AC5: a non-touching Available request leaves bookings unchanged 0ms
+
+ Test Files  1 passed (1)
+      Tests  30 passed (30)
+   Start at  16:27:21
+   Duration  438ms (tests 34%, import 33%, transform 24%, worker 8%)
+
