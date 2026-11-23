@@ -1,35 +1,39 @@
 # AI Usage Disclosure — SIS #04
 
-Required by the course academic policy (Generative AI use level **D — AI-integrated**).
-You are responsible for the accuracy, testing and integrity of everything you submit,
-including anything an AI tool produced.
-
 | Tool | Exact model / plan | Date | Used for | Which files it touched |
 | --- | --- | --- | --- | --- |
-| | | | codebase analysis (Task 1) | |
-| | | | improvement plan | |
-| | | | feature extension (Task 2) | |
-| | | | refactoring (Task 3) | |
-| | | | tests (Task 4) | |
+| ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Reading the assignment and repository; risks and small-step plan | report.md sections 1–3 |
+| ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Room catalog, filters and selected-room checks | app/src/rooms.ts, filter.ts, booking.ts |
+| ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Refactoring, UI and diagrams | App.tsx, availability.ts, components/, diagrams/; removed sampleData.ts and types.ts |
+| ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Tests and actual automated runs | app/src/catalog.test.ts, App.test.tsx; boundary IDs in booking.test.ts; evidence/*.txt |
+| ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Technical report, declaration and PR preparation | report.md, AI_USAGE.md, submission.yml, app/README.md, tests/browser-smoke.cjs |
 
-<!-- Delete rows you did not use the assistant for; add rows for anything else. The optional
-     extension (an existing skill or a read-only MCP server) goes here too, with its permissions. -->
+The session identifies GPT-6; no more specific snapshot was displayed. No subagents were used.
+The initial message was the assignment, and later short user replies selected or discussed
+assistant questions. Section 8 identifies their exact origin and labels excerpts.
 
-**The assistant wrote, or helped write, tests in `app/`:** yes / no
-<!-- Either answer is allowed. If "yes": which tests, and how you checked that their EXPECTED values
-     come from AC1–AC5 and F1–F5, not from what the code happens to return. -->
+**The assistant wrote, or helped write, tests in app/:** yes. It added 14 catalog cases and
+three UI cases and labelled four existing boundary cases. Expected results are derived from
+AC1–AC5, F1–F5 and B1–B6 and mapped in report section 6.1. All 29 inherited cases remain.
 
-**Every run pasted in report.md was produced by my code on my machine (or Codespace), unedited:** yes / no
+**Every run pasted in report.md is unedited:** yes; the assistant ran them in the Codex Linux
+workspace. These were not runs personally executed on the student's computer.
 
-**Every number in report.md section 7 was measured the way its row says:** yes / no
+**Every number in report.md section 7 was measured the way its row says:** yes.
 
-**I shared no credentials, keys or private data with any tool:** yes / no
+**Credentials or keys supplied to the assistant:** none. The connected GitHub app was used to
+read and write this assignment branch and prepare its PR. No credential was extracted or pasted.
 
-**Everything I submitted, I can explain and defend in class — including filterRooms, checkRoom and
-why each module exists:** yes / no
+**Personal understanding and defence:** pending student review; no student signature is claimed.
+The assistant cannot verify that the student can explain every line.
 
-**Anything I accepted from the AI without fully understanding it:**
-<!-- Name the file and the line. An honest entry here costs far less than a blank one that turns out to be untrue. -->
+**Anything accepted without personal verification:** the new implementation, tests and report
+are assistant-prepared until the student reviews them. The assistant's automated checks are
+listed separately from personal verification.
 
-Signed: <your name>
-Date:
+**Incomplete work:** five real screenshots and the student's own reflection. Chromium launch
+failed; the failed output is saved. No image or successful browser run was fabricated.
+No new SKILL.md was submitted. The supplied checker, validator, README and starter are unchanged.
+
+Signature: pending student review
+Date prepared: 2026-11-23

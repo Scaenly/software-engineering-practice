@@ -1,0 +1,39 @@
+SIS #04 - the room catalog, the refactoring, the tests, the report
+
+PASS   A1   project in app/: package.json, src/booking with canBook                     app/src/booking.ts, canBook
+PASS   A2   src/rooms: ROOMS with 4+ rooms, every field                                 5 rooms, every field
+PASS   A3   src/filter: filterRooms reads capacity and equipment                        filterRooms reads capacity and equipment
+PASS   A4   checkRoom in src/booking reuses canBook with the chosen room                checkRoom reuses canBook
+PASS   A5   the UI imports the rules and holds no room data or rule of its own          UI in 9 file(s), rules imported
+PASS   A6   canBook still enforces AC1-AC5                                              AC1-AC5 rules in place
+PASS   A7   clean and in scope: no node_modules, .env, network, storage, login          clean, nothing out of scope
+PASS   A8   app/README.md: setup, run and test commands                                 app/README.md
+PASS   S1   test files import vitest and the real modules                               3 test file(s)
+PASS   S2   nothing mocked, skipped, focused or table-driven                            every test runs
+PASS   S3   10 tests or more                                                            46 tests
+PASS   S4   regression tests AC1-AC5                                                    AC1-AC5 each have a test
+PASS   S5   feature tests F1-F5 on filterRooms / checkRoom                              F1-F5 each have a test
+PASS   S6   boundary tests B1-B6                                                        B1-B6 each have a test
+PASS   S7   an INT integration or UI behaviour test                                     integration test present
+PASS   D1   diagrams/before.puml and after.puml are PlantUML                            two PlantUML diagrams
+PASS   D2   after.puml names rooms, booking, filter and the UI, and differs             the four parts are named
+ERROR  E1   evidence: filter-match and filter-empty                                     evidence/filter-match.png not found; evidence/filter-empty.png not found
+ERROR  E2   evidence: switch-a and switch-b                                             evidence/switch-a.png not found; evidence/switch-b.png not found
+ERROR  E3   evidence: narrow (portrait), five distinct screenshots                      evidence/narrow.png not found
+PASS   R1   report 1.1: the baseline run                                                29 passed (29)
+PASS   R2   report 6.3: the final run, all passing, same tests                          46 passed (46)
+PASS   R3   report 7: tests passed / total match the two runs                           29/29 -> 46/46, as the runs show
+PASS   L1   report 1: assistant, model, starting point, baseline commit                 setup recorded, starting from week-08
+PASS   L2   report 2: repository map and the context as sent                            map and context recorded
+PASS   L3   report 3.1: three or more risks, each with a file or function               4 risks, each located
+PASS   L4   report 3.2-3.3: a plan before editing, one suggestion rejected or modified  plan of 7 steps, a suggestion modified
+PASS   L5   report 4.2: what each screenshot shows                                      all five screenshots described
+PASS   L6   report 5: responsibilities, two design decisions, duplication               7 modules, 4 decisions, 5 duplicate(s) removed
+PASS   L7   report 6.1-6.2: the test plan and the commands                              every required ID planned, commands recorded
+PASS   L8   report 7: the quality table, with how each measure was obtained             four measures, each with how it was obtained
+PASS   L9   report 8: three or more AI exchanges, every field                           3 complete exchanges
+FAIL   L10  report 10: reflection of 200-300 words                                      section 10 has 28 words, the brief asks for 200-300
+------------------------------------------------------------------------------
+SUMMARY pass=29 fail=1 error=3   (33 checks)
+Every FAIL or ERROR you keep goes in report.md section 9 and in submission.yml known_fails.
+One you report and explain costs you nothing. One you hide costs the whole criterion.
