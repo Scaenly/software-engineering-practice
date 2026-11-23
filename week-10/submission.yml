@@ -10,7 +10,7 @@ assistant:
   environment: other
 project:
   starting_point: week-08
-  baseline_commit: 0ca9e73
+  baseline_commit: 362579c
   language: ts
   vitest: 5.1.0
 counts:
@@ -29,7 +29,7 @@ checker:
   pass: 29
   fail: 0
   error: 2
-  commit: 0e2b9f0
+  commit: f32fdb9
   known_fails: [E1, E2]
 review_findings:
   - R1: duplicated interval checks disagree on NaN feedback; the current UI parser limits reachability.

@@ -14,9 +14,11 @@ AI-assisted evidence report; personal review declarations are answered honestly 
 | Exact model (with its version, or `not displayed`) | not displayed |
 | Where the assistant read the project (Bolt.new / Claude Code / Cursor / Copilot / chat with pasted files) | ChatGPT Work Mode; project files explicitly read through terminal tools |
 | Starting point (`week-08` or `week-07`) | week-08, source c10411c13a437464cb0dad3ba86eb842c4708255 |
-| Baseline commit — the checkpoint of Part 0 | 0ca9e73 |
+| Baseline commit — the checkpoint of Part 0 | 362579c |
 | Where I ran the tests (Bolt terminal / my computer / Codespace) | Codex Linux workspace terminal, not the student's Windows VS Code terminal |
 | Vitest version (the `RUN  v…` line of a run) | 5.1.0 |
+
+Publication note: terminal push lacked GitHub authentication, so the six commits were recreated through the connected account with exactly matching trees. Their commit IDs changed; evidence/commit-import-map.json records every original and published ID and the matching tree. The original local checkpoint was 0ca9e73, where the baseline work began; its published equivalent is 362579c. Original run logs remain unedited. The differential comparison was rerun against the published checkpoint, with the original comparison also retained.
 
 Branch week-10 starts at main c47b254. The actual Week 08 app and its 29 inherited tests were copied before the supplied playbook was installed and checkpointed. The package lockfile and provided checker/validator are unchanged. Source fixtures unexpectedly contained five rooms: this was recorded as R3 and corrected separately, not silently described as a one-room baseline.
 
@@ -355,7 +357,7 @@ No successful rendered UI check or screenshot is claimed. The local Playwright l
 
 **Risk:** R2
 
-The playbook patch was drafted from the exact Part 6 prompt, shown for review, approved by the student and then applied in its own commit d1b5f4b. It counts as the required Agent operations mitigation. The code risk R1 is treated separately in section 8.2.
+The playbook patch was drafted from the exact Part 6 prompt, shown for review, approved by the student and then applied in its own commit d9918c5. It counts as the required Agent operations mitigation. The code risk R1 is treated separately in section 8.2.
 
 **Problem → pattern → benefit:** Not a code refactor; the mitigation is a focused policy correction.
 
@@ -600,7 +602,7 @@ index 0000000..df43958
 +}
 ```
 
-Additional scope correction, commit 0e2b9f0: R3's inherited five-room fixture was reduced to one fictional Demo Room and its unused second-room test fixture was removed. This changes scope deliberately and is not disguised as behavior-preserving refactoring. See evidence/R3-scope.diff. app/README.md and Week10.code-workspace document the actual commands and VS Code tasks.
+Additional scope correction, commit 17f5dbd: R3's inherited five-room fixture was reduced to one fictional Demo Room and its unused second-room test fixture was removed. This changes scope deliberately and is not disguised as behavior-preserving refactoring. See evidence/R3-scope.diff. app/README.md and Week10.code-workspace document the actual commands and VS Code tasks.
 
 ### 8.3 The residual risk
 

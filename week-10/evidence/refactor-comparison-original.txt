@@ -1,0 +1,3 @@
+PASS: 15870 canBook decisions match checkpoint 0ca9e73; fixtures unchanged.
+PASS: 10584 finite-input feedback results match checkpoint 0ca9e73.
+The intentional correction is invalid numeric feedback (R1); no valid UI behavior changed.

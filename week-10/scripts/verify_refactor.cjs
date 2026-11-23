@@ -8,7 +8,7 @@ const assert = require('node:assert/strict');
 const app = path.resolve(__dirname, '../app');
 const requireApp = createRequire(path.join(app, 'package.json'));
 const esbuild = requireApp('esbuild');
-const baseline = '0ca9e73';
+const baseline = '362579c';
 const temp = mkdtempSync(path.join(tmpdir(), 'week10-refactor-'));
 
 function load(file) {
