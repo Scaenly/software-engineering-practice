@@ -13,8 +13,8 @@ PASS   C3   constraint: AC1-AC6 preserved, AC4 as the contract says             
 PASS   C4   constraint: no secrets                                                 secrets forbidden
 PASS   C5   constraint: no external deployments                                    deployment forbidden
 PASS   C6   constraint: run the tests before proposing acceptance                  "- Run the tests and build before proposing acceptance; all tests must "
-ERROR  E1   UI check screenshot: evidence/ui-desktop.png                           evidence/ui-desktop.png not found - the manual UI check (Part 7)
-ERROR  E2   UI check screenshot: evidence/ui-mobile.png                            evidence/ui-mobile.png not found - the manual UI check (Part 7)
+PASS   E1   UI check screenshot: evidence/ui-desktop.png                           evidence/ui-desktop.png
+PASS   E2   UI check screenshot: evidence/ui-mobile.png                            evidence/ui-mobile.png
 PASS   R1   report 2.2: the baseline Vitest run                                    29 passed, 0 failed (29)
 PASS   R2   report 7.1: the regression test fails before the mitigation            R1 fails before the mitigation
 PASS   R3   report 8.4: the final run, all passing, same suite                     30 passed (30)
@@ -32,7 +32,6 @@ PASS   L11  report 8: two mitigations, one the refactor; residual revised       
 PASS   L12  report 9.1: six background-agent rules                                 six rules
 PASS   L13  report 10: decision consistent, 80-150 words, two risk IDs             NO-GO, 112 words, R1, R2, R4, R5
 ------------------------------------------------------------------------------
-SUMMARY pass=29 fail=0 error=2   (31 checks)
+SUMMARY pass=31 fail=0 error=0   (31 checks)
 AGENTS.md lines changed (submission.yml counts.agents_lines_changed): 9
-Every FAIL or ERROR you keep goes in lab-report.md section 9.3 and in submission.yml known_fails.
-One you report and explain costs you nothing extra. One you hide costs the whole criterion.
+Files and shape are clean. Whether your risks are the right ones is the grader's reading, not this.

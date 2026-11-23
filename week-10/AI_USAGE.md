@@ -24,7 +24,7 @@ Course policy: Level D. This file distinguishes executed assistant work from stu
 
 **Anything I accepted from the AI without fully understanding it:** not yet declared by the student. Review the shared-predicate diff, the limited reachability of the NaN regression, all risk scores, and the remaining UI/CI/clock limitations before submission. No student understanding or signature is fabricated.
 
-The UI attempts did not succeed: Chromium launch was denied socket creation and the separate browser could not reach loopback. Desktop/mobile screenshot failures E1 and E2 remain openly declared. No screenshot or manual UI success was invented. No production service was used, no background agent was spawned and no merge or deployment was performed.
+The initial assistant UI attempts failed: Chromium launch was denied socket creation and the separate browser could not reach loopback. The student later ran the page locally on Windows and supplied real desktop and responsive-mobile screenshots. Both show the 11:00–12:00 Available result in the existing test mode; mobile's toolbar records a 390 × 844 CSS-pixel viewport. Desktop's exact CSS viewport width was not recorded. E1 and E2 now pass and the current audit has 31 PASS / 0 FAIL / 0 ERROR. The assistant updated the report and PR description to reflect this evidence and reran the provided checker and validator. The earlier failed attempts remain historical facts, not current missing-screenshot claims. No student source/diff review is certified by those UI checks. No production service was used, no background agent was spawned and no merge or deployment was performed.
 
 Prepared for: Yerassyl Arystanbek. Student signature remains pending.
 Date: 2026-11-23

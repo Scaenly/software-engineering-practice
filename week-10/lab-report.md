@@ -137,7 +137,7 @@ The register records baseline findings. Scores describe this classroom prototype
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | R1 | Maintainability | Duplicated predicates → decision and feedback drift → unexplained rejection | src/booking.ts canBook; src/availability.ts getAvailabilityReasons | NaN start rejects with empty reasons in the red regression run; present parser rejects invalid strings | confirmed | 2 | 2 | 4 | Extract shared pure predicates and use them in both callers | Student maintainer | R1 regression; all inherited assertions; differential comparison |
 | R2 | Agent operations | Contradictory playbook → agent follows forbidden instructions → scope expansion or publication | AGENTS.md | Initial file asks for real data, login/database and production publication, and names missing test:unit | confirmed | 3 | 3 | 9 | Apply the explicitly approved minimal playbook patch | Student maintainer | Review diff; C1-C6 and A1-A3 checker results; real npm test/build |
-| R3 | Correctness | Five inherited fixtures → multi-room page → Week 10 scope violated | src/sampleData.ts; src/App.tsx | Five SAMPLE_ROOMS entries and a second test-room fixture at checkpoint | confirmed | 2 | 2 | 4 | Restore one fictional room, remove unrelated fixture entries | Student maintainer | Source diff and fixture count; UI still awaits manual verification |
+| R3 | Correctness | Five inherited fixtures → multi-room page → Week 10 scope violated | src/sampleData.ts; src/App.tsx | Five SAMPLE_ROOMS entries and a second test-room fixture at checkpoint | confirmed | 2 | 2 | 4 | Restore one fictional room, remove unrelated fixture entries | Student maintainer | Source diff, fixture count and student-supplied desktop/mobile screenshots showing one Demo Room |
 | R4 | Reliability | No push workflow → a future change bypasses local tests → regression reaches review | missing: CI test/typecheck/lint/build workflow | No tracked .github/workflows on main or in app | confirmed | 2 | 2 | 4 | Keep local acceptance gate; add CI in a later approved task | Student maintainer, before production release | Inspect actual workflow and its run logs when added |
 | R5 | Correctness | Clock advances → saved result is stale → user trusts an expired decision | src/App.tsx useNowMinutes and result state | Timer updates now; no result invalidation on clock update | confirmed | 2 | 2 | 4 | User must rerun the check; plan controlled-clock regression before a focused fix | Student maintainer, before production release | Future browser test across a minute boundary; not run now |
 | R6 | Security | Unscanned dependency set → possible vulnerable package remains unnoticed → prototype integrity affected | missing: dependency security scan | Committed lockfile exists but no security-scan output was supplied or run | plausible | 1 | 2 | 2 | Review a dependency scan before any production reuse | Student maintainer | Scan output and reviewed findings; no invented vulnerability |
@@ -178,7 +178,7 @@ Level 1: 4/5 = 80%, reached. Level 2: 2/3, below 80%; three out of three are req
 
 **Missing evidence for the next level:** Row 2a needs a committed .env.example; if no settings are required, it can explicitly document that fact without credentials. Level 3 would additionally need a real push workflow (3a) and pre-commit hooks (3b), with passing execution evidence. Missing formatter row 1a remains a gap even though Level 1 meets its threshold.
 
-The baseline had no app README. The final README matches the current one-room fixtures, real commands and pure module layout, and openly documents the clock simulation and stale-result limitation. The app/src, evidence and provided/tests layout is clear. Its example UI behavior is based on source/tests and still needs the manual browser check.
+The baseline had no app README. The final README matches the current one-room fixtures, real commands and pure module layout, and openly documents the clock simulation and stale-result limitation. The app/src, evidence and provided/tests layout is clear. The student has now captured the documented 11:00–12:00 Available example on desktop and responsive mobile; no rendered overlap-rejection result is shown in those screenshots.
 
 ## 6. Task 6 — the agent playbook
 
@@ -333,16 +333,16 @@ AssertionError: expected [] to include 'Interval must satisfy 0 ≤ start < end�
 
 ### 7.2 The manual UI check
 
-No successful rendered UI check or screenshot is claimed. The local Playwright launch failed because the runtime denied Chromium's socket creation. The separate browser could not reach the workspace's loopback server. These are environment limitations, not evidence that the UI passes or fails. Real screenshots must be added from the student's browser.
+The initial assistant browser attempts failed because of runtime restrictions. The student then ran the page locally on Windows, used the existing ?test=1 mode, and supplied real desktop and responsive-mobile screenshots. Both show current time 09:00, one fictional Demo Room, the 10:00–11:00 fixture and a successful 11:00–12:00 request. The visible text, fields, button and result fit without visible overlap. This records the supplied views; it does not claim a full accessibility audit or an unrecorded viewport measurement.
 
 | View | Width | What I checked | Result | Screenshot |
 | --- | --- | --- | --- | --- |
-| Desktop | intended 1440 px | Planned: one room, 11:00–12:00 Available, labels/layout and no clipping with ?test=1 | not run; browser execution unavailable | `evidence/ui-desktop.png` missing |
-| Mobile | intended 390 px | Planned: 10:30–11:30 overlap rejection, reason text, inputs and no horizontal overflow | not run; phone-width emulation unavailable | `evidence/ui-mobile.png` missing |
+| Desktop | 1909 × 1133 image pixels; exact CSS viewport width not recorded | One room, 11:00–12:00 Available, readable labels, fields, button and result | pass for the visible view | `evidence/ui-desktop.png` |
+| Mobile | 390 × 844 CSS px, visible in the device toolbar | One room, stacked layout, 11:00–12:00 Available; fields and result fit the mobile view | pass for the visible view | `evidence/ui-mobile.png` |
 
 ### 7.3 Tests and checks I did not run
 
-- Desktop and mobile visual checks were attempted but not completed; browser access failed. No screenshots were fabricated.
+- Desktop and responsive-mobile success views are now recorded. A rendered 10:30–11:30 overlap-rejection result is not evidenced by these screenshots; overlap and endpoint behavior remain covered by the real Vitest suite.
 - A timed App.tsx check across a current-time change was not run; R5 remains open.
 - Firefox, Safari, a physical phone, keyboard/screen-reader accessibility and full rendered-page automation were not run in this environment.
 - Dependency security scanning and penetration testing were not run; R6 remains plausible, not a proven vulnerability.
@@ -610,9 +610,9 @@ Additional scope correction, commit 17f5dbd: R3's inherited five-room fixture wa
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | R2 | 3 | 3 | 9 | 1 | 3 | 3 | Student-approved minimal rules forbid the unsafe actions and name real commands; textual policy still cannot stop a human ignoring it. |
 | R1 | 2 | 2 | 4 | 1 | 2 | 2 | Shared pure predicates, red-to-green regression, all 30 tests passing and differential comparison reduce drift likelihood. |
-| R3 | 2 | 2 | 4 | 1 | 2 | 2 | Extra scope correction leaves exactly one room and fictional schedule entries; rendered UI verification is still missing. |
+| R3 | 2 | 2 | 4 | 1 | 2 | 2 | Extra scope correction leaves one fictional room; the student-supplied desktop and mobile screenshots show that single Demo Room. |
 
-R4 and R5 remain 4 each. R6 remains plausible at 2. Missing UI verification is an additional release limitation, not evidence that AC6 passed.
+R4 and R5 remain 4 each. R6 remains plausible at 2. The two submitted success views provide limited desktop/mobile feedback evidence; a timed stale-result check and broader browser/accessibility checks remain unrun. The student's NO-GO decision for a full release remains unchanged.
 
 ### 8.4 The final run
 
@@ -687,10 +687,9 @@ Optional checklist prompt not sent separately. The six project-specific rules in
 
 | Check | Why it stays |
 | --- | --- |
-| E1 | No successful desktop browser session; a real evidence/ui-desktop.png must be captured in the student's browser. |
-| E2 | No successful phone-width browser session; a real evidence/ui-mobile.png must be captured in the student's browser. |
+| none | The current audit reports 31 PASS / 0 FAIL / 0 ERROR. Both real UI screenshots are present. |
 
-These two known failures are declared in submission.yml. No placeholder images were created to satisfy the checker. The student's independent claim and code-diff reviews also remain pending in AI_USAGE.md; the mechanical checker does not certify those actions. The exact five-section SETUP.md template was unavailable, as disclosed in section 1. These process limitations are not hidden by a green file-shape validator.
+The student recorded a clean local audit after adding the screenshots and removing app/node_modules. The documentation update was checked again against the committed screenshots; evidence/checker-last.txt and evidence/validator-last.txt contain the actual latest runs. submission.yml declares no remaining failing checks. The student's independent claim and code-diff reviews still remain pending in AI_USAGE.md; the mechanical checker does not certify those actions. The exact five-section SETUP.md template was unavailable, as disclosed in section 1.
 
 ## 10. Release decision and conclusion
 
