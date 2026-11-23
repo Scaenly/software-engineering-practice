@@ -25,9 +25,16 @@ jobs:
       - run: npm ci
       - run: npx vitest run
       - run: npm run typecheck && npm run lint && npm run build
-      - run: npx playwright install --with-deps chromium
+      - name: Use runner Chrome or install Chromium
+        run: |
+          if command -v google-chrome > /dev/null; then
+            echo "CHROMIUM_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
       - name: Capture real UI evidence
         run: |
+          set -o pipefail
           npm run dev -- --host 127.0.0.1 --port 5173 --strictPort > /tmp/sis04-vite.log 2>&1 &
           for attempt in $(seq 1 30); do
             if curl --silent --fail http://127.0.0.1:5173 > /dev/null; then break; fi
