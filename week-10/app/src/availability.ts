@@ -2,7 +2,11 @@ import type { Booking, Room } from './types';
 import {
   MINUTES_PER_DAY,
   MAX_BOOKING_MINUTES,
-} from './booking';
+  exceedsDuration,
+  isFutureStart,
+  isValidInterval,
+  overlaps,
+} from './bookingRules';
 
 export const MINUTES_PER_DAY_VALUE = MINUTES_PER_DAY;
 export const MAX_BOOKING_MINUTES_VALUE = MAX_BOOKING_MINUTES;
@@ -33,16 +37,6 @@ export function minutesToTime(min: number): string {
     .padStart(2, '0')}`;
 }
 
-/** Touching endpoints are not an overlap. */
-function overlaps(
-  aStart: number,
-  aEnd: number,
-  bStart: number,
-  bEnd: number,
-): boolean {
-  return aStart < bEnd && bStart < aEnd;
-}
-
 /**
  * Build validation messages for the page.
  * The availability decision itself is made by canBook.
@@ -56,11 +50,11 @@ export function getAvailabilityReasons(
 ): string[] {
   const reasons: string[] = [];
 
-  if (start < 0 || end > MINUTES_PER_DAY || start >= end) {
+  if (!isValidInterval(start, end)) {
     reasons.push('Interval must satisfy 0 ≤ start < end ≤ 1440 minutes.');
   }
 
-  if (start <= currentTimeMinutes) {
+  if (!isFutureStart(start, currentTimeMinutes)) {
     reasons.push(
       `Start time must be after the current time (${minutesToTime(
         currentTimeMinutes,
@@ -68,7 +62,7 @@ export function getAvailabilityReasons(
     );
   }
 
-  if (end - start > MAX_BOOKING_MINUTES) {
+  if (exceedsDuration(start, end)) {
     reasons.push(
       `Booking length is ${
         end - start
@@ -82,7 +76,7 @@ export function getAvailabilityReasons(
     reasons.push(`${room.name} is currently blocked and cannot be booked.`);
   }
 
-  if (room && start >= 0 && start < end && end <= MINUTES_PER_DAY) {
+  if (room && isValidInterval(start, end)) {
     const conflicts = bookings.filter(
       (booking) =>
         booking.roomId === room.id &&

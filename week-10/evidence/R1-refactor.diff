@@ -1,0 +1,167 @@
+diff --git a/week-10/app/src/availability.ts b/week-10/app/src/availability.ts
+index fc3a23b..5ca6e37 100644
+--- a/week-10/app/src/availability.ts
++++ b/week-10/app/src/availability.ts
+@@ -2,7 +2,11 @@ import type { Booking, Room } from './types';
+ import {
+   MINUTES_PER_DAY,
+   MAX_BOOKING_MINUTES,
+-} from './booking';
++  exceedsDuration,
++  isFutureStart,
++  isValidInterval,
++  overlaps,
++} from './bookingRules';
+ 
+ export const MINUTES_PER_DAY_VALUE = MINUTES_PER_DAY;
+ export const MAX_BOOKING_MINUTES_VALUE = MAX_BOOKING_MINUTES;
+@@ -33,16 +37,6 @@ export function minutesToTime(min: number): string {
+     .padStart(2, '0')}`;
+ }
+ 
+-/** Touching endpoints are not an overlap. */
+-function overlaps(
+-  aStart: number,
+-  aEnd: number,
+-  bStart: number,
+-  bEnd: number,
+-): boolean {
+-  return aStart < bEnd && bStart < aEnd;
+-}
+-
+ /**
+  * Build validation messages for the page.
+  * The availability decision itself is made by canBook.
+@@ -56,11 +50,11 @@ export function getAvailabilityReasons(
+ ): string[] {
+   const reasons: string[] = [];
+ 
+-  if (start < 0 || end > MINUTES_PER_DAY || start >= end) {
++  if (!isValidInterval(start, end)) {
+     reasons.push('Interval must satisfy 0 ≤ start < end ≤ 1440 minutes.');
+   }
+ 
+-  if (start <= currentTimeMinutes) {
++  if (!isFutureStart(start, currentTimeMinutes)) {
+     reasons.push(
+       `Start time must be after the current time (${minutesToTime(
+         currentTimeMinutes,
+@@ -68,7 +62,7 @@ export function getAvailabilityReasons(
+     );
+   }
+ 
+-  if (end - start > MAX_BOOKING_MINUTES) {
++  if (exceedsDuration(start, end)) {
+     reasons.push(
+       `Booking length is ${
+         end - start
+@@ -82,7 +76,7 @@ export function getAvailabilityReasons(
+     reasons.push(`${room.name} is currently blocked and cannot be booked.`);
+   }
+ 
+-  if (room && start >= 0 && start < end && end <= MINUTES_PER_DAY) {
++  if (room && isValidInterval(start, end)) {
+     const conflicts = bookings.filter(
+       (booking) =>
+         booking.roomId === room.id &&
+@@ -99,4 +93,4 @@ export function getAvailabilityReasons(
+   }
+ 
+   return reasons;
+-}
+\ No newline at end of file
++}
+diff --git a/week-10/app/src/booking.ts b/week-10/app/src/booking.ts
+index 64e9a4b..028301b 100644
+--- a/week-10/app/src/booking.ts
++++ b/week-10/app/src/booking.ts
+@@ -1,33 +1,20 @@
+-export const MINUTES_PER_DAY = 1440;
+-export const MAX_BOOKING_MINUTES = 120;
++import {
++  exceedsDuration,
++  isFutureStart,
++  isValidInterval,
++  overlaps,
++  type BookingRequest,
++} from './bookingRules';
+ 
+-type BookingInterval = {
+-  start: number;
+-  end: number;
+-};
++export { MINUTES_PER_DAY, MAX_BOOKING_MINUTES } from './bookingRules';
+ 
+-type BookingRequest = {
+-  start: number;
+-  end: number;
+-  now: number;
+-  blocked: boolean;
+-  bookings: readonly BookingInterval[];
+-};
+-
+-export function canBook({ start, end, now, blocked, bookings }: {
+-  start: number;
+-  end: number;
+-  now: number;
+-  blocked: boolean;
+-  bookings: { start: number; end: number }[];
+-}): boolean {
+-  if (!(0 <= start && start < end && end <= 1440)) return false;
+-  if (!(start > now)) return false;
+-  if (end - start > 120) return false;
++export function canBook({ start, end, now, blocked, bookings }: BookingRequest): boolean {
++  if (!isValidInterval(start, end)) return false;
++  if (!isFutureStart(start, now)) return false;
++  if (exceedsDuration(start, end)) return false;
+   if (blocked) return false;
+   for (const b of bookings) {
+-    if (start < b.end && end > b.start) return false;
++    if (overlaps(start, end, b.start, b.end)) return false;
+   }
+-  // keep the room's list current with the slot that was just found free
+   return true;
+ }
+diff --git a/week-10/app/src/bookingRules.ts b/week-10/app/src/bookingRules.ts
+new file mode 100644
+index 0000000..df43958
+--- /dev/null
++++ b/week-10/app/src/bookingRules.ts
+@@ -0,0 +1,37 @@
++// Shared pure predicates: no clock, browser, state, or data mutation.
++export const MINUTES_PER_DAY = 1440;
++export const MAX_BOOKING_MINUTES = 120;
++
++export type BookingInterval = {
++  start: number;
++  end: number;
++};
++
++export type BookingRequest = {
++  start: number;
++  end: number;
++  now: number;
++  blocked: boolean;
++  bookings: readonly BookingInterval[];
++};
++
++export function isValidInterval(start: number, end: number): boolean {
++  return 0 <= start && start < end && end <= MINUTES_PER_DAY;
++}
++
++export function isFutureStart(start: number, now: number): boolean {
++  return start > now;
++}
++
++export function exceedsDuration(start: number, end: number): boolean {
++  return end - start > MAX_BOOKING_MINUTES;
++}
++
++export function overlaps(
++  start: number,
++  end: number,
++  bookingStart: number,
++  bookingEnd: number,
++): boolean {
++  return start < bookingEnd && end > bookingStart;
++}
