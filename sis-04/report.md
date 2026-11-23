@@ -26,7 +26,7 @@
 | --- | --- |
 | Assistant (tool) | GPT-6 |
 | Assistant model | week-08 |
-| Starting point | Recorded in the next analysis commit |
+| Starting point | 039c22ce703a858362c23ce2a6bded1fd3af5d9f |
 | Baseline commit | ts |
 | Language (ts or js) | 5.1.0 |
 | Vitest version | Codex Linux workspace; Node 24.22.3, npm 11.19.1 |
@@ -39,7 +39,12 @@
      "No test files found". That is your honest "original" number, 0/0. -->
 
 ```text
-(paste here)
+src/App.tsx — form, live/test clock, test bookings and availability result state.
+src/sampleData.ts + src/types.ts — separate room and global booking lists; room has no equipment.
+src/booking.ts — pure canBook, strict overlap and 120-minute limit.
+src/availability.ts — time conversion plus a second set of validation rules for messages.
+src/components/RoomList.tsx — room buttons and schedule rendering.
+src/booking.test.ts — 29 inherited Vitest regression tests.
 ```
 
 ## 2. Context for the assistant
@@ -50,7 +55,29 @@
      they do. A tree is fine:  src/App.tsx — the page, holds the rooms and the form … -->
 
 ```text
-(paste here)
+Verbatim excerpt from the initial user request (line spacing omitted outside this excerpt):
+
+Smart Campus Room Availability Checker: extend your working app with a room
+
+catalog and filters, refactor it into clear modules, keep AC1-AC6, and prove it
+
+with tests and measured evidence. The report is Markdown in your repository
+
+(sis-04/report.md). The PR link pasted here is the submission. No file uploads,
+
+no e-mail. This is NOT Practice #08 again: no planted bugs, no new SKILL.md.
+
+[…]
+
+2\. Feature: 4+ fictional rooms (id, name, capacity, equipment, blocked,
+
+   bookings) in src/rooms; filterRooms in src/filter (F1 capacity >=
+
+   attendees, F2 ALL selected equipment); checkRoom in src/booking (F3 blocked
+
+   never available, F5 the chosen room's own bookings); F4 empty state.
+
+   Five screenshots in evidence/.
 ```
 
 ### 2.2 The context message as sent
@@ -62,6 +89,8 @@
 (paste here)
 ```
 
+The actual user supplied the assignment and attached handout in this continuing chat. The assistant built the map by reading the repository; the user did not send a separate fresh-chat message containing that map. This process difference is disclosed, and no retrospective prompt is claimed. The attached handout supplies the detailed AC1–AC6 and F1–F5 rules and the constraints: fictional data only; no login, payments, live APIs or database.
+
 ## 3. Codebase analysis (Task 1)
 
 ### 3.1 Maintainability risks
@@ -72,24 +101,29 @@
 
 | # | Risk | Where (file / function) | Evidence | Priority |
 | --- | --- | --- | --- | --- |
-| 1 | (write here) | (write here) | (write here) | High / Medium / Low |
-| 2 | (write here) | (write here) | (write here) | High / Medium / Low |
-| 3 | (write here) | (write here) | (write here) | High / Medium / Low |
+| 1 | Two implementations can disagree | `src/availability.ts`, `getAvailabilityReasons()`; `src/booking.ts`, `canBook()` | Both check time order, now, duration, blocked and overlap; direct source inspection confirmed five repeated rule locations. | High |
+| 2 | A result can describe the previous room | `src/App.tsx`, room selection | `onSelect={setSelectedRoomId}` changes the room without clearing `result`; only time input handlers clear it. | High |
+| 3 | Catalog lacks required room-owned data | `src/sampleData.ts`; `src/types.ts`, `Room` | Room has no equipment/bookings fields. Six global bookings use roomId; App filters and groups them separately. F2/F5 need one consistent owner. | High |
+| 4 | Nondeterministic demo and inline fixtures | `src/App.tsx`, `useNowMinutes()` and bookings initializer | Clock depends on Date unless ?test=1; test bookings are hardcoded inside the UI. This makes screenshots and rule ownership harder to review. | Medium |
 
 ### 3.2 Improvement plan — before editing
 
 <!-- Numbered, in the order you will do it, smallest safe step first. Written BEFORE you change
      code: the commit that adds this section comes before the commit that changes app/src. -->
 
-1. (write here)
-2. (write here)
-3. (write here)
+1. Preserve the 29-test baseline and keep canBook behaviour. Add required B1–B4 IDs to existing boundary tests.
+2. Add a fixed independent test catalog and failing F1/F2/B5/B6 tests, then implement rooms.ts and filter.ts.
+3. Add failing F3/F5/INT tests, then checkRoom(rooms, roomId, request), using the chosen room only.
+4. Move room-owned bookings and equipment into rooms.ts; remove the duplicated validation messages and obsolete global booking data. Keep time formatting separate.
+5. Adapt the existing RoomList and form in small patches, add filter controls and empty feedback, and refresh the result when selection changes.
+6. Run the complete suite after each step; typecheck, lint, build and exercise the actual page. Capture five screenshots, compare measured quality and prepare an open PR.
+7. Ask the student for the independent reflection and review; disclose any unfinished personal work instead of filling it with assistant prose.
 
 ### 3.3 One AI suggestion I rejected or modified
 
 | Suggestion (as the assistant made it) | Decision | Why — with the AC, F-rule, test or file behind it |
 | --- | --- | --- |
-| (write here) | Rejected / Modified | (write here) |
+| “prepare the sis-04 branch with checks and an open PR” (initial assistant response) | Modified | Prepare an open draft PR while the student reflection and personal review remain incomplete. The handout requires section 10 in the student's own words, so an assistant draft cannot satisfy it. |
 
 ## 4. Feature extension (Task 2)
 
