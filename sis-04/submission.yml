@@ -1,0 +1,46 @@
+schema: 1
+
+assignment: "sis-04"
+
+student:
+  name: "Yerassyl Arystanbek"
+  student_id: "24B030280"
+  group: "Monday 16:00-19:00"
+  github: "Scaenly"
+
+assistant:
+  tool: "ChatGPT Work / Codex"
+  model: "GPT-6"
+
+project:
+  start_from: "week-08"
+  baseline_commit: "039c22ce703a858362c23ce2a6bded1fd3af5d9f"
+  language: "ts"
+  vitest: "5.1.0"
+
+counts:
+  rooms: 5
+  tests_original: 29
+  tests_final: 46
+  risks: 4
+  exchanges: 3
+
+checker:
+  pass: 33
+  fail: 0
+  error: 0
+  commit: "4e6d551"
+  known_fails: []
+
+review_findings:
+  - "F2: C03 excludes a projector-only room when projector and whiteboard are both required; filterRooms uses every."
+  - "F5: C08 checks opposite results at the same interval; UI01 verifies immediate feedback on room selection."
+  - "AC5: C10 repeats successful checks and compares catalog, criteria and request to deep copies."
+  - "B5 B6: eight seats is included for eight attendees; seven seats is excluded."
+  - "App.tsx: five actual screenshots and 390px overflow assertions passed in GitHub Actions; the initial local failure is retained."
+
+honesty:
+  baseline_unchanged: "yes"
+  runs_unedited: "yes"
+  no_invented_metrics: "yes"
+  ai_usage_disclosed: "yes"

@@ -1,0 +1,51 @@
+name: SIS 04 tests and browser evidence
+on:
+  push:
+    branches: [sis-04]
+    paths:
+      - 'sis-04/app/**'
+      - 'sis-04/tests/browser-smoke.cjs'
+      - '.github/workflows/sis04-evidence.yml'
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: sis-04/app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: sis-04/app/package-lock.json
+      - run: npm ci
+      - run: npx vitest run
+      - run: npm run typecheck && npm run lint && npm run build
+      - name: Use runner Chrome or install Chromium
+        run: |
+          if command -v google-chrome > /dev/null; then
+            echo "CHROMIUM_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Capture real UI evidence
+        run: |
+          set -o pipefail
+          npm run dev -- --host 127.0.0.1 --port 5173 --strictPort > /tmp/sis04-vite.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:5173 > /dev/null; then break; fi
+            sleep 1
+          done
+          node ../tests/browser-smoke.cjs | tee ../evidence/browser-success.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sis04-browser-evidence
+          path: |
+            sis-04/evidence/*.png
+            sis-04/evidence/browser-success.txt
+          if-no-files-found: error
+          retention-days: 30

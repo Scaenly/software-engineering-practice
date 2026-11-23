@@ -1,0 +1,24 @@
+@startuml
+ top to bottom direction
+ package "UI" {
+  component "App.tsx\nselection, form and derived result" as UI
+  component "RoomFilters.tsx\ninputs" as Controls
+  component "RoomList.tsx\nroom schedules" as List
+ }
+ component "rooms.ts\nRoom, ROOMS, fixed demo time" as Rooms
+ component "filter.ts\nfilterRooms" as Filter
+ component "booking.ts\ncheckRoom -> canBook" as Booking
+ component "availability.ts\ntime parsing and formatting only" as Time
+ UI --> Controls
+ UI --> List
+ UI --> Rooms
+ UI --> Filter
+ UI --> Booking
+ UI --> Time
+ Controls --> Rooms
+ List --> Rooms
+ List --> Time
+ Filter --> Rooms
+ Booking --> Rooms : type only
+ Time --> Booking : day constant
+@enduml

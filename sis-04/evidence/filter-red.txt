@@ -1,0 +1,25 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+ RUN  v5.1.0 /workspace/scratch/8806a2606eda/repo/sis-04/app
+
+ ❯ src/catalog.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/catalog.test.ts [ src/catalog.test.ts ]
+Error: Cannot find module './filter' imported from /workspace/scratch/8806a2606eda/repo/sis-04/app/src/catalog.test.ts
+ ❯ src/catalog.test.ts:2:1
+      1| import { expect, test } from 'vitest';
+      2| import { filterRooms } from './filter';
+       | ^
+      3| import type { Room } from './rooms';
+      4|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  29 passed (29)
+   Start at  17:49:08
+   Duration  697ms (transform 34%, import 30%, tests 20%, worker 16%, environment 1%)
+

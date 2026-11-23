@@ -1,0 +1,34 @@
+{
+  "source_commit": "275c411c4205fcc23c4cf67765f23f7c0de46076",
+  "workflow_run": 45181507056,
+  "workflow_url": "https://github.com/Scaenly/software-engineering-practice/actions/runs/45181507056",
+  "artifact_id": 14820979155,
+  "artifact_zip_sha256": "a9898f217817cea86b6e8f3f53e21bc61e1ab43add2f1dcfc5e5dc3873f1c0af",
+  "screenshots": {
+    "filter-empty.png": {
+      "width": 1280,
+      "height": 960,
+      "sha256": "54ae0d0580e856c23fa8ca424ce56e581acc512558c03848bae920951bd47341"
+    },
+    "filter-match.png": {
+      "width": 1280,
+      "height": 960,
+      "sha256": "6b70b8f33f9646f88d8c6646c93f1fb7897582fa1b33ec11b25e2c897b75b902"
+    },
+    "narrow.png": {
+      "width": 390,
+      "height": 1561,
+      "sha256": "cb734a615bc07e73dfca584d231901a1c742085f1b081110bb62e09654db4c77"
+    },
+    "switch-a.png": {
+      "width": 1280,
+      "height": 1189,
+      "sha256": "af34c96575edfb21f43e232aea325bdd7f8a9bb88318306713e3e9c030c88cda"
+    },
+    "switch-b.png": {
+      "width": 1280,
+      "height": 1189,
+      "sha256": "eedaf11601840c740d45bae64f2232a04ca2f531896d08a0f49b18dd8f4fed10"
+    }
+  }
+}

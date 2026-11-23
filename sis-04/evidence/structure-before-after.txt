@@ -1,0 +1,26 @@
+COMMAND: git ls-tree -r --name-only 039c22c sis-04/app/src
+sis-04/app/src/App.tsx
+sis-04/app/src/availability.ts
+sis-04/app/src/booking.test.ts
+sis-04/app/src/booking.ts
+sis-04/app/src/components/RoomList.tsx
+sis-04/app/src/index.css
+sis-04/app/src/main.tsx
+sis-04/app/src/sampleData.ts
+sis-04/app/src/types.ts
+sis-04/app/src/vite-env.d.ts
+
+COMMAND: git ls-files sis-04/app/src
+sis-04/app/src/App.test.tsx
+sis-04/app/src/App.tsx
+sis-04/app/src/availability.ts
+sis-04/app/src/booking.test.ts
+sis-04/app/src/booking.ts
+sis-04/app/src/catalog.test.ts
+sis-04/app/src/components/RoomFilters.tsx
+sis-04/app/src/components/RoomList.tsx
+sis-04/app/src/filter.ts
+sis-04/app/src/index.css
+sis-04/app/src/main.tsx
+sis-04/app/src/rooms.ts
+sis-04/app/src/vite-env.d.ts
