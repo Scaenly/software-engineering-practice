@@ -31,6 +31,6 @@ node ../tests/browser-smoke.cjs
 ```
 
 The runner checks the page and writes five PNGs to `../evidence/`. To use an existing browser,
-set `CHROMIUM_PATH` to its executable. Captures are pending because this workspace could not
-launch Chromium; jsdom tests do not prove mobile layout. Do not claim that the screenshot
-runner passed until it actually exits successfully.
+set `CHROMIUM_PATH` to its executable. The initial local workspace could not launch Chromium. The committed captures were obtained
+in GitHub Actions with the runner's installed Chrome; the successful output and provenance are
+in ../evidence/. jsdom tests alone do not prove mobile layout.

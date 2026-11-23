@@ -52,29 +52,86 @@ src/booking.test.ts — 29 inherited Vitest regression tests.
 
 ### 2.2 The context message as sent
 
-The actual initial request was the assignment plus the two attachments. The following is an
-explicitly marked excerpt of that user message; it is not a manufactured analysis prompt.
+The actual initial request was the assignment plus the two attachments. The full request
+wording follows; blank lines and leading indentation are normalized for readability. It is
+not a manufactured fresh-chat analysis prompt.
 
 ```text
+# SIS 04: AI-Assisted Software
+
+Срок закончился вчера в 23:59•Допускается несколько отправок
+
+SIS (12%)
+
+## Инструкции
+
+SIS #04 - AI-Assisted Software Evolution, Refactoring and Quality Improvement (2 points)
+
 Smart Campus Room Availability Checker: extend your working app with a room
-
 catalog and filters, refactor it into clear modules, keep AC1-AC6, and prove it
-
 with tests and measured evidence. The report is Markdown in your repository
-
 (sis-04/report.md). The PR link pasted here is the submission. No file uploads,
-
 no e-mail. This is NOT Practice #08 again: no planted bugs, no new SKILL.md.
-[…]
+
+**STARTING POINT**
+
+Your Practice #08 app (recommended), or #07, or your SIS #03 page, or
+sis-04/starter/. Bring it into sis-04/app/ UNCHANGED (README section 3), run
+its tests, commit. That commit is your initial version.
+
+**TASK**
+
+1\. Analysis: a repository map + one context message to your assistant (AC1-AC6,
+F1-F5, constraints). 3+ maintainability risks with file/function and
+ evidence; a numbered plan; one AI suggestion rejected or modified.
+Commit this BEFORE you change app/src.
+
 2\. Feature: 4+ fictional rooms (id, name, capacity, equipment, blocked,
+bookings) in src/rooms; filterRooms in src/filter (F1 capacity >=
+attendees, F2 ALL selected equipment); checkRoom in src/booking (F3 blocked
+never available, F5 the chosen room's own bookings); F4 empty state.
+Five screenshots in evidence/.
 
-   bookings) in src/rooms; filterRooms in src/filter (F1 capacity >=
+3\. Refactoring: rooms / booking / filter / UI apart, duplication removed,
+diagrams/before.puml and after.puml, two design decisions justified.
 
-   attendees, F2 ALL selected equipment); checkRoom in src/booking (F3 blocked
+4\. Tests: 10+ Vitest tests with AC1-AC5, F1-F5, B1-B6 and INT in their titles;
+real commands and real output.
 
-   never available, F5 the chosen room's own bookings); F4 empty state.
+5\. Quality: tests passed/total, duplicated logic removed, structure, one
+limitation - original vs final, each with how you obtained it. Invent nothing.
 
-   Five screenshots in evidence/.
+6\. 3+ AI exchanges in section 8; reflection 200-300 words in section 10.
+
+7\. Run python tests/check_sis.py, fill submission.yml, run
+python tests/validate_submission.py. No Python? Use a GitHub Codespace.
+
+**DELIVERABLE**
+
+Branch: sis-04
+Folder: sis-04/ at the top of your se-practice repository
+Files: report.md, AI_USAGE.md, submission.yml, app/, diagrams/, evidence/, tests/
+Commits: at least 3, authored by you - the first one is your baseline
+PR title: SIS 04 - Room catalog and refactoring - \<Surname Name>
+PR description: the five sections from SETUP.md section 4 (checked)
+Leave the PR OPEN until it is graded. Do not merge it.
+
+**HOW TO SUBMIT**
+
+Click + Add work -> Link -> paste your PULL REQUEST url.
+Not the repo url. The PR url.
+It looks like: [https://github.com/](https://github.com/)\<you>/se-practice/pull/N
+
+**DEADLINE**
+
+Sunday 22 November 2026, 23:59 (Almaty). Lateness is read from GitHub's push time.
+Late work follows the course policy.
+
+Note: AI policy for this assignment: Level D. AI use is REQUIRED in the working
+process; you remain responsible for testing, verifying and defending everything you
+submit, and all AI use must be disclosed in AI_USAGE.md and in section 8 of
+report.md. Undisclosed AI use, or fabricated prompts, outputs, test runs, metrics
+or screenshots, is an academic-integrity violation, not a style issue.
 ```
 
 The assistant built the map by reading the repository; the user did not send a separate
@@ -107,7 +164,7 @@ only; no login, payments, live APIs or database. Section 8 preserves the later a
 
 | Suggestion (as the assistant made it) | Decision | Why — with the AC, F-rule, test or file behind it |
 | --- | --- | --- |
-| “prepare the sis-04 branch with checks and an open PR” (initial assistant response) | Modified | Prepare an open draft PR while the student reflection and personal review remain incomplete. The handout requires section 10 in the student's own words, so an assistant draft cannot satisfy it. |
+| “prepare the sis-04 branch with checks and an open PR” (initial assistant response) | Modified | First prepare an open draft until the real screenshots and student reflection are available. The handout requires section 10 in the student's own words. Both were subsequently supplied and verified before marking the PR ready for review. |
 
 ## 4. Feature extension (Task 2)
 
@@ -126,22 +183,35 @@ The clock is fixed at 09:00, visibly labelled as a demo. All checks are read-onl
 
 ### 4.2 Demonstration
 
-These are the scenarios implemented by `tests/browser-smoke.cjs`, not claimed screenshots.
-None of the five PNGs exists yet. The launch failure is retained in `evidence/browser-checks.txt`.
-The local Vite server works on 127.0.0.1; Chromium launch failed with a socket permission error.
-A separate cloud browser could not connect to that local server. No screenshot or successful browser run is fabricated.
+All five PNGs were captured from the running application by tests/browser-smoke.cjs in
+GitHub Actions on Ubuntu 24.04, using the runner's Chrome. The script drives the real form,
+asserts results and captures each state with CSS transitions settled. It also asserts no
+horizontal overflow at 390 px and no page errors. The final successful run is
+[GitHub Actions 45181507056](https://github.com/Scaenly/software-engineering-practice/actions/runs/45181507056),
+source commit 275c411c4205fcc23c4cf67765f23f7c0de46076.
+evidence/provenance.json records the source SHA, artifact ID, archive digest, image dimensions
+and hashes. The downloaded artifact's SHA-256 was verified before extraction.
 
 | Screenshot | What it shows |
 | --- | --- |
-| `evidence/filter-match.png` | Pending capture: 24 attendees plus projector and whiteboard; Thesis Hall and Innovation Lab match. |
-| `evidence/filter-empty.png` | Pending capture: 300 attendees; No rooms match; check button disabled. |
-| `evidence/switch-a.png` | Pending capture: one attendee, no equipment, Thesis Hall, 10:00–11:00, Available. |
-| `evidence/switch-b.png` | Pending capture: same times, Innovation Lab, Unavailable because of its 10:00–11:30 booking. |
-| `evidence/narrow.png` | Pending capture: 390px portrait, eight attendees and whiteboard, form and result visible. |
+| `evidence/filter-match.png` | 24 attendees plus projector and whiteboard; Thesis Hall and Innovation Lab match (2/5 rooms). |
+| `evidence/filter-empty.png` | 300 attendees; No rooms match; check button disabled. |
+| `evidence/switch-a.png` | One attendee, no equipment, Thesis Hall, 10:00–11:00, Available. |
+| `evidence/switch-b.png` | Same times, Innovation Lab, Unavailable because its own booking is 10:00–11:30; result refreshes without another submit. |
+| `evidence/narrow.png` | 390 × 1561 full-page portrait capture: eight attendees, whiteboard, four matching rooms and the form/result stacked below. |
 
-jsdom UI tests verify F3/F4/F5 behaviour but do not prove responsive layout or replace screenshots.
-Run `npm run dev -- --host 127.0.0.1 --port 5173 --strictPort` in app/, then in a second terminal:
-`npx playwright install chromium` and `npm run evidence`. Update this table only after actual captures.
+The initial local Chromium launch failed with a socket permission error; its real output is in
+browser-checks.txt. The first CI attempt used ubuntu-latest, which selected an unsupported OS
+for the pinned Playwright version (ci-first-attempt.txt). A supported Ubuntu runner and its
+installed Chrome resolved the capture problem. The first successful captures caught a missing
+space in the limit sentence and mid-transition colours; the sentence and capture settings were
+corrected, then the final full CI run and captures passed. browser-success.txt contains the
+successful script's unedited output, and ci-success.txt contains the complete final job log.
+
+To reproduce: start npm run dev -- --host 127.0.0.1 --port 5173 --strictPort in app/; in a second
+terminal run npx playwright install chromium and npm run evidence. An existing Chrome may be
+selected with CHROMIUM_PATH. Browser-native time fields may display AM/PM according to locale;
+their values and the displayed schedule use minutes/24-hour strings.
 
 ## 5. Refactoring (Task 3)
 
@@ -230,11 +300,11 @@ The filter step first failed to import the missing module, then passed 35/35.
 The checkRoom step first failed six assertions because checkRoom did not exist, then passed 43/43.
 These are the unedited filter-red/green and check-room-red/green logs in evidence/.
 The final run below adds the three rendered UI cases. Typecheck, lint and build also exited 0.
-Dependencies were subsequently moved outside app/ and generated dist removed for the source-only checker.
+Dependencies were moved outside app/ and generated dist removed for the source-only checker. After the display-only guidance fix, the final commands were rerun locally and the same 46/46 suite, typecheck, lint, build and browser checks passed in CI from a fresh npm ci.
 
 ### 6.3 Final run
 
-Unedited combined terminal output from `npx vitest run`:
+Unedited combined terminal output from npx vitest run on the final application source:
 
 ```text
 npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
@@ -244,8 +314,8 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 
  Test Files  3 passed (3)
       Tests  46 passed (46)
-   Start at  17:55:38
-   Duration  1.97s (tests 30%, environment 28%, transform 24%, import 16%, worker 1%)
+   Start at  18:12:37
+   Duration  2.62s (environment 36%, tests 31%, transform 17%, import 14%, worker 1%)
 
 ```
 
@@ -256,7 +326,7 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 | Automated tests passed / total | 29/29 | 46/46 | The Tests lines in the unedited runs in sections 1.1 and 6.3; 29 + 14 + 3 literal test declarations in the three files. |
 | Duplicated logic locations removed | 0 removed; five repeated rule locations present | 5 removed; no second validation engine | Compare baseline availability.ts/getAvailabilityReasons and overlaps with final source; the five located rows in 5.3 define the count. |
 | Code structure: modules and their responsibilities | App mixes clock/fixtures/selection; sampleData and types hold separate rooms/bookings; availability repeats rules | rooms owns complete records; filter selects; booking decides; UI composes; availability formats | `git ls-tree -r --name-only 039c22c sis-04/app/src` and `git ls-files sis-04/app/src`, saved in structure-before-after.txt, then read the files against 5.1. |
-| Remaining limitation | Live clock or hidden test mode; no capacity/equipment filter | Fixed 09:00 demo, no real booking writes; generic rejection guidance; mobile screenshots unverified | Inspect DEMO_NOW and the read-only API; C10 verifies immutability. Browser launch log explains missing visual verification. This is a deterministic demo, not a production booking service. |
+| Remaining limitation | Live clock or hidden test mode; no capacity/equipment filter | Fixed 09:00 demo, no real booking writes; generic rejection guidance; dependencies still need a separate audit | Inspect DEMO_NOW and the read-only API; C10 verifies immutability. Browser evidence now verifies mobile layout. The CI npm ci log reported 13 dependency advisories (8 high); no vulnerability fix or exploitability claim is made. This is a deterministic demo, not a production service. |
 
 No maintainability percentage, timing improvement, complexity or coverage metric is claimed.
 
@@ -265,7 +335,7 @@ No maintainability percentage, timing improvement, complexity or coverage metric
 This is a continuing chat, not three fresh chats. The assistant drafted this report and ran the
 checks. The replies below are the actual user messages and recorded assistant responses; brief
 prompts selected a detailed question already presented by the assistant. They are not invented
-long prompts attributed to the student. Personal review is still pending.
+long prompts attributed to the student. The student supplied the reflection in section 10 and explicitly states that personal execution/review is still pending.
 
 ### 8.1 Exchange 1
 
@@ -276,7 +346,7 @@ long prompts attributed to the student. Personal review is still pending.
 **Prompt:**
 
 ```text
-Excerpt of the actual initial user assignment message (omissions marked):
+Excerpt of the actual initial user assignment message (full wording in 2.2; omissions marked here):
 Smart Campus Room Availability Checker: extend your working app with a room
 
 catalog and filters, refactor it into clear modules, keep AC1-AC6, and prove it
@@ -359,30 +429,32 @@ Exact user reply:
 Лучше первый вариант — тесты F1–F5 и B1–B6. Он охватывает больше требований и пригодится на защите. В него включу и проверку checkRoom: при одинаковом времени одна комната должна вернуть Unavailable, а другая — Available, исходя из их собственных бронирований. Продолжаю с этим вариантом.
 ```
 
-**Problems found:** A Boolean helper test alone would not catch stale displayed feedback. The original page stored result separately from room selection. Browser capture failed, so no visual result was accepted as evidence.
+**Problems found:** A Boolean helper test alone would not catch stale displayed feedback. The original page stored result separately from room selection. Local browser capture failed; it was not accepted as successful evidence. A later CI run supplied the actual screenshots described in section 4.2.
 **Changes made:** Added C08 with opposite decisions for the same interval, C10 immutability and C11 integration. Added UI01 to render the real component with independent fixtures and change rooms without resubmitting; added UI02/UI03 for empty/blocked behaviour.
 **Verified by:** Section 6.1 maps all required IDs to literal test titles; the final 46/46 run includes three rendered UI cases, with real rules and no mocks. Typecheck, lint and build exited 0.
 
 ## 9. Checker results and known fails
 
-The following work remains incomplete and is deliberately disclosed. The final exact checker
-counts and commit are recorded in submission.yml and evidence/checker-run.txt.
-
 | Check | Why it still fails |
 | --- | --- |
-| E1 | filter-match.png and filter-empty.png do not exist; browser capture was blocked. |
-| E2 | switch-a.png and switch-b.png do not exist; browser capture was blocked. |
-| E3 | narrow.png does not exist; portrait layout has not been visually verified. |
-| L10 | The student's independent 200–300 word reflection has not been supplied. |
+| none | Every check passes; the final exact counts and commit are declared in submission.yml and the terminal result is in evidence/checker-run.txt. |
 
 Workflow limitations: the initial context was an assignment message in a continuing chat, not
-an independently composed fresh-chat map/context. AI wrote the technical report and code;
-the student has not yet personally confirmed understanding, source review or active time.
-The screenshot runner is provided for local completion. SETUP.md was absent from the supplied
-archive and repository, so the PR follows the five headings stated in README section 14 and
-previous course PRs. Keep the PR draft and open until personal work and evidence are complete.
+an independently composed fresh-chat map/context. The assistant wrote the code and technical
+report and executed the checks. The student has not yet personally repeated the runs or reviewed
+every added test, as the student's own reflection states. No personal verification or signature
+is invented. The reflection below was provided in Russian in this chat and preserved verbatim.
+Its 43-test statement refers to the intermediate catalog/rules run; three rendered UI cases
+were added afterwards, making the final total 46. Sections 6–7 contain the final measured counts.
+
+SETUP.md was absent from the archive and repository. The PR uses the five headings specified
+in README section 14 and previous course PRs. The PR was first opened as a draft while evidence
+was incomplete; after adding actual screenshots and the student reflection and validating the
+declaration, it is ready for review. Keep it open until grading; do not merge it.
 
 ## 10. AI reflection (Task 6)
 
-Awaiting the student's own 200–300 words. The assistant has asked for the five required topics
-and has not generated or signed a reflection on the student's behalf.
+В этой работе я использовал ИИ для доработки приложения Smart Campus из Week 08. Контекстом были исходный проект и требования задания: сохранить правила бронирования, добавить каталог комнат и фильтрацию по вместимости и оборудованию. Было важно расширить приложение и при этом сохранить работу существующей функции canBook.
+Полезным оказался разбор повторяющихся правил в booking.ts и availability.ts. Когда одинаковые проверки находятся в разных местах, при изменениях легко исправить одну и забыть другую. Поэтому разделение данных комнат, фильтрации и логики бронирования выглядит для меня понятным решением. При доработке фильтра нужно было внимательно учитывать требование ко всему выбранному оборудованию. Например, если нужны проектор и доска, комната только с проектором не должна подходить. Также checkRoom должен использовать бронирования выбранной комнаты, иначе результат может относиться к другому помещению.
+Тесты помогли оценивать изменения по конкретным требованиям. По результатам, которые сообщил ассистент, все 29 исходных тестов сохранены, а всего проходят 43 теста. Это даёт основание считать, что новые возможности проверены без удаления старых проверок. Однако успешный запуск ещё не означает, что каждый сценарий в интерфейсе работает правильно.
+На этом этапе запуск тестов и технические проверки выполнял ассистент. Я пока не повторил их самостоятельно, поэтому не могу выдавать эти результаты за собственную проверку. Следующим шагом я хочу запустить проект у себя, проверить фильтры, смену комнаты и отображение на узком экране. Ещё мне нужно разобраться в добавленных тестах, чтобы объяснить, почему ожидается именно такой результат, и уверенно защитить работу.

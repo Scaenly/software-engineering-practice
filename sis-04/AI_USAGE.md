@@ -6,7 +6,7 @@
 | ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Room catalog, filters and selected-room checks | app/src/rooms.ts, filter.ts, booking.ts |
 | ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Refactoring, UI and diagrams | App.tsx, availability.ts, components/, diagrams/; removed sampleData.ts and types.ts |
 | ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Tests and actual automated runs | app/src/catalog.test.ts, App.test.tsx; boundary IDs in booking.test.ts; evidence/*.txt |
-| ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Technical report, declaration and PR preparation | report.md, AI_USAGE.md, submission.yml, app/README.md, tests/browser-smoke.cjs |
+| ChatGPT Work / Codex | GPT-6 | 2026-11-23 | Technical report, declaration and PR preparation | report.md, AI_USAGE.md, submission.yml, app/README.md, tests/browser-smoke.cjs, .github/workflows/sis04-evidence.yml |
 
 The session identifies GPT-6; no more specific snapshot was displayed. No subagents were used.
 The initial message was the assignment, and later short user replies selected or discussed
@@ -31,8 +31,11 @@ The assistant cannot verify that the student can explain every line.
 are assistant-prepared until the student reviews them. The assistant's automated checks are
 listed separately from personal verification.
 
-**Incomplete work:** five real screenshots and the student's own reflection. Chromium launch
-failed; the failed output is saved. No image or successful browser run was fabricated.
+**Student reflection:** section 10 was supplied by the student in this chat and preserved verbatim. The reference to 43 tests is the intermediate run before the three UI cases; final automated results are 46/46. No assistant text replaced the student reflection.
+
+**Browser evidence:** the local launch failed and was saved. GitHub Actions then executed the real application, passed the capture assertions and produced all five committed PNGs. provenance.json records the final source commit, run, artifact and file hashes. CI runner compatibility and capture transition settings were corrected based on real failed/output evidence.
+
+**Personal source review:** still pending, as explicitly stated in the student reflection. No completed personal review or signature is claimed.
 No new SKILL.md was submitted. The supplied checker, validator, README and starter are unchanged.
 
 Signature: pending student review

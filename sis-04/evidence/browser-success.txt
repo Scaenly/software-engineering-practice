@@ -1,0 +1,7 @@
+PASS F1 F2: 24 attendees + projector + whiteboard -> Thesis Hall and Innovation Lab.
+PASS F4: 300 attendees -> No rooms match; availability button disabled.
+PASS F5: same 10:00-11:00; Thesis Hall Available -> Innovation Lab Unavailable without resubmitting.
+PASS F3: blocked Faculty Lounge remains Unavailable.
+PASS selection: filtering out selected room clears feedback and chooses a visible room.
+PASS AC6: 390px portrait, visible form/result and no horizontal overflow.
+PASS browser console: no page errors. Five screenshots captured from the running app.

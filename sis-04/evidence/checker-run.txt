@@ -17,9 +17,9 @@ PASS   S6   boundary tests B1-B6                                                
 PASS   S7   an INT integration or UI behaviour test                                     integration test present
 PASS   D1   diagrams/before.puml and after.puml are PlantUML                            two PlantUML diagrams
 PASS   D2   after.puml names rooms, booking, filter and the UI, and differs             the four parts are named
-ERROR  E1   evidence: filter-match and filter-empty                                     evidence/filter-match.png not found; evidence/filter-empty.png not found
-ERROR  E2   evidence: switch-a and switch-b                                             evidence/switch-a.png not found; evidence/switch-b.png not found
-ERROR  E3   evidence: narrow (portrait), five distinct screenshots                      evidence/narrow.png not found
+PASS   E1   evidence: filter-match and filter-empty                                     evidence/filter-match.png, evidence/filter-empty.png
+PASS   E2   evidence: switch-a and switch-b                                             evidence/switch-a.png, evidence/switch-b.png
+PASS   E3   evidence: narrow (portrait), five distinct screenshots                      evidence/narrow.png, 390x1561
 PASS   R1   report 1.1: the baseline run                                                29 passed (29)
 PASS   R2   report 6.3: the final run, all passing, same tests                          46 passed (46)
 PASS   R3   report 7: tests passed / total match the two runs                           29/29 -> 46/46, as the runs show
@@ -32,8 +32,7 @@ PASS   L6   report 5: responsibilities, two design decisions, duplication       
 PASS   L7   report 6.1-6.2: the test plan and the commands                              every required ID planned, commands recorded
 PASS   L8   report 7: the quality table, with how each measure was obtained             four measures, each with how it was obtained
 PASS   L9   report 8: three or more AI exchanges, every field                           3 complete exchanges
-FAIL   L10  report 10: reflection of 200-300 words                                      section 10 has 28 words, the brief asks for 200-300
+PASS   L10  report 10: reflection of 200-300 words                                      230 words
 ------------------------------------------------------------------------------
-SUMMARY pass=29 fail=1 error=3   (33 checks)
-Every FAIL or ERROR you keep goes in report.md section 9 and in submission.yml known_fails.
-One you report and explain costs you nothing. One you hide costs the whole criterion.
+SUMMARY pass=33 fail=0 error=0   (33 checks)
+Files and shape are clean. Whether the analysis and the refactoring are good is read by a person.
