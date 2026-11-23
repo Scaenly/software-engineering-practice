@@ -1,25 +1,23 @@
 import { Clock, MapPin, Users } from 'lucide-react';
-import type { Room } from '../types';
+import type { Room } from '../rooms';
 import { minutesToTime } from '../availability';
 
 interface RoomListProps {
   rooms: Room[];
   selectedRoomId: string | null;
   onSelect: (roomId: string) => void;
-  bookingsByRoom: Map<string, { start: number; end: number; title: string }[]>;
 }
 
 export default function RoomList({
   rooms,
   selectedRoomId,
   onSelect,
-  bookingsByRoom,
 }: RoomListProps) {
   return (
     <div className="space-y-3">
       {rooms.map((room) => {
         const isSelected = room.id === selectedRoomId;
-        const roomBookings = bookingsByRoom.get(room.id) ?? [];
+        const roomBookings = room.bookings;
         return (
           <button
             key={room.id}
@@ -68,6 +66,8 @@ export default function RoomList({
               />
             </div>
 
+            <p className="mt-2 text-xs capitalize text-slate-600">{room.equipment.join(' · ')}</p>
+
             {roomBookings.length > 0 && (
               <ul className="mt-3 space-y-1">
                 {roomBookings
@@ -82,7 +82,7 @@ export default function RoomList({
                       <span className="font-mono tabular-nums text-slate-700">
                         {minutesToTime(b.start)}–{minutesToTime(b.end)}
                       </span>
-                      <span className="truncate text-slate-500">{b.title}</span>
+                      <span className="truncate text-slate-500">{b.title ?? 'Existing booking'}</span>
                     </li>
                   ))}
               </ul>

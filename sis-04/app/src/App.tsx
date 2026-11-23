@@ -1,141 +1,35 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { CheckCircle2, Clock4, DoorClosed, XCircle } from 'lucide-react';
 import RoomList from './components/RoomList';
-import { SAMPLE_BOOKINGS, SAMPLE_ROOMS } from './sampleData';
-import { canBook } from './booking';
-import {
-  MINUTES_PER_DAY_VALUE,
-  getAvailabilityReasons,
-  minutesToTime,
-  timeToMinutes,
-} from './availability';
-import type { AvailabilityResult, Booking, Room } from './types';
+import RoomFilters from './components/RoomFilters';
+import { ROOMS, DEMO_NOW } from './rooms';
+import type { Room } from './rooms';
+import { filterRooms } from './filter';
+import { checkRoom, MAX_BOOKING_MINUTES } from './booking';
+import { minutesToTime, timeToMinutes } from './availability';
 
-function useNowMinutes(): number {
-  const isTestMode =
-    new URLSearchParams(window.location.search).get('test') === '1';
-
-  const [now, setNow] = useState(() => {
-    if (isTestMode) return 540;
-
-    const d = new Date();
-    return d.getHours() * 60 + d.getMinutes();
-  });
-
-  useEffect(() => {
-    if (isTestMode) return;
-
-    const id = window.setInterval(() => {
-      const d = new Date();
-      setNow(d.getHours() * 60 + d.getMinutes());
-    }, 30_000);
-
-    return () => window.clearInterval(id);
-  }, [isTestMode]);
-
-  return now;
-}
-
-export default function App() {
-  const [rooms] = useState<Room[]>(SAMPLE_ROOMS);
-
-  const [bookings] = useState<Booking[]>(() => {
-    const testMode =
-      new URLSearchParams(window.location.search).get('test') === '1';
-
-    if (testMode) {
-      return [
-        {
-          id: 'test-r1',
-          roomId: 'r1',
-          title: 'Test Booking',
-          start: 600,
-          end: 660,
-        },
-        {
-          id: 'test-r3',
-          roomId: 'r3',
-          title: 'Test Booking',
-          start: 600,
-          end: 660,
-        },
-      ];
-    }
-
-    return SAMPLE_BOOKINGS;
-  });
-
-  const nowMinutes = useNowMinutes();
-
-  const [selectedRoomId, setSelectedRoomId] = useState<string | null>(
-    SAMPLE_ROOMS[0].id ?? null,
-  );
-
-  const [startTime, setStartTime] = useState('09:00');
-  const [endTime, setEndTime] = useState('10:00');
-  const [result, setResult] = useState<AvailabilityResult | null>(null);
-
-  const selectedRoom = useMemo(
-    () => rooms.find((room) => room.id === selectedRoomId) ?? null,
-    [rooms, selectedRoomId],
-  );
-
-  const bookingsByRoom = useMemo(() => {
-    const map = new Map<
-      string,
-      { start: number; end: number; title: string }[]
-    >();
-
-    for (const booking of bookings) {
-      const roomBookings = map.get(booking.roomId) ?? [];
-
-      roomBookings.push({
-        start: booking.start,
-        end: booking.end,
-        title: booking.title,
-      });
-
-      map.set(booking.roomId, roomBookings);
-    }
-
-    return map;
-  }, [bookings]);
-
-  const startMin = timeToMinutes(startTime);
-  const endMin = timeToMinutes(endTime);
-
-  function handleCheck(e: React.FormEvent) {
-    e.preventDefault();
-
-    if (startMin === null || endMin === null) {
-      setResult({
-        available: false,
-        reasons: ['Enter valid times in HH:MM (24-hour) format.'],
-      });
-      return;
-    }
-
-    const roomBookings = selectedRoom
-      ? bookings.filter((booking) => booking.roomId === selectedRoom.id)
-      : [];
-
-    const available = canBook({
-      start: startMin,
-      end: endMin,
+export default function App({ catalog = ROOMS }: { catalog?: Room[] } = {}) {
+  const [attendees, setAttendees] = useState(1);
+  const [equipment, setEquipment] = useState<string[]>([]);
+  const rooms = filterRooms(catalog, { attendees, equipment });
+  const [selectedRoomId, setSelectedRoomId] = useState(catalog[0]?.id ?? '');
+  const selectedRoom = rooms.find(room => room.id === selectedRoomId) ?? rooms[0] ?? null;
+  const [startTime, setStartTime] = useState('10:00');
+  const [endTime, setEndTime] = useState('11:00');
+  const [checked, setChecked] = useState(false);
+  const nowMinutes = DEMO_NOW;
+  // Derived from current inputs, so a room change cannot retain an old decision (F5).
+  const result = checked ? {
+    available: checkRoom(rooms, selectedRoom?.id ?? '', {
+      start: timeToMinutes(startTime) ?? Number.NaN,
+      end: timeToMinutes(endTime) ?? Number.NaN,
       now: nowMinutes,
-      blocked: selectedRoom?.blocked ?? true,
-      bookings: roomBookings,
-    });
+    }),
+  } : null;
 
-    const reasons = getAvailabilityReasons(
-      selectedRoom,
-      startMin,
-      endMin,
-      nowMinutes,
-      bookings,
-    );
-
-    setResult({ available, reasons });
+  function handleCheck(event: React.FormEvent) {
+    event.preventDefault();
+    setChecked(true);
   }
 
   return (
@@ -155,13 +49,13 @@ export default function App() {
             <p className="mt-1 max-w-2xl text-sm text-slate-600">
               Check whether a room is free for your requested time slot before
               booking it. Touching endpoints are allowed; bookings are capped at
-              120 minutes.
+              {MAX_BOOKING_MINUTES} minutes.
             </p>
           </div>
 
           <div className="inline-flex items-center gap-2 self-start rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm sm:self-auto">
             <Clock4 className="h-4 w-4 text-slate-500" />
-            <span className="text-slate-500">Current time</span>
+            <span className="text-slate-500">Demo time (fixed)</span>
             <span className="font-mono font-semibold tabular-nums text-slate-900">
               {minutesToTime(nowMinutes)}
             </span>
@@ -175,16 +69,21 @@ export default function App() {
                 Rooms
               </h2>
               <span className="text-xs text-slate-400">
-                {rooms.length} total
+                {rooms.length} of {catalog.length} rooms
               </span>
             </div>
 
-            <RoomList
-              rooms={rooms}
-              selectedRoomId={selectedRoomId}
-              onSelect={setSelectedRoomId}
-              bookingsByRoom={bookingsByRoom}
-            />
+            <RoomFilters attendees={attendees} equipment={equipment}
+              onAttendees={value => { setAttendees(value); setChecked(false); }}
+              onEquipment={value => { setEquipment(value); setChecked(false); }} />
+            {rooms.length === 0 ? (
+              <div role="status" className="rounded-xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-600">
+                <h3 className="font-semibold text-slate-800">No rooms match</h3>
+                <p className="mt-1">Reduce attendees or remove an equipment requirement.</p>
+              </div>
+            ) : (
+              <RoomList rooms={rooms} selectedRoomId={selectedRoom?.id ?? null} onSelect={setSelectedRoomId} />
+            )}
           </section>
 
           <section
@@ -201,8 +100,7 @@ export default function App() {
 
               <p className="mt-1 text-xs text-slate-500">
                 Times are 24-hour. A slot must start after the current time and
-                end within the day ({minutesToTime(0)}–
-                {minutesToTime(MINUTES_PER_DAY_VALUE)}).
+                end within the day (00:00–24:00).
               </p>
 
               <div className="mt-4 grid grid-cols-2 gap-3">
@@ -211,11 +109,11 @@ export default function App() {
                     Start
                   </span>
                   <input
-                    type="time"
+                    type="time" required
                     value={startTime}
                     onChange={(e) => {
                       setStartTime(e.target.value);
-                      setResult(null);
+                      setChecked(false);
                     }}
                     className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono tabular-nums focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200"
                     aria-label="Start time"
@@ -227,11 +125,11 @@ export default function App() {
                     End
                   </span>
                   <input
-                    type="time"
+                    type="time" required
                     value={endTime}
                     onChange={(e) => {
                       setEndTime(e.target.value);
-                      setResult(null);
+                      setChecked(false);
                     }}
                     className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono tabular-nums focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200"
                     aria-label="End time"
@@ -253,8 +151,8 @@ export default function App() {
               </div>
 
               <button
-                type="submit"
-                className="mt-4 w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-1"
+                type="submit" disabled={!selectedRoom}
+                className="mt-4 w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:bg-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-1"
               >
                 Check availability
               </button>
@@ -290,13 +188,13 @@ export default function App() {
                     </p>
                   </div>
 
-                  {result.reasons.length > 0 && (
-                    <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-rose-700">
-                      {result.reasons.map((reason, index) => (
-                        <li key={index}>{reason}</li>
-                      ))}
-                    </ul>
-                  )}
+                  <p className="mt-2 text-xs text-slate-600">
+                    {selectedRoom?.name} · {startTime}–{endTime}
+                  </p>
+                  {!result.available && <p className="mt-2 text-xs text-rose-700">
+                    Review the room's Blocked label and schedule. The start must be after 09:00,
+                    the end after the start, and the duration at most {MAX_BOOKING_MINUTES} minutes.
+                  </p>}
                 </div>
               )}
 
