@@ -1,0 +1,92 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+ RUN  v5.1.0 /workspace/scratch/8806a2606eda/repo/sis-04/app
+
+ ❯ src/catalog.test.ts (14 tests | 6 failed) 24ms
+   × C07 F3 AC3: a blocked room is never available 6ms
+   × C08 F5: switching room uses its own bookings at identical times 1ms
+   × C09 F5: an unknown room is unavailable 1ms
+   × C10 AC5: filtering and checking leave the complete catalog unchanged 1ms
+   × C11 INT: check a room returned by the combined filter 2ms
+   × C14 INT F3: filtering never overrides a blocked room 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/catalog.test.ts > C07 F3 AC3: a blocked room is never available
+TypeError: checkRoom is not a function
+ ❯ src/catalog.test.ts:39:10
+     37|
+     38| test('C07 F3 AC3: a blocked room is never available', () => {
+     39|   expect(checkRoom(catalog, 'c', { start: 660, end: 720, now: 540 })).…
+       |          ^
+     40| });
+     41|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  src/catalog.test.ts > C08 F5: switching room uses its own bookings at identical times
+TypeError: checkRoom is not a function
+ ❯ src/catalog.test.ts:44:10
+     42| test('C08 F5: switching room uses its own bookings at identical times'…
+     43|   const request = { start: 600, end: 630, now: 540 };
+     44|   expect(checkRoom(catalog, 'a', request)).toBe(false);
+       |          ^
+     45|   expect(checkRoom(catalog, 'b', request)).toBe(true);
+     46| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  src/catalog.test.ts > C09 F5: an unknown room is unavailable
+TypeError: checkRoom is not a function
+ ❯ src/catalog.test.ts:49:10
+     47|
+     48| test('C09 F5: an unknown room is unavailable', () => {
+     49|   expect(checkRoom(catalog, 'missing', { start: 660, end: 720, now: 54…
+       |          ^
+     50| });
+     51|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  src/catalog.test.ts > C10 AC5: filtering and checking leave the complete catalog unchanged
+TypeError: checkRoom is not a function
+ ❯ src/catalog.test.ts:58:10
+     56|   const inputs = structuredClone({ criteria, request });
+     57|   const matches = filterRooms(catalog, criteria);
+     58|   expect(checkRoom(matches, 'a', request)).toBe(true);
+       |          ^
+     59|   expect(checkRoom(matches, 'a', request)).toBe(true);
+     60|   expect(catalog).toEqual(before);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  src/catalog.test.ts > C11 INT: check a room returned by the combined filter
+TypeError: checkRoom is not a function
+ ❯ src/catalog.test.ts:67:10
+     65|   const matches = filterRooms(catalog, { attendees: 9, equipment: ['pr…
+     66|   expect(matches.map(room => room.id)).toEqual(['d']);
+     67|   expect(checkRoom(matches, matches[0].id, { start: 600, end: 630, now…
+       |          ^
+     68| });
+     69|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  src/catalog.test.ts > C14 INT F3: filtering never overrides a blocked room
+TypeError: checkRoom is not a function
+ ❯ src/catalog.test.ts:83:10
+     81|   const matches = filterRooms(catalog, { attendees: 7, equipment: ['wh…
+     82|   expect(matches.map(room => room.id)).toContain('c');
+     83|   expect(checkRoom(matches, 'c', { start: 660, end: 720, now: 540 })).…
+       |          ^
+     84| });
+     85|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  6 failed | 37 passed (43)
+   Start at  17:50:14
+   Duration  718ms (transform 46%, import 24%, tests 22%, worker 8%)
+

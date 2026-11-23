@@ -1,18 +1,7 @@
+import type { Room } from './rooms';
+
 export const MINUTES_PER_DAY = 1440;
 export const MAX_BOOKING_MINUTES = 120;
-
-type BookingInterval = {
-  start: number;
-  end: number;
-};
-
-type BookingRequest = {
-  start: number;
-  end: number;
-  now: number;
-  blocked: boolean;
-  bookings: readonly BookingInterval[];
-};
 
 export function canBook({ start, end, now, blocked, bookings }: {
   start: number;
@@ -28,6 +17,15 @@ export function canBook({ start, end, now, blocked, bookings }: {
   for (const b of bookings) {
     if (start < b.end && end > b.start) return false;
   }
-  // keep the room's list current with the slot that was just found free
   return true;
+}
+
+export function checkRoom(
+  rooms: Room[],
+  roomId: string,
+  request: { start: number; end: number; now: number },
+): boolean {
+  const room = rooms.find(candidate => candidate.id === roomId);
+  if (!room) return false;
+  return canBook({ ...request, blocked: room.blocked, bookings: room.bookings });
 }

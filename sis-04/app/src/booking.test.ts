@@ -23,7 +23,7 @@ function freshRequest(
 // AC6 and the visible AC5 labels need separate page checks.
 // Invalid existing bookings have no specified expected decision and are omitted.
 describe('canBook — reviewed booking cases', () => {
-  test('T01 AC4: allows touching after an existing booking', () => {
+  test('T01 B3 AC4: allows touching after an existing booking', () => {
     const request = freshRequest(660, 720);
     const before = structuredClone(request.bookings);
 
@@ -63,7 +63,7 @@ describe('canBook — reviewed booking cases', () => {
     expect(request.bookings).toEqual(before);
   });
 
-  test('T06 AC2: allows exactly 120 minutes', () => {
+  test('T06 B1 AC2: allows exactly 120 minutes', () => {
     const request = freshRequest(720, 840);
     const before = structuredClone(request.bookings);
 
@@ -71,7 +71,7 @@ describe('canBook — reviewed booking cases', () => {
     expect(request.bookings).toEqual(before);
   });
 
-  test('T07 AC2: rejects 121 minutes', () => {
+  test('T07 B2 AC2: rejects 121 minutes', () => {
     const request = freshRequest(720, 841);
     const before = structuredClone(request.bookings);
 
@@ -87,7 +87,7 @@ describe('canBook — reviewed booking cases', () => {
     expect(request.bookings).toEqual(before);
   });
 
-  test('T09 AC4: rejects a partial overlap', () => {
+  test('T09 B4 AC4: rejects a partial overlap', () => {
     const request = freshRequest(630, 690);
     const before = structuredClone(request.bookings);
 
