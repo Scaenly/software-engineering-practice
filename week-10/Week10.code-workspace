@@ -1,0 +1,13 @@
+{
+  "folders": [{ "path": "." }],
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      { "label": "Week 10: tests", "type": "shell", "command": "npm test", "options": { "cwd": "${workspaceFolder}/app" }, "problemMatcher": [] },
+      { "label": "Week 10: development server", "type": "shell", "command": "npm run dev", "options": { "cwd": "${workspaceFolder}/app" }, "problemMatcher": [] },
+      { "label": "Week 10: build", "type": "shell", "command": "npm run build", "options": { "cwd": "${workspaceFolder}/app" }, "problemMatcher": [] },
+      { "label": "Week 10: audit", "type": "shell", "command": "python tests/check_audit.py", "problemMatcher": [] },
+      { "label": "Week 10: submission validator", "type": "shell", "command": "python tests/validate_submission.py", "problemMatcher": [] }
+    ]
+  }
+}

@@ -52,13 +52,6 @@ export default function App() {
           start: 600,
           end: 660,
         },
-        {
-          id: 'test-r3',
-          roomId: 'r3',
-          title: 'Test Booking',
-          start: 600,
-          end: 660,
-        },
       ];
     }
 
