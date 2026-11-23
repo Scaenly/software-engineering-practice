@@ -1,0 +1,1 @@
+2026-11-23: The student explicitly selected option 1 (Да, применяй) after the complete proposed AGENTS.md patch and its summary were presented. Approval covers evidence/AGENTS.proposed.patch. Other human review declarations remain pending.
