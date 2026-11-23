@@ -26,11 +26,11 @@ decision:
   mitigated: [R2, R1]
   release: no-go
 checker:
-  pass: 29
+  pass: 31
   fail: 0
-  error: 2
-  commit: f32fdb9
-  known_fails: [E1, E2]
+  error: 0
+  commit: 86c93fe
+  known_fails: []
 review_findings:
   - R1: duplicated interval checks disagree on NaN feedback; the current UI parser limits reachability.
   - R2: AGENTS.md permits forbidden scope expansion and publication; the student approved the minimal patch.

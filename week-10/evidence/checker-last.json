@@ -1,9 +1,9 @@
 {
-  "ok": false,
+  "ok": true,
   "counts": {
-    "PASS": 29,
+    "PASS": 31,
     "FAIL": 0,
-    "ERROR": 2
+    "ERROR": 0
   },
   "total": 31,
   "rows": [
@@ -88,14 +88,14 @@
     {
       "id": "E1",
       "title": "UI check screenshot: evidence/ui-desktop.png",
-      "verdict": "ERROR",
-      "message": "evidence/ui-desktop.png not found - the manual UI check (Part 7)"
+      "verdict": "PASS",
+      "message": "evidence/ui-desktop.png"
     },
     {
       "id": "E2",
       "title": "UI check screenshot: evidence/ui-mobile.png",
-      "verdict": "ERROR",
-      "message": "evidence/ui-mobile.png not found - the manual UI check (Part 7)"
+      "verdict": "PASS",
+      "message": "evidence/ui-mobile.png"
     },
     {
       "id": "R1",
